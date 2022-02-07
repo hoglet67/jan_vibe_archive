@@ -1,0 +1,15 @@
+   10 REM > DLA3
+   20 
+   30 MODE13
+   40 DIMH%(320)
+   50 
+   60 C%=0:GCOLRND(63)
+   70 REPEAT
+   80 C%+=1:IFC%=800 GCOLRND(63):C%=0
+   90 X%=RND(319)
+  100 H1%=H%(X%)
+  110 IF H%(X%-1)>H1% H1%=H%(X%-1)
+  120 IF H%(X%+1)>H1% H1%=H%(X%+1)
+  130 POINT 4*X%,H1%:H%(X%)=H1%+4
+  140 UNTIL H1%>1016
+  150 END

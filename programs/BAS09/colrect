@@ -1,0 +1,31 @@
+   10 REM > COLRECT
+   20 
+   30 MODE107:OFF
+   40 REPEAT
+   50 W%=RND(256)+32:H%=RND(256)+32
+   60 X1%=RND(1152-W%):Y1%=RND(848-H%)
+   70 R1%=RND(255):G1%=RND(255):B1%=RND(255)
+   80 R2%=RND(255):G2%=RND(255):B2%=RND(255)
+   90 R3%=RND(255):G3%=RND(255):B3%=RND(255)
+  100 R4%=RND(255):G4%=RND(255):B4%=RND(255)
+  110 FORY%=0TOH%STEP2
+  120 RA%=(Y%*R3%+(H%-Y%)*R1%)/H%
+  130 GA%=(Y%*G3%+(H%-Y%)*G1%)/H%
+  140 BA%=(Y%*B3%+(H%-Y%)*B1%)/H%
+  150 RB%=(Y%*R4%+(H%-Y%)*R2%)/H%
+  160 GB%=(Y%*G4%+(H%-Y%)*G2%)/H%
+  170 BB%=(Y%*B4%+(H%-Y%)*B2%)/H%
+  180 FORX%=0TOW%STEP2
+  190 R%=(X%*RB%+(W%-X%)*RA%)/W%
+  200 G%=(X%*GB%+(W%-X%)*GA%)/W%
+  210 B%=(X%*BB%+(W%-X%)*BA%)/W%
+  220 PROCRGB(R%,G%,B%)
+  230 POINT X1%+X%,Y1%+Y%
+  240 NEXT,
+  250 UNTIL0
+  260 
+  270 
+  280 DEFPROCRGB(R%,G%,B%)
+  290 LOCAL C%:C%=(R%<<8)+(G%<<16)+(B%<<24)
+  300 SYS "ColourTrans_SetGCOL",C%,,,&100,0
+  310 ENDPROC

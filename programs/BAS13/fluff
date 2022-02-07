@@ -1,0 +1,20 @@
+   10 REM > FLUFF
+   20 
+   30 MODE31:OFF
+   40 K%=500
+   50 DIM X%(K%),Y%(K%),D%(K%),DX%(8),DY%(8)
+   60 FORN%=1TOK%:X%(N%)=800:Y%(N%)=600:D%(N%)=RND(8):NEXT
+   70 FORN%=1TO8:READ DX%(N%),DY%(N%):NEXT
+   80 FORN%=1TO15:COLOURN%,16*N%,16*N%,16*N%:NEXT
+   90 REPEAT
+  100 FORN%=1TOK%
+  110 X1%=X%(N%)+DX%(D%(N%)):X1%=(1600+X1%)MOD1600
+  120 Y1%=Y%(N%)+DY%(D%(N%)):Y1%=(1200+Y1%)MOD1200
+  130 D%(N%)=D%(N%)+RND(3)-2:IF D%(N%)=9 D%(N%)=1
+  140 IFD%(N%)=0 D%(N%)=8
+  150 X%(N%)=X1%:Y%(N%)=Y1%:P%=POINT(X1%,Y1%)+1:IF P%>15 P%=15
+  160 GCOLP%:POINTX%(N%),Y%(N%)
+  170 NEXT
+  180 UNTIL0
+  190 
+  200 DATA 2,2, 2,0, 2,-2, 0,-2, -2,-2, -2,0, -2,2, 0,2

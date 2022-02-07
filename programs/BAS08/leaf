@@ -1,0 +1,36 @@
+   10 REM > LEAF
+   20 
+   30 MODE15:OFF:RESTORE:READ K%:GCOL 144 TINT 128:CLG
+   40 DIMGX1(K%),GY1(K%),GX2(K%),GY2(K%),M%(K%),C%(K%),F%(K%)
+   50 FORN%=1TOK%:READGX1(N%),GY1(N%),GX2(N%),GY2(N%),M%(N%),C%(N%),F%(N%)
+   60 GX1(N%)=GX1(N%)/16:GY1(N%)=(GY1(N%)-8)/16
+   70 GX2(N%)=GX2(N%)/16:GY2(N%)=(GY2(N%)-8)/16
+   80 NEXT:PROCREPLACE(64,0,864,830,50,0,1,1)
+   90 END
+  100 
+  110 DEFPROCREPLACE(X1,Y1,X2,Y2,L%,C%,M%,F%)
+  120 LOCAL DX,DY,X3,Y3,X4,Y4,N%
+  130 IF L%=0 OR (X2-X1)^2+(Y2-Y1)^2<=16 THEN
+  140 GCOL C%:MOVEX1,Y1:DRAWX2,Y2
+  150 ELSE
+  160 DX=X2-X1:DY=Y2-Y1
+  170 FORN%=1TOK%
+  180 IFF%=1 THEN
+  190 X3=DX*GX1(N%)-M%*DY*GY1(N%)+X1:Y3=DY*GX1(N%)+M%*DX*GY1(N%)+Y1
+  200 X4=DX*GX2(N%)-M%*DY*GY2(N%)+X1:Y4=DY*GX2(N%)+M%*DX*GY2(N%)+Y1
+  210 PROCREPLACE(X3,Y3,X4,Y4,L%-1,C%(N%),M%*M%(N%),F%(N%))
+  220 ELSE
+  230 PROCREPLACE(X1,Y1,X2,Y2,0,C%,M%,F%)
+  240 ENDIF
+  250 NEXT
+  260 ENDIF
+  270 ENDPROC
+  280 
+  290 DATA 5 :REM Number of elements
+  300 
+  310 REM  x1,y1,x2,y2,mirror,colour,fertility
+  320 DATA  0, 8, 6, 8,     1,     6,        0
+  330 DATA  6, 8,16, 3,    -1,    12,        1
+  340 DATA  6, 8,13,12,    -1,     4,        1
+  350 DATA  3, 8, 4,10,     1,    12,        1
+  360 DATA  3, 8, 5, 5,    -1,     4,        1

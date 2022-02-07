@@ -1,0 +1,68 @@
+   10 REM> Molecule
+   15 REM            version 1.01
+   17 REM ** Spinning molecule (chlorophenol perhaps) in 3D in real-time !
+   20  
+   30 REM Written by Jan M. Paxton, June 1988.
+   40 REM (PD) for The World Of Cryton, 300-2400 baud (MNP/ARQ), tty, 24hrs.
+   45  
+   47 REM See line 370 for the increments for each axis' rotation.
+   48 REM Molecule layout data (line 1000) uses centre (0,0).
+   49 REM Variable 'atoms' (line 100) dictates number of atoms calculated & shown
+   50 ONERRORGOTO32000
+   55 *Schoose Sphere
+   60 MODE12
+   70 MODE140
+   80 FORA%=1TO15:COLOUR16-A%,A%*16,A%*16,64:NEXT
+   90 COLOUR0,4
+  100 atoms=8
+  110 DIMxo(atoms),yo(atoms),zo(atoms),x(atoms),y(atoms),z(atoms)
+  120 DIMsin(360),cos(360):FORA%=0TO360:sin(A%)=SINRADA%:cos(A%)=COSRADA%:NEXT
+  130 FORA%=0TOatoms:READxo(A%),yo(A%):xo(A%)=xo(A%)/5.7:yo(A%)=yo(A%)/5.7:NEXT
+  140 xrot=0:yrot=0:zrot=0:bank=1
+  150 VDU29,640-90;512-90;:GCOL8,15
+  160  
+  170 REPEATWAIT
+  180 bank=3-bank:SYS"OS_Byte",112,bank:SYS"OS_Byte",113,3-bank
+  190 CLS
+  200 sx=sin(xrot):sy=sin(yrot):sz=sin(zrot):cx=cos(xrot):cy=cos(yrot):cz=cos(zrot)
+  210 FORA%=0TOatoms
+  220 zo(A%)=0
+  230 x1=xo(A%)*cz+yo(A%)*sz:y1=yo(A%)*cz-xo(A%)*sz
+  240 x(A%)=x1*cy+zo(A%)*sy:z1=zo(A%)*cy-x1*sy
+  250 y(A%)=y1*cx+z1*sx:z(A%)=z1*cx-y1*sx
+  260 NEXT
+  270  
+  280 REPEAT
+  290 swaps=0
+  300 FORA%=0TOatoms-1
+  310 IFz(A%)>z(A%+1) SWAPx(A%),x(A%+1):SWAPy(A%),y(A%+1):SWAPz(A%),z(A%+1):swaps+=1
+  320 NEXT
+  330 UNTILswaps=0
+  340  
+  350 FORA%=0TOatoms:PLOT&ED,x(A%),y(A%):NEXT
+  360  
+  370 xrot=(xrot+4)MOD360:yrot=(yrot+6)MOD360:zrot=(zrot+7)MOD360
+  380 UNTILFALSE
+  390  
+  500 DEFPROCatom(X,Y,size)
+  510 FORS%=15TO1STEP-1:GCOL0,S%:CIRCLEFILLX,Y,S%*size/15:NEXT
+  520 ENDPROC
+  600 DEFPROCmake_sprite:size=90:DIMparam% 100:$param%="Sphere"
+  610 VDU29,640;512;:PROCatom(0,0,size)
+  620 MOVE-size,-size:MOVEsize,size
+  630 *Sget Sphere
+  640 SYS"OS_SpriteOp",29,0,param%:REM Create blank mask
+  650 FORY%=90TO-90STEP-4
+  660 FORX%=-90TO90STEP2
+  670 IFPOINT(X%,Y%)>0 solid=1 ELSEsolid=0
+  680 SYS"OS_SpriteOp",44,0,param%,(X%+90)/2,(Y%+90)/4,solid:REM Make mask
+  690 PLOT69,X%,Y%:NEXT,
+  700 *Ssave Sphere
+  710 ENDPROC
+ 1000 DATA0,1000,866,500,866,-500,0,-1000,-866,-500,-866,500,1732,1000,-1732,-1000,1732,2000
+ 2000 FORA%=0TOatoms:PRINTA%,x(A%),y(A%),z(A%):NEXT
+ 2010 END
+32000 IFERR=134 OSCLI("Sload Sphere"):RUN:REM Load sprite data.
+32005 *Fx112,1
+32010 *Fx113,1
+32020 COLOUR1:REPORT:PRINT" at line ";ERL:END

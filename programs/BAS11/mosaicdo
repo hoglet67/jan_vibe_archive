@@ -1,0 +1,40 @@
+Mosaic
+
+This program converts a 256 colour sprite into a mosaic made up of irregular
+tiles.
+
+It works like this:
+
+The program asks for a spritefile and the name for the new spritefile it is
+going to make. You don't need to supply the new name, if you press return,
+the program just makes the mosaic on the screen.
+The spritefile is examined, and a spritearea which is 1.3 times larger than
+the file is initiated. Now the spritefile is loaded, and the name of the
+first sprite in this file is determined. This sprite is examined, and the
+width and height of the sprite is determined. This information is used to
+make a new sprite with the same width and height, but only in black and
+white. This new sprite is filled with a irregular grid. This grid is to be
+used as the skeleton for the tiling process.
+ 
+The tiling process works like this: Each point in the sprite with the grid is
+examined, and if it is black, a special fill procedure is invoked. The fill
+procedure fills the tile, but also stores the coordinates of the filled
+points. These coordinates is used to examine the corresponding points in the
+loaded sprite. The colour number of these points is being split up in RGB and
+TINT values, and added in separate registers. When all the points in the tile
+has been examined in this way, the values of the registers is being divided
+by the number of pixels in this particular tile, thus obtaining an average
+colour for the tile. The RGB and TINT values is now being used to select a
+colour in the 256 colour palette, which is to be used in the finished tile,
+which is being plotted as mosaic tiles on the screen.
+
+When all tiles has been plotted, the program checks if a valid name has been
+given for the new spritefile, and if this is the case, the mosaic is saved as
+a spritefile with the given name, and a sprite with the name "mosaic".
+
+The entire process is slow, and can only work properly if the width and
+height of the sprite is smaller than the width and height of the screen.
+
+The finished mosaic works like a pointilist picture. When wieved at close
+range, you only see a rough outline of the picture, but if wieved from a
+distance, new details seem to enter the picture.

@@ -1,0 +1,52 @@
+   10 REM > SPR
+   20 
+   30 MODE0:OFF
+   40 
+   50 DIM SPR &7D000,SZ &10
+   60 
+   70 SPR!0=&7EFFF : REM  spritearealets stRETURNrrelse-1
+   80 SPR!4=0      : REM  antal sprites defineret lige nu
+   90 SPR!8=16     : REM  her starter fRETURNrste spritedef
+  100 SPR!12=16    : REM  her starter det frie areal
+  110 
+  120 REM Load sprite
+  130 SYS "OS_SpriteOp",256+10,SPR,"JV"
+  140 
+  150 TX%=1024:TY%=1024
+  160 SZ!00=TX%  : REM  tGCOLller  x-brRETURNk    Denne blok fortGCOLller i brRETURNker
+  170 SZ!04=TY%  : REM  tGCOLller  y-brRETURNk    hvor stor den plottede sprite
+  180 SZ!08=1024 : REM  nGCOLvner  x-brRETURNk    skal vGCOLre.
+  190 SZ!12=1024 : REM  nGCOLvner  y-brRETURNk
+  200 
+  210 REM plot sprite skaleret
+  220 REMSYS "OS_SpriteOp",256+52,SPR,"JV",0,-1800,0,SZ,0
+  230 
+  240 Y%=0:X%=0:F%=1
+  250 
+  260 REPEAT
+  270 IF F%=1 THEN
+  280   WAIT:CLS
+  290   REMSYS "OS_SpriteOp",256+34,SPR,"JV",X%,Y%,0
+  300   SYS "OS_SpriteOp",256+52,SPR,"JV",X%,Y%,0,SZ,0
+  310   GX%=X%:GY%=Y%:PRINTX%,Y%:F%=0:*FX15,0
+  320 ENDIF
+  330 K$=INKEY$(0)
+  340 CASE K$ OF
+  350 WHEN "Z"
+  360   X%-=24:F%=1
+  370 WHEN "X"
+  380   X%+=24:F%=1
+  390 WHEN "'"
+  400   Y%+=24:F%=1
+  410 WHEN "/"
+  420   Y%-=24:F%=1
+  430 WHEN "1"
+  440   TX%+=16:SZ!00=TX%:F%=1
+  450 WHEN "2"
+  460   TX%-=16:SZ!00=TX%:F%=1
+  470 WHEN "3"
+  480   TY%+=16:SZ!04=TY%:F%=1
+  490 WHEN "4"
+  500   TY%-=16:SZ!04=TY%:F%=1
+  510 ENDCASE
+  530 UNTIL0

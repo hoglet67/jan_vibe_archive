@@ -1,0 +1,30 @@
+   10 REM > FLIES
+   20 
+   30 MODE9:OFF
+   40 PRINTTAB(17,2)"Flies"'
+   50 PRINT"You have a swarm of flies, and a fly-"
+   60 PRINT"swatter. How fast can you exterminate"
+   70 PRINT"the swarm?":PRINTTAB(19,31)"Click mouse to start"
+   80 REPEAT:MOUSE X%,Y%,B%:UNTILB%<>0
+   90 CLS:K%=80:FL%=K%:TIME=0
+  100 DIM X%(K%),Y%(K%),DX%(K%),DY%(K%),L%(K%)
+  110 FORN%=1TOK%:X%(N%)=RND(1280):Y%(N%)=RND(1024):L%(N%)=1
+  120 DX%(N%)=RND(33)-17:DY%(N%)=RND(33)-17:POINT X%(N%),Y%(N%):NEXT
+  130 *POINTER
+  140 REPEAT:MOUSE XM%,YM%,BM%
+  150 FORN%=1TOK%
+  160 IF L%(N%)=1 THEN
+  170 IFRND(1)>.95 DX%(N%)=RND(33)-17:DY%(N%)=RND(33)-17
+  180 PLOT71,X%(N%),Y%(N%)
+  190 IF BM%<>0 THEN
+  200 D%=(XM%-X%(N%))^2+(YM%-Y%(N%))^2
+  210 IF D%<16384:L%(N%)=0:FL%-=1
+  220 ENDIF
+  230 X%(N%)=(X%(N%)+DX%(N%)+1280)MOD1280
+  240 Y%(N%)=(Y%(N%)+DY%(N%)+1024)MOD1024
+  250 IF L%(N%)=1 POINT X%(N%),Y%(N%)
+  260 ENDIF
+  270 NEXT
+  280 UNTILFL%=0
+  290 *POINTER 0
+  300 CLS:PRINT"You took "TIME/100" seconds."

@@ -1,0 +1,61 @@
+   10 REM > NUCLEAR
+   20 
+   30 MODE137:MODE9:OFF
+   40 SYS"OS_UpdateMEMC",64,64
+   50 S1%=1:S2%=2:R%=RND(-TIME):K%=60
+   60 
+   70 DIM X%(K%),Y%(K%),X1%(K%*3),Y1%(K%*3),DX%(K%*3),DY%(K%*3)
+   80 FORN%=1TOK%:X%(N%)=RND(1024)+128:Y%(N%)=RND(768)+128:NEXT
+   90 X1%(1)=0:Y1%(1)=512:DX%(1)=12:DY%(1)=0:P%=1
+  100 COLOUR0,0,0,128:VDU19,0,24,0,0,128
+  110 *CHANNELVOICE 1 8
+  120 VOICES 1
+  130 
+  140 ONERRORGOTO570
+  150 REPEAT
+  160 SYS"OS_Byte",112,S1%:SYS"OS_Byte",113,S2%:WAIT:CLS:SWAP S1%,S2%
+  170 
+  180 GCOL2:FORN%=1TOK%
+  190 IF X%(N%)>0 THEN
+  200   X%(N%)=(X%(N%)+RND(7)+1276)MOD1280
+  210   Y%(N%)=(Y%(N%)+RND(7)+1020)MOD1024
+  220   CIRCLE FILL X%(N%),Y%(N%),16
+  230 ENDIF
+  240 NEXT
+  250 
+  260 GCOL1:B%=0
+  270 FORN%=1TOP%
+  280   IF X1%(N%)>=0 THEN
+  290     X1%(N%)+=DX%(N%):Y1%(N%)+=DY%(N%)
+  300     IF X1%(N%)>=1280 OR X1%(N%)<0 X1%(N%)=-1
+  310     IF Y1%(N%)>=1024 OR Y1%(N%)<0 X1%(N%)=-1
+  320     IF POINT(X1%(N%),Y1%(N%))=2 THEN
+  330       SOUND 1,-8,10,20
+  340       FORM%=1TOK%
+  350         D%=(X%(M%)-X1%(N%))^2+(Y%(M%)-Y1%(N%))^2
+  360         IF D%<=512 E%=M%:M%=K%
+  370       NEXT
+  380       GCOL3:CIRCLE FILL X%(E%),Y%(E%),32:GCOL1
+  390       DX%(N%)=(RND(13)+4)*SGN(RND(1)-.5)
+  400       DY%(N%)=(RND(13)+4)*SGN(RND(1)-.5)
+  410       FORM%=1TO2
+  420         P%+=1
+  430         X1%(P%)=X%(E%):Y1%(P%)=Y%(E%)
+  440         DX%(P%)=(RND(13)+4)*SGN(RND(1)-.5)
+  450         DY%(P%)=(RND(13)+4)*SGN(RND(1)-.5)
+  460       NEXT
+  470       X%(E%)=-1
+  480     ENDIF
+  490   IF X1%(N%)>=0 CIRCLE FILL X1%(N%),Y1%(N%),8:B%+=1
+  500   ENDIF
+  510 NEXT
+  520 
+  530 UNTIL B%=0
+  540 
+  550 SYS"OS_Byte",113,S2%:ON:END
+  560 
+  570 SYS"OS_Byte",112,S1%:REPORT:PRINT" at line "STR$ERL:ON
+  580 
+  590 REM**********************
+  600 REM* Jan Vibe januar 90 *
+  610 REM**********************

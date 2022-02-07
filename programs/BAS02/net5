@@ -1,0 +1,82 @@
+   10 REM > NET5
+   20 
+   30 MODE0:OFF
+   40 SYS"OS_UpdateMEMC",64,64
+   50 ONERRORGOTO740
+   60 
+   70 DIM IB% 20,OB% 20
+   80 !IB%=148:IB%!4=150:IB%!8=-1
+   90 SYS "OS_ReadVduVariables",IB%,OB%
+  100 IF OB%!4<&78000 THEN
+  110 CLS
+  120 PRINT TAB(20,15)"Dette program kraever en screensize paa"
+  130 PRINT TAB(20)"60 sider, altsaa 480 K ram."
+  140 END
+  150 ENDIF
+  160 
+  170 *FX112,1
+  180 *FX113,1
+  190 CLS
+  200 ORIGIN 0,256
+  210 K%=32
+  220 K2%=K%/2
+  230 DIM XP%(K%,K%),YP%(K%,K%),A%(K%,K%)
+  240 FORY%=0TOK%:PY%=16*Y%
+  250 FORX%=0TOK%:PX%=32*X%+8*Y%
+  260 XP%(X%,Y%)=PX%
+  270 YP%(X%,Y%)=PY%
+  280 NEXT,
+  290 
+  300 FORI%=1TO24:S$=STR$I%:V=RAD(15*(24-I%))
+  310 FORY%=0TOK%:MY1%=33.75*Y%:MY2%=33.75*(K%-Y%)
+  320 FORX%=0TOK%:MX1%=33.75*X%:MX2%=33.75*(K%-X%)
+  330 Z=3*(23-SQR((X%-K2%)^2+(Y%-K2%)^2))
+  340 S=Z*COS(RADSQR(MX1%^2+MY1%^2)+V)
+  350 S=S+Z*COS(RADSQR(MX2%^2+MY2%^2)+V)
+  360 S=S+Z*COS(RADSQR(MX1%^2+MY2%^2)+V)
+  370 S=S+Z*COS(RADSQR(MX2%^2+MY1%^2)+V)
+  380 A%(X%,Y%)=S
+  390 NEXT,
+  400 
+  410 OSCLI"FX112,"+S$
+  420 CLS
+  430 FORY%=K%TO1STEP-1
+  440 FORX%=0TOK%-1
+  450 GCOL0
+  460 MOVE XP%(X%,Y%),YP%(X%,Y%)+A%(X%,Y%)
+  470 MOVE XP%(X%+1,Y%),YP%(X%+1,Y%)+A%(X%+1,Y%)
+  480 PLOT85,XP%(X%,Y%-1),YP%(X%,Y%-1)+A%(X%,Y%-1)
+  490 PLOT85,XP%(X%+1,Y%-1),YP%(X%+1,Y%-1)+A%(X%+1,Y%-1)
+  500 GCOL1
+  510 LINE XP%(X%,Y%),YP%(X%,Y%)+A%(X%,Y%),XP%(X%+1,Y%),YP%(X%+1,Y%)+A%(X%+1,Y%)
+  520 LINE XP%(X%,Y%),YP%(X%,Y%)+A%(X%,Y%),XP%(X%,Y%-1),YP%(X%,Y%-1)+A%(X%,Y%-1)
+  530 NEXT,
+  540 FORN%=0TOK%-1
+  550 LINE XP%(N%,0),YP%(N%,0)+A%(N%,0),XP%(N%+1,0),YP%(N%+1,0)+A%(N%+1,0)
+  560 LINE XP%(K%,N%),YP%(K%,N%)+A%(K%,N%),XP%(K%,N%+1),YP%(K%,N%+1)+A%(K%,N%+1)
+  570 NEXT
+  580 OSCLI"FX113,"+S$
+  590 NEXT
+  600 
+  610 T%=4000
+  620 REPEAT
+  630 FORI%=1TO24:S$=STR$I%
+  640 OSCLI"FX113,"+S$
+  650 IF T%<>0 THEN
+  660 FORN%=1TOT%:NEXT
+  670 ENDIF
+  680 *FX15,0
+  690 IFINKEY(-68) T%=T%-100:IFT%<0 T%=0
+  700 IFINKEY(-82) T%=T%+100
+  710 NEXT
+  720 UNTIL0
+  730 
+  740 *FX112,1
+  750 *FX113,1
+  760 REPORT:PRINT" at line "ERL:ON
+  770 
+  780 REM *--------------------------------------*
+  790 REM !                                      !
+  800 REM !  BlGCOLrerRETURNvsprogram Jan Vibe april 89  !
+  810 REM !                                      !
+  820 REM *--------------------------------------*

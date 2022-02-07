@@ -1,0 +1,6 @@
+   10 REM > GETVAR
+   20 
+   30 DIM VL 255
+   40 K%=0:SYS"OS_ReadVarVal","Obey$Dir",VL,255,0,3 TO ,,K%
+   50 STI$="":FORN%=0TOK%-1:STI$+=CHR$(VL?N%):NEXT
+   60 PRINTSTI$

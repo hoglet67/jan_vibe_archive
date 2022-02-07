@@ -1,0 +1,40 @@
+   10 REM >RUBBER2
+   20 
+   30 MODE140:MODE12:OFF
+   40 M%=12:V%=10
+   50 P1%=1:P2%=2:S1%=1:S2%=2:P%=0:D=1216/M%
+   60 DIM X(M%,2),Y(M%,2),DX(M%),DY(M%)
+   70 FORN%=1TOM%:X(N%,P1%)=640:Y(N%,P1%)=1000-24*M%+24*N%:NEXT
+   80 ONERRORGOTO400
+   90 *POINTER
+  100 REPEAT
+  110 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  120 GP%=P%:P%=0:MOUSE XM,YM,BM%
+  130 IF BM%<>0 THEN
+  140 D=1E9:FORN%=1TOM%
+  150 DM=(X(N%,P1%)-XM)^2+(Y(N%,P1%)-YM)^2:IF DM<D D=DM:P%=N%
+  160 NEXT:IF GP%<>0 P%=GP%
+  170 X(P%,P1%)=XM:Y(P%,P1%)=YM
+  180 ENDIF
+  190 SWAP P1%,P2%:MOVE X(1,P2%),Y(1,P2%)
+  200 FORN%=2TOM%:DRAW X(N%,P2%),Y(N%,P2%):NEXT
+  210 FORN%=1TOM%:CIRCLE FILL X(N%,P2%),Y(N%,P2%),12:NEXT
+  220 X(1,P1%)=X(1,P2%):Y(1,P1%)=Y(1,P2%)
+  230 X(M%,P1%)=X(M%,P2%):Y(M%,P1%)=Y(M%,P2%)
+  240 IF 1<>P% THEN
+  250 X(1,P1%)=(V%*X(1,P2%)+X(2,P2%))/(V%+1)+DX(1)
+  260 Y(1,P1%)=(V%*Y(1,P2%)+Y(2,P2%))/(V%+1)+DY(1)
+  270 DX(1)=(X(1,P1%)-X(1,P2%))*.995
+  280 DY(1)=(Y(1,P1%)-Y(1,P2%))*.995-5
+  290 ENDIF
+  300 FORN%=2TOM%-1
+  310 IF N%<>P% THEN
+  320 X(N%,P1%)=(X(N%-1,P2%)+V%*X(N%,P2%)+X(N%+1,P2%))/(V%+2)+DX(N%)
+  330 Y(N%,P1%)=(Y(N%-1,P2%)+V%*Y(N%,P2%)+Y(N%+1,P2%))/(V%+2)+DY(N%)
+  340 DX(N%)=(X(N%,P1%)-X(N%,P2%))*.995
+  350 DY(N%)=(Y(N%,P1%)-Y(N%,P2%))*.995-.5
+  360 ENDIF
+  370 NEXT
+  380 UNTIL0
+  390 
+  400 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

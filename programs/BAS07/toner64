@@ -1,0 +1,26 @@
+   10 REM > TONER64
+   20 
+   30 MODE15:OFF
+   40 X%=0:FORB%=0TO3:FORG%=0TO3:FORR%=0TO3:Y%=320
+   50 FORN%=0TO47:PROCP(R%,G%,B%,N%):RECTANGLE FILL X%,Y%,20,8:Y%+=8:NEXT
+   60 X%+=20:NEXT,,
+   70 PRINTTAB(22,6)"64 Colours in 4,8,12 and 16 shades.":VDU30:ON
+   80 END
+   90 
+  100 REM The parameters are Red, Green, Blue and Intensity
+  110 REM Red, Green and Blue values are 0-3, Intensity value are 0-47
+  120 
+  130 DEFPROCP(R%,G%,B%,I%)
+  140 LOCAL L%,C%,T%
+  150 L%=B%
+  160 IF G%>L% L%=G%
+  170 IF R%>L% L%=R%
+  180 CASE L% OF
+  190 WHEN 0:I%=I%/3
+  200 WHEN 1:I%=I%/4
+  210 WHEN 2:I%=I%/6
+  220 WHEN 3:I%=I%/12
+  230 ENDCASE
+  240 T%=I%AND3:C%=(I%>>2)AND3:R%+=C%:G%+=C%:B%+=C%
+  250 GCOL R%+4*G%+16*B% TINT 64*T%
+  260 ENDPROC

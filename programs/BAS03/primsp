@@ -1,0 +1,38 @@
+   10 REM > PRIMSP
+   20 
+   30 REM Primtal i en firkantet spiral.
+   40 REM Inspireret af en artikel i Scientific American marts 1964
+   50 REM
+   60 REM Gjort af Jan Vibe juni 1990
+   70 
+   80 MODE9:OFF:@%=0
+   90 DIM DX%(3),DY%(3)
+  100 FORN%=0TO3:READ DX%(N%),DY%(N%):NEXT
+  110 DATA 4,0,0,4,-4,0,0,-4
+  120 X%=704:Y%=512:C%=3:T%=1:P%=1
+  130 POINT X%,Y%
+  140 REPEAT
+  150   C%=(C%+1)MOD4
+  160   FORN%=1TOT%
+  170     X%+=DX%(C%):Y%+=DY%(C%)
+  180     P%+=1:VDU30:PRINTP%
+  190     IF FNP(P%) GCOL7
+  200     POINT X%,Y%:GCOL4
+  210   NEXT
+  220   IF C%=1 OR C%=3 T%+=1
+  230 UNTIL P%>=65536
+  240 END
+  250 
+  260 DEFFNP(X%)
+  270 LOCAL A%,N%,R%
+  280 R%=TRUE
+  290 IF 2*(X%DIV2)=X% THEN
+  300   R%=FALSE
+  310 ELSE
+  320   A%=3
+  330   REPEAT
+  340     IF A%*(X% DIV A%)=X% R%=FALSE
+  350     A%+=2
+  360   UNTIL(A%*A%)>X% OR R%=FALSE
+  370 ENDIF
+  380 =R%

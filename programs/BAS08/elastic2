@@ -1,0 +1,89 @@
+   10 REM > ELASTIC2   *** Jan Vibe february 94 ***
+   20 
+   30 MODE140:MODE12:OFF:COLOUR0,0,0,255
+   40 PRINTTAB(33,1)"Elastic sheet"'
+   50 PRINTTAB(10)"This program demonstrates the movements of a elastic sheet."
+   60 PRINTTAB(10)"The sheet is made up of coloured rectangles, the corners of"
+   70 PRINTTAB(10)"which can be moved with the mousepointer."'
+   80 PRINTTAB(10)"To move a corner, place the pointer near the corner and"
+   90 PRINTTAB(10)"press the left mousebutton down, and hold it down. This"
+  100 PRINTTAB(10)"causes the corner nearest the pointer to lock onto the"
+  110 PRINTTAB(10)"pointer, and follow it when it is moved. When the mouse-"
+  120 PRINTTAB(10)"button is released, the corner is free to move again."'
+  130 PRINTTAB(10)"A corner can be stopped from moving by placing the pointer"
+  140 PRINTTAB(10)"over it, and pressing the right mousebutton. The corner"
+  150 PRINTTAB(10)"is now fixed, but can still be moved with the mouse."'
+  160 PRINTTAB(10)"The fixed corners can be released by moving the mouse over"
+  170 PRINTTAB(10)"the corner, and pressing the middle mousebutton."
+  180 PRINTTAB(23,25)"Click any mousebutton to continue"
+  190 REPEAT:MOUSE A%,B%,C%:UNTILC%<>0
+  200 REPEAT:MOUSE A%,B%,C%:UNTILC%=0
+  210 
+  220 W%=6     :REM Number of points in X direction
+  230 H%=5     :REM Number of points in Y direction
+  240 WX%=1280 :REM Width of original sheet
+  250 HY%=1024 :REM Height of original sheet
+  260 V%=6     :REM Weight of sheet material
+  270 T=0.5    :REM Tendency of sheet corners to stay where put originally
+  280 D=0.99   :REM Damping factor
+  290 
+  300 P1%=1:P2%=2:S1%=1:S2%=2:PX%=0:PY%=0:D1=0
+  310 WD=(1280-WX%)/2:WB=WX%/(W%-1):HD=(1024-HY%)/2:HB=HY%/(H%-1)
+  320 DIM X(W%,H%,2),Y(W%,H%,2),DX(W%,H%),DY(W%,H%),F%(W%,H%)
+  330 DIM OX(W%,H%),OY(W%,H%)
+  340 FORN%=1TO15:COLOURN%,16*N%,16*N%,0:NEXT
+  350 
+  360 REM placing of balls
+  370 FORJ%=1TOH%:FORI%=1TOW%
+  380 X(I%,J%,P1%)=WD+(I%-1)*WB:Y(I%,J%,P1%)=HD+(J%-1)*HB
+  390 OX(I%,J%)=X(I%,J%,P1%):OY(I%,J%)=Y(I%,J%,P1%)
+  400 NEXT,
+  410 
+  420 TIME=0
+  430 ONERRORGOTO890
+  440 *POINTER
+  450 
+  460 REM Screen and mouse control
+  470 REPEAT
+  480 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  490 GPX%=PX%:GPY%=PY%:PX%=0:PY%=0:MOUSE XM,YM,BM%
+  500 IF BM%<>0 THEN
+  510 DL=1E9:FORJ%=1TOH%:FORI%=1TOW%
+  520 DM=(X(I%,J%,P1%)-XM)^2+(Y(I%,J%,P1%)-YM)^2:IF DM<DL DL=DM:PX%=I%:PY%=J%
+  530 NEXT,:IF GPX%<>0 PX%=GPX%:PY%=GPY%
+  540 X(PX%,PY%,P1%)=XM:Y(PX%,PY%,P1%)=YM
+  550 IF BM%=1 F%(PX%,PY%)=1
+  560 IF BM%=2 F%(PX%,PY%)=0
+  570 ENDIF
+  580 IF TIME>300 D1=D
+  590 SWAP P1%,P2%
+  600 
+  610 REM drawing of net
+  620 FORJ%=1TOH%-1:FORI%=1TOW%-1:C%=J%+I%:GCOLABS((C%MOD28)-14)+1
+  630 MOVEX(I%,J%,P2%),Y(I%,J%,P2%):MOVEX(I%+1,J%,P2%),Y(I%+1,J%,P2%)
+  640 PLOT85,X(I%,J%+1,P2%),Y(I%,J%+1,P2%)
+  650 PLOT85,X(I%+1,J%+1,P2%),Y(I%+1,J%+1,P2%)
+  660 NEXT,
+  670 
+  680 REM Calculate new position for net
+  690 FORJ%=1TOH%:FORI%=1TOW%
+  700 IF NOT(I%=PX%ANDJ%=PY%) THEN
+  710 IF F%(I%,J%)=1 THEN
+  720 X(I%,J%,P1%)=X(I%,J%,P2%):Y(I%,J%,P1%)=Y(I%,J%,P2%)
+  730 ELSE
+  740 WT=0:NX=0:NY=0
+  750 IF I%>1 THEN NX+=X(I%-1,J%,P2%):NY+=Y(I%-1,J%,P2%):WT+=1
+  760 IF I%<W% THEN NX+=X(I%+1,J%,P2%):NY+=Y(I%+1,J%,P2%):WT+=1
+  770 IF J%>1 THEN NX+=X(I%,J%-1,P2%):NY+=Y(I%,J%-1,P2%):WT+=1
+  780 IF J%<H% THEN NX+=X(I%,J%+1,P2%):NY+=Y(I%,J%+1,P2%):WT+=1
+  790 NX+=OX(I%,J%)*T:NY+=OY(I%,J%)*T:WT+=T
+  800 NX+=X(I%,J%,P2%)*V%:NY+=Y(I%,J%,P2%)*V%:WT+=V%
+  810 X(I%,J%,P1%)=NX/WT+DX(I%,J%):Y(I%,J%,P1%)=NY/WT+DY(I%,J%)
+  820 DX(I%,J%)=(X(I%,J%,P1%)-X(I%,J%,P2%))*D1
+  830 DY(I%,J%)=(Y(I%,J%,P1%)-Y(I%,J%,P2%))*D1
+  840 ENDIF
+  850 ENDIF
+  860 NEXT,
+  870 UNTIL0
+  880 
+  890 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

@@ -1,0 +1,12 @@
+   10 REM > PASCAL
+   20 
+   30 MODE31
+   40 DIM A%(2,800):A%(1,1)=1:T1%=1:T2%=2:Y%=1192
+   50 REPEAT
+   60 FORN%=1TO800
+   70 IF A%(T1%,N%)MOD2<>0 POINT 2*N%+Y%/2,Y%
+   80 NEXT
+   90 Y%-=2:T1%=3-T1%:T2%=3-T2%
+  100 A%(T1%,1)=1
+  110 FORN%=2TO640:A%(T1%,N%)=A%(T2%,N%)+A%(T2%,N%-1):NEXT
+  120 UNTILY%<=0

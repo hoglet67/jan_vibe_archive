@@ -1,0 +1,52 @@
+   10 REM > WORM2      *** Jan Vibe march 93 ***
+   20 
+   30 MODE141:MODE13:OFF
+   40 S1%=1:S2%=2:L%=22:S=1.7
+   50 DIM SPR &10000
+   60 DIMX%(L%),Y%(L%),R%(L%),T%(10)
+   70 SPR!0=&FFFF:SPR!4=0:SPR!8=16:SPR!12=16
+   80 PRINTTAB(4,15)"Initializing, please wait..."
+   90 FORN%=1TOL%:R%(N%)=S*(L%-N%+4):NEXT
+  100 FORN%=0TO10:READT%(N%):NEXT
+  110 X%(1)=800:Y%(1)=800:DX%=20:DY%=20:MX%=1280-R%(1):MY%=1024-R%(1)
+  120 FORN%=1TOL%:R%=S*(L%-N%+4):H$=STR$(N%)
+  130 SYS"OS_SpriteOp",256+15,SPR,H$,0,R%/2+1,R%/2+1,13
+  140 SYS"OS_SpriteOp",256+60,SPR,H$,0
+  150 HX%=R%*.3:HY%=R%*.6:Z=(SQR(HX%^2+HY%^2)+R%)/8:F%=T%(N%MOD11)
+  160 FORY%=-R%TOR%STEP4:B%=SQR(R%^2-Y%^2):B%=4*(B%DIV4)
+  170 FORX%=-B%TOB%STEP4:C%=(SQR((HX%-X%)^2+(HY%-Y%)^2)+RND(2*Z)-Z)/Z+.5
+  180 IF C%<0 C%=0
+  190 IF C%>7 C%=7
+  200 PROCF(F%,7-C%):POINT X%+R%,Y%+R%:NEXT,
+  210 SYS"OS_SpriteOp",256+29,SPR,H$
+  220 SYS"OS_SpriteOp",256+61,SPR,H$,0
+  230 GCOL0TINT0:RECTANGLE FILL 0,0,2*R%
+  240 GCOL63TINT240:FORY%=-R%TOR%STEP4:B%=SQR(R%^2-Y%^2):B%=4*(B%DIV4)
+  250 LINE R%-B%,R%+Y%,R%+B%,R%+Y%:NEXT
+  260 NEXT:SYS"OS_SpriteOp",256+61,SPR,0,0:OFF
+  270 
+  280 COLOUR 160 TINT 0:VDU19,0,24,0,0,128:CLS
+  290 ONERRORGOTO520
+  300 REPEAT
+  310 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  320 H%=X%(1)+DX%:IF H%>MX% OR H%<R%(1) DX%=(RND(29)+19)*SGN(-DX%)
+  330 H%=Y%(1)+DY%:IF H%>MY% OR H%<R%(1) DY%=(RND(29)+19)*SGN(-DY%)
+  340 X%(1)+=DX%:Y%(1)+=DY%
+  350 SYS "OS_SpriteOp",256+34,SPR,"1",X%(1)-R%(1),Y%(1)-R%(1),8
+  360 FORI%=2TOL%:H$=STR$(I%):X%=X%(I%-1)-X%(I%):Y%=Y%(I%-1)-Y%(I%)
+  370 D=SQR(X%^2+Y%^2):IF D=0 D=1
+  380 P=(D-R%(I%)-R%(I%-1))/D:X%(I%)+=X%*P:Y%(I%)+=Y%*P
+  390 SYS "OS_SpriteOp",256+34,SPR,H$,X%(I%)-R%(I%),Y%(I%)-R%(I%),8
+  400 NEXT
+  410 UNTIL0
+  420 
+  430 DEFPROCF(F%,I%)
+  440 LOCAL R%,G%,B%
+  450 B%=F%DIV9:F%=F%MOD9:G%=F%DIV3:F%=F%MOD3:R%=F%
+  460 F%=R%+4*G%+16*B%:IF I%>=4 F%=F%+&15
+  470 GCOL F% TINT (64*I%)MOD256
+  480 ENDPROC
+  490 
+  500 DATA 5,2,11,19,18,21,25,15,7,17,8
+  510 
+  520 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

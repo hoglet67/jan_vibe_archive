@@ -1,0 +1,41 @@
+   10 REM > SMOULDER2
+   20 
+   30 MODE13:OFF
+   40 DIM F%(321,257),PX%(10000),PY%(10000)
+   50 F%()=-1:PX%()=160:PY%()=128:P%=1
+   60 F%(PX%(1),PY%(1))=FNA(RND(255),RND(255),RND(255))
+   70 X%=PX%(1):Y%=PY%(1):PROCP(4*X%,4*Y%,F%(X%,Y%))
+   80 REPEAT
+   90 CR%=0:CG%=0:CB%=0:CC%=0
+  100 R%=RND(P%):CX%=PX%(R%):CY%=PY%(R%):PX%(R%)=PX%(P%):PY%(R%)=PY%(P%):P%-=1
+  110 IF F%(CX%,CY%)<>-1 THEN
+  120 FORI%=-1TO1:Y%=CY%+I%:FORJ%=-1TO1:X%=CX%+J%
+  130 IF F%(X%,Y%)<>-1:PROCB(F%(X%,Y%),R%,G%,B%):CR%+=R%:CG%+=G%:CB%+=B%:CC%+=1
+  140 NEXT,:CR%=CR%/CC%:CG%=CG%/CC%:CB%=CB%/CC%
+  150 FORI%=-1TO1:Y%=CY%+I%:FORJ%=-1TO1:X%=CX%+J%
+  160 IF F%(X%,Y%)=-1 AND X%>0 AND X%<320 AND Y%>0 AND Y%<256 THEN
+  170 P%+=1:PX%(P%)=X%:PY%(P%)=Y%
+  180 CR%=FNL(CR%):CG%=FNL(CG%):CB%=FNL(CB%):F%(X%,Y%)=FNA(CR%,CG%,CB%)
+  190 PROCP(4*X%,4*Y%,F%(X%,Y%))
+  200 ENDIF
+  210 NEXT,
+  220 ENDIF
+  230 UNTIL P%=0
+  240 END
+  250 
+  260 DEFPROCP(X%,Y%,F%)
+  270 SYS "ColourTrans_SetGCOL",F%,,,&100,0:POINT X%,Y%
+  280 ENDPROC
+  290 
+  300 DEFFNL(X%)
+  310 X%=X%+RND(64)-32
+  320 IFX%>255 X%=255
+  330 IFX%<=0 X%=0
+  340 =X%
+  350 
+  360 DEFFNA(R%,G%,B%)
+  370 =(R%<<8)+(G%<<16)+(B%<<24)
+  380 
+  390 DEFPROCB(F%,RETURN R%,RETURN G%,RETURN B%)
+  400 R%=(F%>>8)AND255:G%=(F%>>16)AND255:B%=(F%>>24)AND255
+  410 ENDPROC

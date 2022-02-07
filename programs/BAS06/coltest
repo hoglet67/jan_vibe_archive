@@ -1,0 +1,34 @@
+   10 REM > COLTEST
+   20 
+   30 MODE12:@%=4
+   40 INPUT"Pixelstørrelse="O%:O1%=O%-1:CLS:OFF
+   50 DIM PX%(3),PY%(3),A(3),C%(15,3),T%(15)
+   60 FORN%=1TO15
+   70   READ T%(N%)
+   80   C%(N%,1)=N%:C%(N%,2)=N%:C%(N%,3)=N%
+   90   COLOUR N%,16*C%(N%,1),16*C%(N%,2),16*C%(N%,3)
+  100 NEXT
+  110 FORN%=1TO3
+  120   PX%(N%)=RND(1280):PY%(N%)=RND(1024):A(N%)=RND(1)*3
+  130 NEXT
+  140 FORY%=0TO1023STEPO%
+  150   FORX%=0TO1279STEPO%
+  160     V=0
+  170     FORN%=1TO3
+  180       V+=SINRAD(A(N%)*SQR((PX%(N%)-X%)^2+(PY%(N%)-Y%)^2))+1
+  190     NEXT
+  200     GCOL 2.33*V+1
+  210     RECTANGLE FILL X%,Y%,O1%
+  220   NEXT
+  230 NEXT
+  240 R%=RND(3):T%=1
+  250 REPEAT
+  260   R%=RND(3):FORN%=15TO2STEP-1:C%(N%,R%)=C%(N%-1,R%):NEXT
+  270   C%(1,R%)=C%(1,R%)MOD15+1:T%=T%MOD15+1
+  280   FORN%=1TO15
+  290   COLOUR(N%+T%+15)MOD15+1,T%(C%(N%,1)),T%(C%(N%,2)),T%(C%(N%,3))
+  300   NEXT:WAIT
+  310   K=INKEY(6)
+  320 UNTIL0
+  330 
+  340 DATA 16,48,80,112,144,176,208,240,224,192,160,128,96,64,32

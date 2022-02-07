@@ -1,0 +1,14 @@
+   10 REM > COLTEST
+   20 
+   30 MODE 13:OFF
+   40 F%=100
+   50 SYS "OS_SWINumberFromString",,"ColourTrans_SetGCOL" TO set_gcol%
+   60 REPEAT
+   70 R1=RND(1):G1=RND(1):B1=RND(1):X1%=RND(1280):Y1%=RND(1024):R1%=RND(32)+32
+   80 R2=RND(1):G2=RND(1):B2=RND(1):X2%=RND(1280):Y2%=RND(1024):R2%=RND(32)+32
+   90 FORN%=0TOF%:M%=F%-N%
+  100 X=(M%*X1%+N%*X2%)/F%:Y=(M%*Y1%+N%*Y2%)/F%:Z=(M%*R1%+N%*R2%)/F%
+  110 R=(M%*R1+N%*R2)/F%:G=(M%*G1+N%*G2)/F%:B=(M%*B1+N%*B2)/F%
+  120 SYS set_gcol%,((R*&FF)<<8)+((G*&FF)<<16)+((B*&FF)<<24),,,&100,0
+  130 CIRCLE FILL X,Y,Z:NEXT
+  140 UNTIL0

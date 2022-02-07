@@ -1,0 +1,69 @@
+   10 REM > MOTOR
+   20 
+   30 MODE137:MODE9:OFF
+   40 SYS"OS_UpdateMEMC",64,64
+   50 DIMA%(4):S1%=1:S2%=2
+   60 FORN%=1TO4:A%(N%)=180*N%:COLOUR N%+7,0,0,0:NEXT
+   70 
+   80 ONERRORGOTO650
+   90 REPEAT
+  100   SYS"OS_Byte",112,S1%:SYS"OS_Byte",113,S2%:WAIT:CLS:SWAP S1%,S2%
+  110   FORN%=1TO4:K%=256*N%:C%=N%+7
+  120     GCOL1:ELLIPSE K%,256,60,120
+  130     GCOL5:MOVE K%-84,420:DRAWK%-84,900:DRAW K%+84,900:DRAWK%+84,420
+  140     GCOL3:A%(N%)=(A%(N%)+10)MOD720
+  150     T=RADA%(N%):X=58*SINT:Y=116*COST:Y2=SQR(147456-X*X)
+  160     LINE K%,256,K%+X,256+Y:DRAWK%,256+Y+Y2
+  170     C%=N%+7:F1%=(A%(N%)MOD180)*1.4:F2%=255-F1%
+  180     IF A%(N%)>=0   AND A%(N%)<180 COLOUR C%,0,F1%,0:T%=1
+  190     IF A%(N%)>=180 AND A%(N%)<360 COLOUR C%,F1%,F2%,0:T%=2
+  200     IF A%(N%)>=360 AND A%(N%)<380 COLOUR C%,255,255,0:T%=3
+  210     IF A%(N%)>=380 AND A%(N%)<540 COLOUR C%,F2%,F2%,F1%:T%=4
+  220     IF A%(N%)>=540 AND A%(N%)<720 COLOUR C%,0,0,F2%:T%=5
+  230     GCOLC%:MOVEK%-80,256+Y+Y2+84:PLOT&65,K%+80,896
+  240       CASE T% OF
+  250       WHEN 1:
+  260         PRINTTAB(8*N%-2,28)"Ind-"
+  270         PRINTTAB(8*N%-2,29)"sug-"
+  280         PRINTTAB(8*N%-2,30)"ning."
+  290       WHEN 2:
+  300         PRINTTAB(8*N%-2,28)"Kom-"
+  310         PRINTTAB(8*N%-2,29)"pres-"
+  320         PRINTTAB(8*N%-2,30)"sion."
+  330       WHEN 3:
+  340         PRINTTAB(8*N%-2,28)"For-"
+  350         PRINTTAB(8*N%-2,29)"bræn-"
+  360         PRINTTAB(8*N%-2,30)"ding."
+  370         GCOL3:LINEK%,924,K%-8,956:DRAWK%+8,948:DRAWK%,980
+  380       WHEN 4:
+  390         PRINTTAB(8*N%-2,28)"Eks-"
+  400         PRINTTAB(8*N%-2,29)"pan-"
+  410         PRINTTAB(8*N%-2,30)"sion."
+  420       WHEN 5:
+  430         PRINTTAB(8*N%-2,28)"Ud-"
+  440         PRINTTAB(8*N%-2,29)"stød-"
+  450         PRINTTAB(8*N%-2,30)"ning."
+  460     ENDCASE
+  470     GCOL6:RECTANGLE K%-80,256+Y+Y2-80,160
+  480     GCOL6:RECTANGLE FILL K%-8,892,16,32
+  490     GCOL7:LINE K%,256,K%+196,256
+  500     GCOL3
+  510     CASE A%(N%)DIV180 OF
+  520       WHEN 0:
+  530         LINE K%-60,932,K%-60,900:LINE K%-68,900,K%-52,900
+  540         LINE K%+60,916,K%+60,884:LINE K%+68,884,K%+52,884
+  550       WHEN 1,2
+  560         LINE K%-60,932,K%-60,900:LINE K%-68,900,K%-52,900
+  570         LINE K%+60,932,K%+60,900:LINE K%+68,900,K%+52,900
+  580       WHEN 3:
+  590         LINE K%-60,916,K%-60,884:LINE K%-68,884,K%-52,884
+  600         LINE K%+60,932,K%+60,900:LINE K%+68,900,K%+52,900
+  610     ENDCASE
+  620   NEXT
+  630 UNTIL0
+  640 
+  650 SYS"OS_Byte",112,S1%:REPORT:PRINT" at line "STR$ERL:ON
+  660 
+  670 REM *------------------*
+  680 REM | Jan Vibe juli 90 |
+  690 REM *------------------*

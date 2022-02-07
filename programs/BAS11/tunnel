@@ -1,0 +1,41 @@
+   10 REM > TUNNEL     *** Jan Vibe may 1996 ***
+   20 
+   30 REM This program is only for Risc PC's or computers fitted
+   40 REM with graphic enhancement.
+   50 REM
+   60 REM Mode 103 is a 800 by 600 resolution mode with 256
+   70 REM redefinable colours.
+   80 
+   90 DIM MD% 64
+  100 MD%!00=1:MD%!04=800:MD%!08=600:MD%!12=3
+  110 MD%!16=-1:MD%!20=3:MD%!24=2^8-1:MD%!28=-1
+  120 MODE MD%
+  130 
+  140 DIM CX(180),CY(180),RGB%(3,126),G%(3),CH%(3)
+  150 FORN%=1TO180:T=RAD(2*N%):CX(N%)=1000*SINT:CY(N%)=1000*COST:NEXT
+  160 
+  170 FORN%=1TO63:RGB%(1,N%)=255:RGB%(2,N%)=4*N%:RGB%(3,N%)=0
+  180 COLOUR N%,255,4*N%,0:NEXT
+  190 FORN%=1TO63:RGB%(1,N%+63)=255:RGB%(2,N%+63)=255:RGB%(3,N%+63)=4*N%
+  200 COLOUR N%+63,255,255,4*N%:NEXT
+  210 
+  220 FORI%=1TO126:SYS "OS_SetColour",0,I%
+  230 MOVE800+CX(180),600+CY(180)
+  240 FORN%=1TO180
+  250 D=1-RND(1)/30
+  260 MOVE800,600:PLOT85,800+CX(N%),600+CY(N%)
+  270 CX(N%)=CX(N%)*D:CY(N%)=CY(N%)*D
+  280 NEXT,
+  290 
+  300 REPEAT
+  310 K%=RND(7):G%(1)=RGB%(1,126):G%(2)=RGB%(2,126):G%(3)=RGB%(3,126):CH%()=0
+  320 IFK%AND1 CH%(1)=4:IF G%(1)>128 CH%(1)=-4
+  330 IFK%AND2 CH%(2)=4:IF G%(2)>128 CH%(2)=-4
+  340 IFK%AND4 CH%(3)=4:IF G%(3)>128 CH%(3)=-4
+  350 FORI%=1TO63
+  360 FORN%=2TO126:FORM%=1TO3:RGB%(M%,N%-1)=RGB%(M%,N%):NEXT,
+  370 G%(1)+=CH%(1):G%(2)+=CH%(2):G%(3)+=CH%(3)
+  380 RGB%(1,126)=G%(1):RGB%(2,126)=G%(2):RGB%(3,126)=G%(3)
+  390 FORN%=1TO126:COLOURN%,RGB%(1,N%),RGB%(2,N%),RGB%(3,N%):NEXT
+  400 NEXT
+  410 UNTIL0

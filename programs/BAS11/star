@@ -1,0 +1,31 @@
+   10 REM > STAR
+   20 
+   30 DIM MD% 64:MD%!00=1:MD%!04=1024:MD%!08=768:MD%!12=4:MD%!16=-1:MD%!20=-1:MODE MD%:OFF
+   40 DIM X%(1000),Y%(1000),R%(1000),G%(1000),B%(1000):T%=0
+   50 REPEAT:C%=0
+   60 REPEAT:C%+=1:X%=RND(2048):Y%=RND(1536):UNTILPOINT(X%,Y%)=0 OR C%>=5000
+   70 IF C%<5000 THEN
+   80 T%+=1:X%(T%)=X%:Y%(T%)=Y%
+   90 R%(T%)=RND(128)
+  100 G%(T%)=RND(128)
+  110 B%(T%)=RND(128)
+  120 CIRCLE FILL X%,Y%,100
+  130 ENDIF
+  140 UNTILC%>=5000
+  150 CLS
+  160 FORN%=0TO99
+  170 FORM%=1TOT%
+  180 X%=(X%(M%)*N%+1024*(99-N%))/99
+  190 Y%=(Y%(M%)*N%+768*(99-N%))/99
+  200 RD%=(100-N%)
+  210 R%=(R%(M%)*N%+255*(99-N%))/99
+  220 G%=(G%(M%)*N%+255*(99-N%))/99
+  230 B%=(B%(M%)*N%+255*(99-N%))/99
+  240 PROCRGB(R%,G%,B%):CIRCLE FILL X%,Y%,RD%
+  250 NEXT,
+  260 END
+  270 
+  280 DEFPROCRGB(R%,G%,B%)
+  290 LOCAL C%:C%=(R%<<8)+(G%<<16)+(B%<<24)
+  300 SYS "ColourTrans_SetGCOL",C%,,,&100,0
+  310 ENDPROC

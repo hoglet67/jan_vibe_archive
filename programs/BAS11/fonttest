@@ -1,0 +1,15 @@
+   10 REM > FONTTEST
+   20 
+   30 MODE31:OFF
+   40 INPUT"Text="T$
+   50 ORIGIN 100,300
+   60 Z%=1500:FONT$="GillSans.bold"
+   70 SYS"Font_SetFontColours",0,0,7,0
+   80 SYS"Font_FindFont",,FONT$,Z%,Z%,0,0 TO HAN%
+   90 SYS"Font_StringBBox",,T$ TO ,X1%,Y1%,X2%,Y2%
+  100 SYS"Font_ConverttoOS",,X1%,Y1% TO ,X1%,Y1%
+  110 SYS"Font_ConverttoOS",,X2%,Y2% TO ,X2%,Y2%
+  120 GCOL4:LINE -50,0,1500,0:LINE 0,Y1%-32,0,Y2%+32
+  130 SYS"Font_Paint",,T$,16,0,0
+  140 GCOL1:RECTANGLEX1%,Y1%,X2%-X1%,Y2%-Y1%
+  150 SYS"Font_LoseFont",HAN%

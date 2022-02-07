@@ -1,0 +1,26 @@
+   10 REM > EYE
+   20 
+   30 REM 800*600 med 256 programmerbare farver
+   40 
+   50 DIM MD% 64
+   60 MD%!00=1:MD%!04=800:MD%!08=600:MD%!12=3:MD%!16=-1:MD%!20=3:MD%!24=2^8-1:MD%!28=-1
+   70 MODE MD%
+   80 
+   90 DIM R%(255),G%(255),B%(255)
+  100 FORN%=1TO255:M%=255-2*(ABS(N%-128))
+  110 COLOURN%,M%,M%,M%:R%(N%)=M%:G%(N%)=M%:B%(N%)=M%:NEXT
+  120 FORN%=0TO255:GCOL N%,N%,N%:CIRCLE FILL 800,600,4*(255-N%):NEXT
+  130 
+  140 REPEAT
+  150 R%=R%(1):G%=G%(1):B%=B%(1)
+  160 R1=RND(1):G1=RND(1):B1=RND(1)
+  170 FORN%=2TO255:N1%=N%-1
+  180 IFR1>.4 R%(N1%)=R%(N%)
+  190 IFG1>.5 G%(N1%)=G%(N%)
+  200 IFB1>.6 B%(N1%)=B%(N%)
+  210 NEXT
+  220 IFR1>.4 R%(255)=R%
+  230 IFG1>.5 G%(255)=G%
+  240 IFB1>.6 B%(255)=B%
+  250 FORN%=1TO255:COLOURN%,R%(N%),G%(N%),B%(N%):NEXT
+  260 UNTIL0

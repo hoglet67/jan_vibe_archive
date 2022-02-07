@@ -1,0 +1,16 @@
+   10 REM > MTPAT
+   20 
+   30 REM Variations on the Morse Thue algoritm.
+   40 
+   50 MODE13:OFF
+   60 P%=0:PROCA(0,0,16)
+   70 END
+   80 
+   90 DEFPROCA(C%,K%,N%)
+  100 IF N%=0 THEN
+  110 GCOL C%:POINT 4*(P%MOD256)+128,4*(P%DIV256):P%+=1:ENDPROC
+  120 ELSE
+  130 PROCA((C%+K%+1)MOD64,K%+63,N%-1)
+  140 PROCA((C%+K%)MOD64,K%+1,N%-1)
+  150 ENDIF
+  160 ENDPROC

@@ -1,0 +1,180 @@
+   10 REM > ROTDICE
+   20 
+   30 REM *--------------------*
+   40 REM ! Jan Vibe august 91 !
+   50 REM *--------------------*
+   60 
+   70 MODE140:MODE12:OFF:ORIGIN 640,512
+   80 
+   90 REM OpsGCOLtning af matricer.
+  100 DIM A(4,4),T(4,4),C(4,4),K(4),R(4)
+  110 
+  120 REM OpsGCOLtning af koordinattabeller
+  130 DIM PX(2000),PY(2000),PZ(2000),SX(2000),SY(2000),L%(5000,4)
+  140 
+  150 REM skalering,perspektivfaktor,antal punkter
+  160 S=500:PF=3:AP%=0:AL%=0
+  170 
+  180 REM OpsGCOLtning af diverse variabler.
+  190 S1%=1:S2%=2
+  200 C()=0:FORN%=1TO4:C(N%,N%)=1:NEXT
+  210 
+  220 REM *---------------------------------------------------------------*
+  230 REM ! Herunder kan man definere et 3-dimensionalt objekt, og        !
+  240 REM ! dreje det rundt i et 3D koordinatsystem.                      !
+  250 REM !                                                               !
+  260 REM ! PROCM(X,Y,Z)   SGCOLtter punktet X,Y,Z og flytter til det.       !
+  270 REM ! PROCD(X,Y,Z,F) SGCOLtter punktet X,Y,Z og tegner en linie med    !
+  280 REM !                farven F til dette punkt.                      !
+  290 REM ! PROCL(A,B,F)   TrGCOLkker en linie med farve F mellem punkterne  !
+  300 REM !                A og B.                                        !
+  310 REM ! PROCBOX(X1,Y1,Z1,X2,Y2,Z2,F) Tegner en kasse fra hjRETURNrnepunkt  !
+  320 REM !                X1,X1,X1 til hjRETURNrnepunkt X2,Y2,Z2 med farven f.!
+  330 REM !                Hvis et af 1-2 talparrene er identiske, vil    !
+  340 REM !                der blive tegnet en firkant med hjRETURNrnepunkter  !
+  350 REM !                i de to andre 1-2 talpar.                      !
+  360 REM ! PROCROT(X,Y,Z) sGCOLtter omdrejningsmatricen op.                 !
+  370 REM ! PROCSCN        Skalerer og normaliserer objektet.             !
+  380 REM ! PROCVIS        Roterer objektet, og viser det pGOTO skGCOLrmen.     !
+  390 REM !                                                               !
+  400 REM ! Der ikke er nogen begrGCOLnsning pGOTO stRETURNrrelsen af objektet, men  !
+  410 REM ! husk at jo flere linier der skal tegnes, jo langsommere gGOTOr   !
+  420 REM ! optegningen.                                                  !
+  430 REM !                                                               !
+  440 REM *------------------- Definer objekt herunder -------------------*
+  450 
+  460 PROCBOX(0,0,0,14,14,14,7)
+  470 PROCBOX(6,6,0,8,8,0,1)
+  480 PROCBOX(0,2,10,0,4,12,2):PROCBOX(0,10,2,0,12,4,2)
+  490 PROCBOX(10,0,2,12,0,4,3):PROCBOX(6,0,6,8,0,8,3):PROCBOX(2,0,10,4,0,12,3)
+  500 PROCBOX(2,14,2,4,14,4,4):PROCBOX(10,14,2,12,14,4,4)
+  510 PROCBOX(2,14,10,4,14,12,4):PROCBOX(10,14,10,12,14,12,4)
+  520 PROCBOX(14,2,2,14,4,4,5):PROCBOX(14,2,10,14,4,12,5)
+  530 PROCBOX(14,10,2,14,12,4,5):PROCBOX(14,10,10,14,12,12,5)
+  540 PROCBOX(14,6,6,14,8,8,5)
+  550 PROCBOX(2,2,14,4,4,14,6):PROCBOX(10,2,14,12,4,14,6)
+  560 PROCBOX(2,6,14,4,8,14,6):PROCBOX(10,6,14,12,8,14,6)
+  570 PROCBOX(2,10,14,4,12,14,6):PROCBOX(10,10,14,12,12,14,6)
+  580 
+  590 REM ------------ Slut pGOTO definition, begynd at rotere --------------
+  600 
+  610 PROCSCN
+  620 ONERRORGOTO1800
+  630 PROCROT(3-RND(6),3-RND(6),3-RND(6))
+  640 REPEAT
+  650 PROCVIS
+  660 IF RND(1)>.99 PROCROT(3-RND(6),3-RND(6),3-RND(6))
+  670 UNTIL0
+  680 
+  690 REM ---------- Procedurer ------------
+  700 
+  710 REM drej objektet, tegn det og vis det.
+  720 DEFPROCVIS
+  730 LOCAL N%
+  740 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  750 FORN%=1TOAP%
+  760 K(1)=PX(N%):K(2)=PY(N%):K(3)=PZ(N%):K(4)=1
+  770 R()=K().T()
+  780 PX(N%)=R(1):PY(N%)=R(2):PZ(N%)=R(3)
+  790 P=1+PZ(N%)/(S*PF)
+  800 SX(N%)=R(1)/P:SY(N%)=R(2)/P
+  810 NEXT
+  820 FORN%=1TOAL%:GCOL L%(N%,4)
+  830 CASE L%(N%,1) OF
+  840 WHEN 0:MOVE SX(L%(N%,2)),SY(L%(N%,2))
+  850 WHEN 1:DRAW SX(L%(N%,2)),SY(L%(N%,2))
+  860 WHEN 2:LINE SX(L%(N%,2)),SY(L%(N%,2)),SX(L%(N%,3)),SY(L%(N%,3))
+  870 ENDCASE
+  880 NEXT
+  890 ENDPROC
+  900 
+  910 REM Flyt til X,Y,Z.
+  920 DEFPROCM(X,Y,Z)
+  930 AP%+=1:PX(AP%)=X:PY(AP%)=Y:PZ(AP%)=Z
+  940 AL%+=1:L%(AL%,1)=0:L%(AL%,2)=AP%:L%(AL%,4)=0
+  950 ENDPROC
+  960 
+  970 REM Tegn en linie med farve C% til X,Y,Z.
+  980 DEFPROCD(X,Y,Z,C%)
+  990 AP%+=1:PX(AP%)=X:PY(AP%)=Y:PZ(AP%)=Z
+ 1000 AL%+=1:L%(AL%,1)=1:L%(AL%,2)=AP%:L%(AL%,4)=C%
+ 1010 ENDPROC
+ 1020 
+ 1030 REM trGCOLk en linie med farve C% mellem punkt A% og B%
+ 1040 DEFPROCL(A%,B%,C%)
+ 1050 AL%+=1:L%(AL%,1)=2:L%(AL%,2)=A%:L%(AL%,3)=B%:L%(AL%,4)=C%
+ 1060 ENDPROC
+ 1070 
+ 1080 REM Tegn en kasse eller en firkant med hjRETURNrnepunkter i
+ 1090 REM (X1,Y1,Z1),(X2,Y2,Z2) med farve C%
+ 1100 DEFPROCBOX(X1,Y1,Z1,X2,Y2,Z2,C%)
+ 1110 LOCAL K1%,K2%,K3%,K4%,N%,F%
+ 1120 IF X1<>X2 F%+=1
+ 1130 IF Y1<>Y2 F%+=2
+ 1140 IF Z1<>Z2 F%+=4
+ 1150 CASE F% OF
+ 1160 WHEN 7
+ 1170 PROCM(X1,Y1,Z1):K1%=AP%:PROCD(X2,Y1,Z1,C%):PROCD(X2,Y2,Z1,C%)
+ 1180 PROCD(X1,Y2,Z1,C%):K2%=AP%:PROCL(K2%,K1%,C%)
+ 1190 PROCM(X1,Y1,Z2):K3%=AP%:PROCD(X2,Y1,Z2,C%):PROCD(X2,Y2,Z2,C%)
+ 1200 PROCD(X1,Y2,Z2,C%):K4%=AP%:PROCL(K4%,K3%,C%)
+ 1210 FORN%=0TO3:PROCL(K1%+N%,K3%+N%,C%):NEXT
+ 1220 WHEN 6
+ 1230 PROCM(X1,Y1,Z1):K1%=AP%:PROCD(X1,Y2,Z1,C%):PROCD(X1,Y2,Z2,C%)
+ 1240 PROCD(X1,Y1,Z2,C%):K2%=AP%:PROCL(K2%,K1%,C%)
+ 1250 WHEN 5
+ 1260 PROCM(X1,Y1,Z1):K1%=AP%:PROCD(X2,Y1,Z1,C%):PROCD(X2,Y1,Z2,C%)
+ 1270 PROCD(X1,Y1,Z2,C%):K2%=AP%:PROCL(K2%,K1%,C%)
+ 1280 WHEN 3
+ 1290 PROCM(X1,Y1,Z1):K1%=AP%:PROCD(X2,Y1,Z1,C%):PROCD(X2,Y2,Z1,C%)
+ 1300 PROCD(X1,Y2,Z1,C%):K2%=AP%:PROCL(K2%,K1%,C%)
+ 1310 ENDCASE
+ 1320 ENDPROC
+ 1330 
+ 1340 REM Beregn roteringsmatricen.
+ 1350 DEFPROCROT(DX,DY,DZ)
+ 1360 LOCAL T,SI,CO
+ 1370 T()=C()
+ 1380 
+ 1390 REM drejning om X.
+ 1400 A()=C():T=RADDX:CO=COST:SI=SINT
+ 1410 A(2,2)=CO:A(3,2)=-SI:A(2,3)=SI:A(3,3)=CO
+ 1420 T()=A()
+ 1430 
+ 1440 REM drejning om Y.
+ 1450 A()=C():T=RADDY:CO=COST:SI=SINT
+ 1460 A(1,1)=CO:A(3,1)=SI:A(1,3)=-SI:A(3,3)=CO
+ 1470 T()=A().T()
+ 1480 
+ 1490 REM drejning om Z.
+ 1500 A()=C():T=RADDZ:CO=COST:SI=SINT
+ 1510 A(1,1)=CO:A(2,1)=-SI:A(1,2)=SI:A(2,2)=CO
+ 1520 T()=A().T()
+ 1530 ENDPROC
+ 1540 
+ 1550 REM Normaliser og skaler objekt.
+ 1560 DEFPROCSCN
+ 1570 LOCAL N%,K,SC,MAXX,MINX,MAXY,MINY,MAXZ,MINZ
+ 1580 MAXX=PX(1):MINX=PX(1)
+ 1590 MAXY=PY(1):MINY=PY(1)
+ 1600 MAXZ=PZ(1):MINZ=PZ(1)
+ 1610 FORN%=1TOAP%
+ 1620 IF PX(N%)>MAXX MAXX=PX(N%)
+ 1630 IF PX(N%)<MINX MINX=PX(N%)
+ 1640 IF PY(N%)>MAXY MAXY=PY(N%)
+ 1650 IF PY(N%)<MINY MINY=PY(N%)
+ 1660 IF PZ(N%)>MAXZ MAXZ=PZ(N%)
+ 1670 IF PZ(N%)<MINZ MINZ=PZ(N%)
+ 1680 NEXT
+ 1690 MAXX=(MINX+MAXX)/2:MAXY=(MINY+MAXY)/2:MAXZ=(MINZ+MAXZ)/2
+ 1700 FORN%=1TOAP%:PX(N%)-=MAXX:PY(N%)-=MAXY:PZ(N%)-=MAXZ:NEXT
+ 1710 FORN%=1TOAP%
+ 1720 IF ABS(PX(N%))>SC SC=ABS(PX(N%))
+ 1730 IF ABS(PY(N%))>SC SC=ABS(PY(N%))
+ 1740 IF ABS(PZ(N%))>SC SC=ABS(PZ(N%))
+ 1750 NEXT:SC=2*SC
+ 1760 FORN%=1TOAP%
+ 1770 PX(N%)=S*PX(N%)/SC:PY(N%)=S*PY(N%)/SC:PZ(N%)=S*PZ(N%)/SC:NEXT
+ 1780 ENDPROC
+ 1790 
+ 1800 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

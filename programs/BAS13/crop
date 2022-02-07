@@ -1,0 +1,48 @@
+   10 REM > CROP
+   20 
+   30 MODE31:OFF
+   40 
+   50 COLOUR 0,0,0,255
+   60 PROCA(800,600,60,-15,15)
+   70 END
+   80 
+   90 DEFPROCA(X%,Y%,Z%,A%,F%)
+  100 LOCAL X1%,Y1%,Z1%
+  110 CIRCLE  X%,Y%,Z%
+  120 IF F%AND1 THEN
+  130   Z1%=.97*Z%
+  140   IF Z1%>=2 THEN
+  150     A1%=A%+16
+  160     X1%=X%+1.97*Z%*SINRAD(A1%)
+  170     Y1%=Y%+1.97*Z%*COSRAD(A1%)
+  180     PROCA(X1%,Y1%,Z1%,A1%,11)
+  190   ENDIF
+  200 ENDIF
+  210 IF F%AND4 THEN
+  220   Z1%=.97*Z%
+  230   IF Z1%>=2 THEN
+  240     A1%=A%+196
+  250     X1%=X%+1.97*Z%*SINRAD(A1%)
+  260     Y1%=Y%+1.97*Z%*COSRAD(A1%)
+  270     PROCA(X1%,Y1%,Z1%,A1%,11)
+  280   ENDIF
+  290 ENDIF
+  300 IF F%AND2 THEN
+  310   Z1%=.2*Z%
+  320   IF Z1%>=2 THEN
+  330     A1%=A%+95
+  340     X1%=X%+1.2*Z%*SINRAD(A1%)
+  350     Y1%=Y%+1.2*Z%*COSRAD(A1%)
+  360     PROCA(X1%,Y1%,Z1%,A1%,11)
+  370   ENDIF
+  380 ENDIF
+  390 IF F%AND8 THEN
+  400   Z1%=.2*Z%
+  410   IF Z1%>=2 THEN
+  420     A1%=A%+275
+  430     X1%=X%+1.2*Z%*SINRAD(A1%)
+  440     Y1%=Y%+1.2*Z%*COSRAD(A1%)
+  450     PROCA(X1%,Y1%,Z1%,A1%,11)
+  460   ENDIF
+  470 ENDIF
+  480 ENDPROC

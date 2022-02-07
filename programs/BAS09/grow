@@ -1,0 +1,25 @@
+   10 REM > GROW
+   20 
+   30 MODE31:OFF
+   40 DIM X%(10000),Y%(10000),A%(10000),F%(10000)
+   50 FORT%=1TO4:X%(T%)=800:Y%(T%)=600:A%(T%)=90*T%:NEXT:T%=4
+   60 REPEAT
+   70 REPEAT:R%=RND(T%):UNTILF%(R%)=0
+   71 T=RAD(A%(R%)):X1%=X%(R%)+8*SINT:Y1%=Y%(R%)+8*COST
+   80 IF FNT(X1%,Y1%,R%)=0 THEN
+   90 LINE X%(R%),Y%(R%),X1%,Y1%
+  100 X%(R%)=X1%:Y%(R%)=Y1%:A%(R%)=A%(R%)+RND(61)-31
+  110 ENDIF
+  130 T%+=1:X%(T%)=X%(R%):Y%(T%)=Y%(R%):A%(T%)=A%(R%)+RND(61)-31
+  140 X1%=X%(T%)+12*SINT:Y1%=Y%(T%)+12*COST:IF FNT(X1%,Y1%,T%)<>0 T%-=1
+  160 UNTILT%=10000
+  170 END
+  180 
+  190 DEFFNT(X%,Y%,R%)
+  200 LOCAL I%,J%,F%
+  210 F%=0
+  220 FORI%=-2TO2STEP2
+  230 FORJ%=-2TO2STEP2
+  240 IF POINT(X%+I%,Y%+J%)<>0 F%=1:J%=2:I%=2:F%(R%)=1
+  250 NEXT,
+  260 =F%

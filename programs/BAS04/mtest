@@ -1,0 +1,65 @@
+   10 REM > MTEST
+   20 
+   30 REM Dette program laver 4*4 magiske kvadrater.
+   40 REM        Jan Vibe november 90.
+   50 
+   60 @%=4:P%=0
+   70 DIM T%(16),T1%(500,4),T2%(4,4),T3%(4,4)
+   80 FORN%=1TO16:T%(N%)=N%:NEXT
+   90 
+  100 FORA%=1TO13
+  110   FORB%=A%+1TO14
+  120     FORC%=B%+1TO15
+  130       FORD%=C%+1TO16
+  140         IF T%(A%)+T%(B%)+T%(C%)+T%(D%)=34 THEN
+  150           P%+=1
+  160           T1%(P%,1)=T%(A%)
+  170           T1%(P%,2)=T%(B%)
+  180           T1%(P%,3)=T%(C%)
+  190           T1%(P%,4)=T%(D%)
+  200         ENDIF
+  210 NEXT,,,
+  220 
+  230 FORA%=1TOP%-3
+  240 FORB%=A%+1TOP%-2
+  250 IF FNC(A%,B%)=0 THEN
+  260   FORC%=B%+1TOP%-1
+  270   IF FNC(A%,C%)=0 AND FNC(B%,C%)=0 THEN
+  280     FORD%=C%+1TOP%
+  290     IF FNC(A%,D%)=0 AND FNC(B%,D%)=0 AND FNC(C%,D%)=0 THEN
+  300       T2%()=0:T3%()=0
+  310       FORN%=1TO4:T2%(N%,1)=T1%(A%,N%):NEXT
+  320       FORN%=1TO4:T2%(N%,2)=T1%(B%,N%):NEXT
+  330       FORN%=1TO4:T2%(N%,3)=T1%(C%,N%):NEXT
+  340       FORN%=1TO4:T2%(N%,4)=T1%(D%,N%):NEXT
+  350       PC%=0
+  360       FOR R1%=1TO4
+  370         FOR R2%=1TO4
+  380           FOR R3%=1TO4
+  390             FOR R4%=1TO4
+  400               IF T2%(R1%,1)+T2%(R2%,2)+T2%(R3%,3)+T2%(R4%,4)=34 THEN
+  410                 PC%+=1
+  420                 T3%(PC%,1)=T2%(R1%,1):T2%(R1%,1)=0
+  430                 T3%(PC%,2)=T2%(R2%,2):T2%(R2%,2)=0
+  440                 T3%(PC%,3)=T2%(R3%,3):T2%(R3%,3)=0
+  450                 T3%(PC%,4)=T2%(R4%,4):T2%(R4%,4)=0
+  460               ENDIF
+  470       NEXT,,,
+  480       IF SUM T2%()=0 THEN
+  490         PRINT:FORN%=1TO4:FORM%=1TO4:PRINTT3%(M%,N%);:NEXT:PRINT:NEXT
+  500       ENDIF
+  510     ENDIF
+  520     NEXT
+  530   ENDIF
+  540   NEXT
+  550 ENDIF
+  560 NEXT
+  570 END
+  580 
+  590 DEFFNC(A%,B%)
+  600 LOCAL N%,M%,F%
+  610 FORN%=1TO4
+  620   FORM%=1TO4
+  630     IF T1%(A%,N%)=T1%(B%,M%) F%=1
+  640 NEXT,
+  650 =F%

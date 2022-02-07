@@ -1,0 +1,41 @@
+   10 REM > FONTTEST3
+   20 
+   30 MODE31
+   40 DIM A$(10),X1%(10),Y1%(10),X2%(10),Y2%(10)
+   50 K%=398
+   60 
+   70 A$(1)="Jan Vibe"
+   80 A$(2)="Kildebrønde"
+   90 A$(3)="Landevej 42"
+  100 A$(4)="2670 Greve"
+  110 A$(5)="Tlf: 42 61 00 09"
+  120 P%=5:Z%=12:FONT$="Trinity.Medium"
+  130 SYS"Font_FindFont",,FONT$,Z%,Z%,0,0 TO HAN%
+  140 
+  150 MAX%=0:PM%=0
+  160 FORN%=1 TO P%:Q$=Q$+A$(N%)
+  170 SYS"Font_StringBBox",,A$(N%) TO ,X1%,Y1%,X2%,Y2%
+  180 IF X2%-X1%>MAX% MAX%=X2%-X1%:PM%=N%
+  190 NEXT
+  200 SYS"Font_LoseFont",HAN%
+  210 
+  220 Z%=8192:PZ%=Z%/2
+  230 REPEAT
+  240 SYS"Font_FindFont",,FONT$,Z%,Z%,0,0 TO HAN%
+  250 SYS"Font_StringBBox",,A$(PM%) TO ,X1%,Y1%,X2%,Y2%
+  260 X1%=X1%/K%:Y1%=Y1%/K%:X2%=X2%/K%:Y2%=Y2%/K%
+  270 IF X2%-X1%>1249 Z%-=PZ% ELSE Z%+=PZ%
+  280 PZ%=PZ%/2
+  290 UNTILPZ%<=1
+  300 SYS"Font_StringBBox",,Q$  TO ,X1%,Y1%,X2%,Y2%
+  310 H%=(Y2%-Y1%)/K%:G%=(1200-P%*H%)/2
+  320 
+  330 SYS"Font_SetFontColours",0,0,7,0
+  340 XA%=250:YA%=1200-(1200-P%*H%)/2-Y1%/K%
+  350 
+  360 FORN%=1TOP%
+  370 YA%=YA%-H%
+  380 SYS"Font_Paint",,A$(N%),16,XA%,YA%
+  390 NEXT
+  400 
+  410 SYS"Font_LoseFont",HAN%

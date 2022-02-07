@@ -1,0 +1,11 @@
+   10 REM > KOMBI
+   20 
+   30 CLS:INPUT"Tekst:"A$:PROCK(A$,""):END
+   40 
+   50 DEFPROCK(A$,B$)
+   60 LOCAL N%
+   70 IF A$="" PRINTB$" ";:ENDPROC
+   80 FORN%=1TOLENA$
+   90 PROCK(LEFT$(A$,N%-1)+RIGHT$(A$,LENA$-N%),B$+MID$(A$,N%,1))
+  100 NEXT
+  110 ENDPROC

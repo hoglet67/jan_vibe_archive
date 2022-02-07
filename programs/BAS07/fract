@@ -1,0 +1,36 @@
+   10 REM > FRACT
+   20 
+   30 MODE15:OFF:K%=3
+   40 DIMGX1(K%),GY1(K%),GX2(K%),GY2(K%),M%(K%),C%(K%),F%(K%)
+   50 FORN%=1TOK%:READGX1(N%),GY1(N%),GX2(N%),GY2(N%),M%(N%),C%(N%),F%(N%)
+   60 GX1(N%)=GX1(N%)/16:GY1(N%)=(GY1(N%)-8)/16
+   70 GX2(N%)=GX2(N%)/16:GY2(N%)=(GY2(N%)-8)/16
+   80 NEXT
+   90 PROCUDSKIFT(640,0,640,1024,50,0,1,1)
+  100 END
+  110 
+  120 DEFPROCUDSKIFT(X1,Y1,X2,Y2,L%,C%,M%,F%)
+  130 LOCAL DX,DY,X3,Y3,X4,Y4,N%
+  140 IF L%=0 OR (X2-X1)^2+(Y2-Y1)^2<=16 THEN
+  150 GCOL C%:MOVEX1,Y1:DRAWX2,Y2
+  160 ELSE
+  170 DX=X2-X1:DY=Y2-Y1
+  180 FORN%=1TOK%
+  190 IFF%=1 THEN
+  200 X3=DX*GX1(N%)-M%*DY*GY1(N%)+X1
+  210 Y3=DY*GX1(N%)+M%*DX*GY1(N%)+Y1
+  220 X4=DX*GX2(N%)-M%*DY*GY2(N%)+X1
+  230 Y4=DY*GX2(N%)+M%*DX*GY2(N%)+Y1
+  240 PROCUDSKIFT(X3,Y3,X4,Y4,L%-1,C%(N%),M%*M%(N%),F%(N%))
+  250 ELSE
+  260 PROCUDSKIFT(X1,Y1,X2,Y2,0,C%,M%,F%)
+  270 ENDIF
+  280 NEXT
+  290 ENDIF
+  300 ENDPROC
+  310 
+  320 REM  x1,y1,x2,y2,mirror,colour,fertility
+  330 
+  340 DATA  0, 8, 3, 9,     1,     6,        0
+  350 DATA  3, 9,16, 8,    -1,    12,        1
+  360 DATA  3, 9, 6,15,    -1,     4,        1

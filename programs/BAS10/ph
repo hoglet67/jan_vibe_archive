@@ -1,0 +1,15 @@
+   10 REM > PH
+   20 
+   30 REM Dette program tegner Piet Heins superellipse med formlen:
+   40 REM
+   50 REM ABS(X/A)^N+ABS(Y/B)^N = 1
+   60 REM
+   70 REM Hvor a er bredden, b er hRETURNjden og n er firkantetheden
+   80 
+   90 MODE31:OFF
+  100 A=600:B=500:N=2.5
+  110 FORX=1TOA-1STEP2
+  120 Y=B*(1-ABS(X/A)^N)^(1/N)
+  130 LINE X+800,Y+600,X+800,600-Y
+  140 LINE 800-X,Y+600,800-X,600-Y
+  150 NEXT

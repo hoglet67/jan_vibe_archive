@@ -1,0 +1,11 @@
+   10 REM > BIGLET
+   20 MODE15
+   30 A$="Hej dette er en test"
+   40 VDU5:X%=0:Y%=512
+   50 FORN%=1TOLENA$
+   60 GCOLRND(63)
+   70 ZX%=RND(40)+8:ZY%=RND(60)+8
+   80 VDU23,17,7,6,ZX%;ZY%|
+   90 MOVEX%,Y%+ZY%*2:X%+=ZX%*2
+  100 PRINTMID$(A$,N%,1);
+  110 NEXT:VDU4

@@ -1,0 +1,12 @@
+   10 REM > BALL12
+   20 
+   30 MODE12:OFF
+   40 FORN%=1TO15:COLOUR 16-N%,16*N%,16*N%,16*N%:NEXT
+   50 R%=200:HX%=R%*.3:HY%=R%*.6:Z%=(SQR(HX%^2+HY%^2)+R%)/15
+   60 FORY%=-R%TOR%STEP4:B%=SQR(R%^2-Y%^2)
+   70 FORX%=-B%TOB%STEP2
+   80 C%=(SQR((HX%-X%)^2+(HY%-Y%)^2)+RND(3*Z%)-1.5*Z%)/Z%+.5
+   90 IF C%<1 C%=1
+  100 IF C%>15 C%=15
+  110 GCOLC%:POINT X%+R%,Y%+R%
+  120 NEXT,:ON

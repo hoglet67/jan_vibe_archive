@@ -1,0 +1,23 @@
+   10 REM > DITHER   *** Jan Vibe june 93 ***
+   20 
+   30 MODE15:OFF
+   40 REPEAT
+   50 C1%=RND(255):C2%=RND(255):C3%=RND(255)
+   60 FORY%=16TO0STEP-1:R%=16-Y%
+   70 FORX%=0TOR%:Z%=16-X%-Y%
+   80 PROCD(X%,Y%,Z%,C1%,C2%,C3%)
+   90 CIRCLE FILL 64*X%+32*Y%+128,54*Y%+64,36
+  100 NEXT,:K=INKEY(100):UNTIL0
+  110 
+  120 DEFPROCD(A%,B%,C%,CA%,CB%,CC%)
+  130 LOCAL N%,P%,T%()
+  140 DIMT%(16)
+  150 IF A%<>0 FORN%=1TOA%:P%+=1:T%(P%)=CA%:NEXT
+  160 IF B%<>0 FORN%=1TOB%:P%+=1:T%(P%)=CB%:NEXT
+  170 IF C%<>0 FORN%=1TOC%:P%+=1:T%(P%)=CC%:NEXT
+  180 VDU23,2,T%(10),T%(08),T%(11),T%(05),T%(10),T%(08),T%(11),T%(05)
+  190 VDU23,3,T%(04),T%(14),T%(01),T%(15),T%(04),T%(14),T%(01),T%(15)
+  200 VDU23,4,T%(12),T%(06),T%(09),T%(07),T%(12),T%(06),T%(09),T%(07)
+  210 VDU23,5,T%(02),T%(16),T%(03),T%(13),T%(02),T%(16),T%(03),T%(13)
+  220 GCOL80,0
+  230 ENDPROC

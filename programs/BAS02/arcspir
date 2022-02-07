@@ -1,0 +1,30 @@
+ARCsperience.
+
+Af Jan Vibe
+
+Jeg var imellem de f|rste, der benyttede sig af chancen for at f} en Archimedes hjem, gennem Quercus's service. Jeg modtog dyret den 28 december 1988, efter at have ventet ut}lmodigt i ca en m}ned. Nu har jeg haft den st}ende i ca 4 uger, og har v{nnet mig lidt til den.
+Hvordan er det s} at arbejde med en maskine, der er s}dan ca 10 gange s} hurtig, som BBC'en, og med et RAM lager der er 32 gange s} stort, som det er i den almindelige BBC?
+
+P R A G T F U L D T ! ! ! !
+
+Noget af det f|rste man skal v{nne sig til, er at den billigste sk{rmmode er mode 0, og der er derefter 20 andre modes, man kan boltre sig p}. Man beh|ver ikke at t{nke p} om sk{rmen nu tager det meste af hukommelsen, faktisk l{gger man overhovedet ikke m{rke til at de forskellige modes har forskelligt RAM forbrug. Der sker nemlig det, n}r man starter op, at Arthur g}r ud og l{ser hvilken konfiguration man |nsker at arbejde i, det ligger i noget batteridrevet RAM, derefter bliver der afsat plads til sk{rmbillede, workspace for systemet, moduler, sprites, basic o.s.v. Det fylder altsammen, men n}r jeg starter op i BASIC, har jeg omkring 600 k ram til r}dighed (det er sgu noget der batter).
+ARC'en er en meget brugervenlig maskine, hvis man er i tvivl, skriver man bare *help, (eller help hvis man er i BASIC) samt det keyword man er i tvivl om, s} f}r man en beskrivelse af syntaxen m.v. Det kr{ver selvf|lgelig at man kender keyword'et, men ellers kan man ogs} f} hj{lp med hvilke keywords der findes. Hvis man |nsker mere information, bliver man s} n|dt til at sl} op i manualerne. Der er ca 1000 sider at komme igennem...
+BASIC'en er meget hurtig. Et af de f|rste programmer, jeg pr|vede, var det s{dvanlige tomme FOR NEXT loop. Jeg lod loopet l|be fra 1 til 20000, idet jeg mente at det m}tte kunne m}les med mit stopur. Den gik ikke! ARC'en blev f{rdig med loopet p} under et sekund. Jeg eksperimenterede s} lidt, og fandt ud af at der skulle et loop p} 67000 til for at maskinen var et sekund om at k|re programmet. Sidenhen har jeg f}et at vide, at der findes en SYS ordre, der for|gede hastigheden ganske betragteligt. For de ARC ejere der ikke kender denne ordre, er den her:
+
+SYS"OS_UpdateMEMC",64,64
+
+Den skal skrives p} denne m}de, med store og sm} bogstaver. Jeg har f}et at vide, at dengang ARC'en var nyudviklet, kunne man ikke accesse ROM'en lige s} hurtigt som RAM'en. Derfor satte man en forsinkelse ind et eller andet sted, og det er denne forsinkelse, man oph{ver med denne ordre. Det betyder ogs} at jeg kan loope op til 86000 p} et sekund.
+
+Grafikken er utrolig. Man kan tegne et hav af forskellige grafiske primitiver i op til 256 farver. Desv{rre er kontrollen af paletten ret besv{rlig at bruge da farvevalget ikke er helt frit. Der er nemlig kun 16 farveregistre, s} n}r man i mode med 256 farver, omprogrammerer et af farveregistrene, s} p}virker det 16 af farverne.
+Et helt nyt kapitel af grafikken, er spritefunktionerne. Spritemodulet er en videreudvikling af de sprites, der findes i GXR ROM'en til BBC'en. Man er ikke bundet p} nogen som helst m}de med hensyn til memory, man kan reservere lige s} meget plads man |nsker, og man kan have lige s} mange sprites, i hukommelsen, som man |nsker, og har plads til. Hver sprite kan flyttes punktvis i b}de x og y retningen, og man kan definere noget der kaldes en spritemask, der bestemmer hvilke punkter af spriten, der skal plottes. Det har betydning, da det areal spriten optager altid ar firkantet, og hvis man ikke definerer en spritemask, vil ogs} u|nskede dele af spritearealet blive plottet. Man begynder at se rykvise bev{gelser p} sk{rmen, hvis der er mere end 20 store sprites der skal bev{ges samtidig.
+
+Man kan definere mere end et sk{rmbillede, og man kan vise et sk{rmbillede, samtidig med at man opbygger et andet. Det er ogs} noget der har betydning, n}r man skal lave animeret grafik.
+
+S} er der musen. Der findes ordrer i basic'en, der kan afl{se hvor p} sk{rmen pointeren st}r, samt hvilke af de 3 knapper der er trykket ned. Da der er tre knapper, kan man lave op til 8 forskellige funktioner med musen p} denne m}de, men kun 7 er interessante. Den 8 er selvf|lgelig, n}r ingen af knapperne er trykket ned. Disse indbyggede BASIC ordrer g|r musen til en utrolig nem device at bruge, f.eks er det muligt at lave et meget lille tegneprogram, hvor man benytter musen til at tegne med, p} omkring 5 linier BASIC.
+
+Jeg kunne faktisk fylde hele bladet med beskrivelser af alle de ting der g|r Archimedes til s}dan en overlegen maskine, men jeg er bange for at det nok ville kede de fleste, s} derfor vil jeg slutte her, men hvis i p}t{nker at anskaffe jer en ny hjemmedatamat, og er ligeglade med om den kan k|re de forskellige standardprogrammer (l{s PC standardprogrammer), er Archimedes'en absolut ikke det v{rste valg i kunne g|re.
+
+
+
+
+PS. Jeg ved ikke hvorfor, men TVIN editoren g|r mine |er dobbelte

@@ -1,0 +1,68 @@
+   10 REM > PLAYER
+   20 
+   30 MODE31
+   40 PRINT'"Sprite player"'
+   50 PRINT"This program can 'play' a sprite on the screen"
+   60 PRINT"You can change the play speed with + and -"'
+   70 PRINT"These sprites can be found at this directory:"'
+   80 
+   90 DIM NAME% &100
+  100 SEQ%=0
+  110 REPEAT
+  120 SYS "OS_GBPB",8,,NAME%,1,SEQ% TO ,,,NUM%,SEQ%
+  130 IF NUM%=0 THEN
+  140 NAME%?(1+?NAME%)=13:NAME$=$(NAME%+1)
+  150 SYS "OS_File",5,NAME$ TO FOU%,,TYPE%
+  160 TYPE%=TYPE%>>8:TYPE%=TYPE%AND&FFF
+  170 IF FOU%=1 AND TYPE%=&FF9 PRINTNAME$
+  180 ENDIF
+  190 UNTIL NUM%
+  200 PRINT
+  210 
+  220 INPUT"Spritefile="SPF$
+  230 
+  240 SYS"OS_FSControl",28,SPF$ TO ,,LG%:LG%+=32
+  250 DIM SPR LG%,BUF 16
+  260 SPR!0=LG%:SPR!4=0:SPR!8=16:SPR!12=16
+  270 SYS"OS_SpriteOp",256+10,SPR,SPF$
+  280 SYS"OS_SpriteOp",256+8,SPR TO ,,,A%
+  290 DIM L$(A%):D%=12:F%=100/D%
+  300 FOR N%=1TOA%
+  310 SYS"OS_SpriteOp",256+13,SPR,BUF,16,N%
+  320 N$="":P%=0:REPEAT
+  330 T%=BUF?P%:IF T%<>0 L$(N%)+=CHR$T%
+  340 P%+=1:UNTIL T%=0
+  350 NEXT
+  360 SYS"OS_SpriteOp",256+40,SPR,L$(1) TO ,,,W%,H%,,M%
+  370 MODE M%:OFF
+  380 SYS"OS_ReadModeVariable",-1,4 TO,,SX%:SX%=2^SX%
+  390 SYS"OS_ReadModeVariable",-1,5 TO,,SY%:SY%=2^SY%
+  400 SYS"OS_ReadModeVariable",-1,11 TO,,XS%
+  410 SYS"OS_ReadModeVariable",-1,12 TO,,YS%
+  420 PX%=(SX%*(XS%-W%))/2:PY%=(SY%*(YS%-H%))/2:OLDM%=@%:@%=3
+  430 
+  440 PRINT"Sprite information"'
+  450 PRINT"Spritename.........  ";SPF$
+  460 PRINT"SpriteMode.........  ";M%
+  470 PRINT"Width in pixels....  ";W%
+  480 PRINT"Height in pixels...  ";H%
+  490 PRINT"Number of sprites..  ";A%
+  500 PRINT'"Now showing sprite. "
+  510 PRINT"Frames pr second... "
+  520 
+  530 ONERRORGOTO670
+  540 REPEAT
+  550 FORN%=1TOA%
+  560 T%=TIME+F%:VDU31,20,8:PRINTN%;
+  570 VDU31,20,9:PRINT D%
+  580 SYS"OS_SpriteOp",256+34,SPR,L$(N%),PX%,PY%,0
+  590 Q$=INKEY$(0)
+  600 IF Q$="+" THEN D%+=1
+  610 IF Q$="-" THEN D%-=1:IF D%=0 D%=1
+  620 F%=100/D%:*FX21,0
+  630 REPEAT:UNTILTIME>T%
+  640 NEXT
+  650 UNTIL0
+  660 
+  670 REPORT:PRINT" at line "STR$(ERL)
+  680 @%=OLDM%

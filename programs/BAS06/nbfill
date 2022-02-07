@@ -1,0 +1,33 @@
+   10 REM > NBFILL              *** Jan Vibe april 93 ***
+   20 
+   30 REM I once had a Newbrain. That machine had the strangest fill routine
+   40 REM i have ever seen. Among other things, it went beserk if it had to
+   50 REM fill an area with dots in it. This fill routine was the inspiration
+   60 REM for the following program.
+   70 
+   80 MODE13:OFF
+   90 DIM C%(4):FORN%=1TO4:C%(N%)=RND(63):NEXT
+  100 FORN%=1TO300:GCOLC%(RND(4)):POINT RND(1280),RND(1024):NEXT
+  110 GCOL63:ELLIPSE 640,512,630,500:PROCF(640,512)
+  120 END
+  130 
+  140 DEFPROCF(X%,Y%)
+  150 IF POINT(X%,Y%)=0 GCOL C%(1):POINT X%,Y%:PROCF1(X%,Y%,4,0,1)
+  160 ENDPROC
+  170 
+  180 DEFPROCF1(X1%,Y1%,DX%,DY%,CO%)
+  190 LOCAL X%,Y%,F%
+  200 X%=X1%:Y%=Y1%
+  210 WHILE POINT(X%+DX%,Y%+DY%)=0 X%+=DX%:Y%+=DY%:ENDWHILE
+  220 GCOL C%(CO%):LINE X1%,Y1%,X%,Y%
+  230 REPEAT
+  240 F%=0
+  250 CASE TRUE OF
+  260 WHEN POINT(X%+4,Y%)=0:PROCF1(X%,Y%,4,0,1):F%=1
+  270 WHEN POINT(X%,Y%+4)=0:PROCF1(X%,Y%,0,4,2):F%=1
+  280 WHEN POINT(X%-4,Y%)=0:PROCF1(X%,Y%,-4,0,3):F%=1
+  290 WHEN POINT(X%,Y%-4)=0:PROCF1(X%,Y%,0,-4,4):F%=1
+  300 ENDCASE
+  310 IF F%=0 X%-=DX%:Y%-=DY%
+  320 UNTIL X%=X1% AND Y%=Y1%
+  330 ENDPROC

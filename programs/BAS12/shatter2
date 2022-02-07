@@ -1,0 +1,154 @@
+   10 REM > SHATTER2 *** Jan Vibe february 1998 ***
+   20 
+   30 MODE159:MODE31:OFF
+   40 FORN%=0TO15:READR%,G%,B%:COLOURN%,R%,G%,B%:NEXT
+   50 
+   60 DIM NAME% &100
+   70 
+   80 PRINT''TAB(40)"Shatter"',
+   90 PRINT"This program can 'shatter' a sprite picture."'
+  100 PRINT"The program asks for a spritefile, and uses the first sprite in this file"
+  110 PRINT"for the process. The file must be in 16 colour format, and be sure that"
+  120 PRINT"the sprite uses the standard 16 colour palette, as this is what the program"
+  130 PRINT"expects. Any other palette will make the colours look strange."'
+  140 PRINT"The current directory contains the following spritefiles:"'
+  150 
+  160 SEQ%=0
+  170 REPEAT
+  180 SYS "OS_GBPB",8,,NAME%,1,SEQ% TO ,,,NUM%,SEQ%
+  190 IF NUM%=0 THEN
+  200 NAME%?(1+?NAME%)=13:NAME$=$(NAME%+1)
+  210 SYS "OS_File",5,NAME$ TO FOU%,,TYPE%
+  220 TYPE%=TYPE%>>8:TYPE%=TYPE%AND&FFF
+  230 IF FOU%=1 AND TYPE%=&FF9 PRINTNAME$
+  240 ENDIF
+  250 UNTIL NUM%
+  260 PRINT
+  270 
+  280 INPUT"Spritefile="SPF$:CLS
+  290 
+  300 SYS"OS_FSControl",28,SPF$ TO ,,LG%:LG%=LG%*10
+  310 DIM SPR LG%,BUF 16
+  320 SPR!0=LG%:SPR!4=0:SPR!8=16:SPR!12=16
+  330 SYS"OS_SpriteOp",256+10,SPR,SPF$
+  340 SYS"OS_SpriteOp",256+8,SPR TO ,,,A%
+  350 SYS"OS_SpriteOp",256+13,SPR,BUF,16,1
+  360 N$="":P%=0:REPEAT
+  370 T%=BUF?P%:IF T%<>0 N$+=CHR$T%
+  380 P%+=1:UNTIL T%=0
+  390 SYS"OS_SpriteOp",256+40,SPR,N$ TO ,,,W%,H%
+  400 W%=2*W%:H%=2*H%
+  410 
+  420 DIM TX%(50,15),TY%(50,15),TN%(50),AX%(15),AY%(15)
+  430 
+  440 XMIN%=(1600-W%)/2:YMIN%=(1200-H%)/2
+  450 S1%=1:S2%=2
+  460 SYS 6,112,S1%:SYS 6,113,S2%:CLS:SWAP S1%,S2%
+  470 SYS"OS_SpriteOp",256+34,SPR,N$,XMIN%,YMIN%
+  480 SYS 6,112,S1%:SYS 6,113,S2%:CLS:SWAP S1%,S2%
+  490 SYS"OS_SpriteOp",256+34,SPR,N$,XMIN%,YMIN%
+  500 
+  510 TX%(1,1)=XMIN%:TY%(1,1)=YMIN%
+  520 TX%(1,2)=XMIN%+W%:TY%(1,2)=YMIN%
+  530 TX%(1,3)=XMIN%+W%:TY%(1,3)=YMIN%+H%
+  540 TX%(1,4)=XMIN%:TY%(1,4)=YMIN%+H%
+  550 TN%(1)=4
+  560 
+  570 FORI%=1TO49
+  580 IF I%=1 THEN
+  590 R%=1
+  600 ELSE
+  610 MAX%=0:FORN%=1TOI%
+  620 X1%=0:Y1%=0
+  630 FORM%=1 TO TN%(N%):X1%+=TX%(N%,M%):Y1%+=TY%(N%,M%):NEXT
+  640 X1%=X1%/TN%(N%):Y1%=Y1%/TN%(N%)
+  650 A%=0:FORM%=1TOTN%(N%):M1%=M%MODTN%(N%)+1
+  660 X2%=TX%(N%,M%):Y2%=TY%(N%,M%):X3%=TX%(N%,M1%):Y3%=TY%(N%,M1%)
+  670 A%+=(X1%*Y2%+Y1%*X3%+Y3%*X2%-Y2%*X3%-Y1%*X2%-X1%*Y3%)/2
+  680 NEXT
+  690 IF A%>MAX% MAX%=A%:R%=N%
+  700 NEXT
+  710 ENDIF
+  720 P%=TN%(R%)
+  730 FORN%=1TOP%:AX%(N%)=TX%(R%,N%):AY%(N%)=TY%(R%,N%):NEXT
+  740 L%=0:FORN%=1TOP%:N1%=N%MODP%+1
+  750 G%=(AX%(N%)-AX%(N1%))^2+(AY%(N%)-AY%(N1%))^2
+  760 IF G%>L% L%=G%:D11%=N%
+  770 NEXT
+  780 REPEAT:D21%=RND(P%):UNTIL D11%<>D21%
+  790 IF D11%>D21% SWAP D11%,D21%
+  800 D12%=D11%MODP%+1:D22%=D21%MODP%+1
+  810 F1%=RND(2):F2%=3-F1%
+  820 PX1%=(F1%*AX%(D11%)+F2%*AX%(D12%))/3
+  830 PY1%=(F1%*AY%(D11%)+F2%*AY%(D12%))/3
+  840 PX2%=(F1%*AX%(D21%)+F2%*AX%(D22%))/3
+  850 PY2%=(F1%*AY%(D21%)+F2%*AY%(D22%))/3
+  860 K%=0:FORN%=1TOP%
+  870 K%+=1:TX%(R%,K%)=AX%(N%):TY%(R%,K%)=AY%(N%)
+  880 IF N%=D11% THEN
+  890 K%+=1:TX%(R%,K%)=PX1%:TY%(R%,K%)=PY1%
+  900 K%+=1:TX%(R%,K%)=PX2%:TY%(R%,K%)=PY2%
+  910 N%=D21%
+  920 ENDIF
+  930 NEXT:TN%(R%)=K%
+  940 Q%=I%+1
+  950 K%=1:TX%(Q%,K%)=PX1%:TY%(Q%,K%)=PY1%
+  960 FORN%=D11%+1TOD21%
+  970 K%+=1:TX%(Q%,K%)=AX%(N%):TY%(Q%,K%)=AY%(N%)
+  980 NEXT
+  990 K%+=1:TX%(Q%,K%)=PX2%:TY%(Q%,K%)=PY2%:TN%(Q%)=K%
+ 1000 NEXT
+ 1010 
+ 1020 FORI%=1TO50:T%=TN%(I%):NV$=STR$(I%)
+ 1030 XMIN%=TX%(I%,T%):YMIN%=TY%(I%,T%)
+ 1040 XMAX%=TX%(I%,T%):YMAX%=TY%(I%,T%)
+ 1050 FORN%=1TOT%-1
+ 1060 IFTX%(I%,N%)<XMIN% XMIN%=TX%(I%,N%)
+ 1070 IFTY%(I%,N%)<YMIN% YMIN%=TY%(I%,N%)
+ 1080 IFTX%(I%,N%)>XMAX% XMAX%=TX%(I%,N%)
+ 1090 IFTY%(I%,N%)>YMAX% YMAX%=TY%(I%,N%)
+ 1100 NEXT
+ 1110 SYS"OS_SpriteOp",256+16,SPR,NV$,0,XMIN%,YMIN%,XMAX%,YMAX%
+ 1120 SYS"OS_SpriteOp",256+29,SPR,NV$
+ 1130 SYS"OS_SpriteOp",256+61,SPR,NV$
+ 1140 GCOL0:CLG
+ 1150 GCOL15
+ 1160 MOVE TX%(I%,T%)-XMIN%,TY%(I%,T%)-YMIN%
+ 1170 FORN%=1TOT%
+ 1180 MOVE TX%(I%,T%)-XMIN%,TY%(I%,T%)-YMIN%
+ 1190 PLOT85,TX%(I%,N%)-XMIN%,TY%(I%,N%)-YMIN%
+ 1200 NEXT
+ 1210 SYS"OS_SpriteOp",256+61,SPR,0
+ 1220 TX%(I%,1)=XMIN%:TY%(I%,1)=YMIN%
+ 1230 TX%(I%,2)=(XMAX%-XMIN%)/2:TY%(I%,2)=(YMAX%-YMIN%)/2
+ 1240 NEXT
+ 1250 
+ 1260 ONERRORGOTO1370
+ 1270 FORI=1TO2STEP.02
+ 1280 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+ 1290 FORN%=1TO50:NV$=STR$(N%)
+ 1300 EX%=(TX%(N%,1)-800+TX%(N%,2))*I+800-TX%(N%,2)
+ 1310 EY%=(TY%(N%,1)-600+TY%(N%,2))*I+600-TY%(N%,2)
+ 1320 SYS"OS_SpriteOp",256+34,SPR,NV$,EX%,EY%,8
+ 1330 NEXT:Q=INKEY(10):NEXT
+ 1340 SYS 6,112,S1%
+ 1350 END
+ 1360 
+ 1370 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON
+ 1380 
+ 1390 DATA 255,255,255
+ 1400 DATA 221,221,221
+ 1410 DATA 187,187,187
+ 1420 DATA 153,153,153
+ 1430 DATA 119,119,119
+ 1440 DATA 85,85,85
+ 1450 DATA 51,51,51
+ 1460 DATA 0,0,0
+ 1470 DATA 0,68,153
+ 1480 DATA 238,238,0
+ 1490 DATA 0,204,0
+ 1500 DATA 221,0,0
+ 1510 DATA 238,238,187
+ 1520 DATA 85,136,0
+ 1530 DATA 255,187,0
+ 1540 DATA 0,187,255

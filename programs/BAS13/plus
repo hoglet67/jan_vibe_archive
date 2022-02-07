@@ -1,0 +1,24 @@
+   10 REM > PLUS
+   20 
+   30 MODE31:OFF
+   40 REPEAT:C%=0
+   50 REPEAT:X%=RND(1600):Y%=RND(1200):C%+=1:K%=FNA(X%,Y%):UNTIL K%>2 OR C%>=1000
+   60 IF K%>2 THEN
+   70 K1%=K%/6:MOVE X%-K1%,Y%-K%:PLOT&65,X%+K1%,Y%+K%:MOVE X%-K%,Y%-K1%:PLOT&65,X%+K%,Y%+K1%
+   80 ENDIF
+   90 UNTILC%>=1000
+  100 END
+  110 
+  120 DEFFNA(X%,Y%)
+  130 LOCAL K%,P%
+  140 K%=2
+  150 REPEAT
+  160 FORN%=2TO2*K%STEP2
+  170 IF POINT(X%-K%+N%,Y%-K%)<>0 P%=1
+  180 IF POINT(X%-K%,Y%+K%-N%)<>0 P%=1
+  190 IF POINT(X%+K%-N%,Y%+K%)<>0 P%=1
+  200 IF POINT(X%+K%,Y%-K%+N%)<>0 P%=1
+  210 NEXT
+  220 K%+=2
+  230 UNTIL P%=1 OR K%>=400
+  240 =K%-6

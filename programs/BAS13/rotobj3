@@ -1,0 +1,76 @@
+   10 REM > ROTOBJ3
+   20 
+   30 MODE159:MODE31:OFF:ORIGIN 800,600
+   40 S1%=1:S2%=2
+   50 
+   60 FORN%=1TO15:COLOUR N%,12*N%+63,12*N%+63,12*N%+63:NEXT
+   70 
+   80 REM skalering,perspektivfaktor,antal punkter
+   90 S=500:PF=3:AP%=401
+  100 
+  110 REM OpsGCOLtning.
+  120 DIM A(4,4),T(4,4),C(4,4),K(4),R(4)
+  130 DIM PX(AP%),PY(AP%),PZ(AP%),SX(AP%),SY(AP%)
+  140 C()=0:FORN%=1TO4:C(N%,N%)=1:NEXT
+  150 PROCROT(2-RND(1)*4,2-RND(1)*4,2-RND(1)*4)
+  160 
+  170 REM Definition af objekt.
+  180 A%=0:P%=0
+  190 FOR Z%=-200 TO 200:A%=(A%+15)MOD360:T=RADA%
+  200 D=SQR(40000-Z%^2)
+  210 P%+=1:PX(P%)=D*SINT:PY(P%)=D*COST:PZ(P%)=Z%
+  220 NEXT
+  230 
+  240 REM normaliser
+  250 NORM=0:FORN%=1TOAP%
+  260 IF ABS(PX(N%))>NORM NORM=ABS(PX(N%))
+  270 IF ABS(PY(N%))>NORM NORM=ABS(PY(N%))
+  280 IF ABS(PZ(N%))>NORM NORM=ABS(PZ(N%))
+  290 NEXT
+  300 FORN%=1TOAP%
+  310 PX(N%)=S*PX(N%)/NORM:PY(N%)=S*PY(N%)/NORM:PZ(N%)=S*PZ(N%)/NORM:NEXT
+  320 
+  330 ONERRORGOTO760
+  340 
+  350 REM drej objektet, tegn det og vis det.
+  360 REPEAT
+  370 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  380 
+  390 FORN%=1TOAP%
+  400 K(1)=PX(N%):K(2)=PY(N%):K(3)=PZ(N%):K(4)=1
+  410 R()=K().T()
+  420 PX(N%)=R(1):PY(N%)=R(2):PZ(N%)=R(3)
+  430 P=1+PZ(N%)/(S*PF)
+  440 SX(N%)=R(1)/P:SY(N%)=R(2)/P
+  450 NEXT
+  460 
+  470 MOVESX(1),SY(1):FORN%=2TOAP%
+  480 GCOL 1,16-(PZ(N%)+500)/67
+  490 DRAW SX(N%),SY(N%):NEXT
+  500 
+  510 IF RND(1)>.99 PROCROT(2-RND(1)*4,2-RND(1)*4,2-RND(1)*4)
+  520 
+  530 UNTIL0
+  540 
+  550 REM generer roteringsmatricen
+  560 DEFPROCROT(DX,DY,DZ)
+  570 LOCAL T,SI,CO
+  580 T()=C()
+  590 
+  600 REM drejning om X.
+  610 A()=C():T=RADDX:CO=COST:SI=SINT
+  620 A(2,2)=CO:A(3,2)=SI:A(2,3)=-SI:A(3,3)=CO
+  630 T()=A()
+  640 
+  650 REM drejning om Y.
+  660 A()=C():T=RADDY:CO=COST:SI=SINT
+  670 A(1,1)=CO:A(3,1)=-SI:A(1,3)=SI:A(3,3)=CO
+  680 T()=A().T()
+  690 
+  700 REM drejning om Z.
+  710 A()=C():T=RADDZ:CO=COST:SI=SINT
+  720 A(1,1)=CO:A(2,1)=SI:A(1,2)=-SI:A(2,2)=CO
+  730 T()=A().T()
+  740 ENDPROC
+  750 
+  760 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

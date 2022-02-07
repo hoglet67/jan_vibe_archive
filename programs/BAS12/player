@@ -1,0 +1,53 @@
+   10 REM > PLAYER
+   20 
+   30 MODE31
+   40 PRINT'"Sprite player"'
+   50 PRINT"This program can 'play' a sprite on the screen"
+   60 PRINT"You can change the play speed with + and -"'
+   70 INPUT"Spritefile="SPF$
+   80 
+   90 SYS"OS_FSControl",28,SPF$ TO ,,LG%:LG%+=32
+  100 DIM SPR LG%,BUF 16
+  110 SPR!0=LG%:SPR!4=0:SPR!8=16:SPR!12=16
+  120 SYS"OS_SpriteOp",256+10,SPR,SPF$
+  130 SYS"OS_SpriteOp",256+8,SPR TO ,,,A%
+  140 DIM L$(A%):D%=12:F%=100/D%
+  150 FOR N%=1TOA%
+  160 SYS"OS_SpriteOp",256+13,SPR,BUF,16,N%
+  170 N$="":P%=0:REPEAT
+  180 T%=BUF?P%:IF T%<>0 L$(N%)+=CHR$T%
+  190 P%+=1:UNTIL T%=0
+  200 NEXT
+  210 SYS"OS_SpriteOp",256+40,SPR,L$(1) TO ,,,W%,H%,,M%
+  220 MODE M%:OFF
+  230 SYS"OS_ReadModeVariable",-1,4 TO,,SX%:SX%=2^SX%
+  240 SYS"OS_ReadModeVariable",-1,5 TO,,SY%:SY%=2^SY%
+  250 SYS"OS_ReadModeVariable",-1,11 TO,,XS%
+  260 SYS"OS_ReadModeVariable",-1,12 TO,,YS%
+  270 PX%=(SX%*(XS%-W%))/2:PY%=(SY%*(YS%-H%))/2:OLDM%=@%:@%=3
+  280 
+  290 PRINT"Sprite information"'
+  300 PRINT"Spritename.........  ";SPF$
+  310 PRINT"SpriteMode.........  ";M%
+  320 PRINT"Width in pixels....  ";W%
+  330 PRINT"Height in pixels...  ";H%
+  340 PRINT"Number of sprites..  ";A%
+  350 PRINT'"Now showing sprite. "
+  360 PRINT"Frames pr second... "
+  370 
+  380 ONERRORGOTO520
+  390 REPEAT
+  400 FORN%=1TOA%
+  410 T%=TIME+F%:VDU31,20,8:PRINTN%;
+  420 VDU31,20,9:PRINT D%
+  430 SYS"OS_SpriteOp",256+34,SPR,L$(N%),PX%,PY%,0
+  440 Q$=INKEY$(0)
+  450 IF Q$="+" THEN D%+=1
+  460 IF Q$="-" THEN D%-=1:IF D%=0 D%=1
+  470 F%=100/D%:*FX21,0
+  480 REPEAT:UNTILTIME>T%
+  490 NEXT
+  500 UNTIL0
+  510 
+  520 REPORT:PRINT" at line "STR$(ERL)
+  530 @%=OLDM%

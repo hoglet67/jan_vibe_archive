@@ -1,0 +1,15 @@
+   10 REM > FERNS
+   20 
+   30 MODE13:OFF
+   40 DIM Y%(320),C%(320)
+   50 FORN%=1TO319:C%(N%)=RND(63):NEXT
+   60 REPEAT
+   70 REPEAT:P%=RND(319):H%=Y%(P%):Q%=C%(P%)
+   80 IF Y%(P%-1)>H% H%=Y%(P%-1):Q%=C%(P%-1)
+   90 IF Y%(P%+1)>H% H%=Y%(P%+1):Q%=C%(P%+1)
+  100 H%=H%+4:Y%(P%)=H%:C%(P%)=Q%
+  110 GCOL Q%:POINT 4*P%,H%
+  120 IF RND(1)>.99 C%(RND(319))=RND(63)
+  130 UNTILH%>=1020
+  140 MOVE0,4:MOVE1280,1024:PLOT&BD,0,0:Y%()-=4
+  150 UNTIL0

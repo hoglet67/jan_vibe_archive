@@ -1,0 +1,45 @@
+   10 REM > MENU
+   20 
+   30 SYS"OS_UpdateMEMC",64,64
+   40 MODE128:MODE0:OFF:VDU5
+   50 COLOUR0,0,0,128:VDU19,0,24,0,0,128
+   60 S1%=1:S2%=2
+   70 
+   80 SEQ%=0:RC%=0:T%=0
+   90 DIM NAME% &10,L$(100),PX%(100),PY%(100),X%(100),Y%(100)
+  100 REPEAT
+  110   SYS "OS_GBPB",8,,NAME%,1,SEQ% TO ,,,RC%,SEQ%
+  120   IF RC%=0 THEN
+  130     L%=?NAME%:A$=""
+  140     FORN%=1TOL%:A$=A$+CHR$(NAME%?N%):NEXT
+  150     T%+=1:L$(T%)=STR$(T%)+": "+A$:XL%=1278-16*LENL$(T%)
+  160     X%(T%)=RND(XL%):Y%(T%)=RND(993)+31
+  170     PX%(T%)=(T%DIV20)*320:PY%(T%)=960-(T%MOD20)*32
+  180   ENDIF
+  190 UNTIL RC%=1
+  200 
+  210 ONERRORGOTO450
+  220 REPEAT
+  230 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  240 F%=0:MOVE288,1020
+  250 PRINT"Øjeblik, jeg skal lige ordne mit direktorie."
+  260 FORN%=1TOT%
+  270 DX%=12:DY%=12
+  280 IF X%(N%)>PX%(N%) DX%=-DX%
+  290 IF Y%(N%)>PY%(N%) DY%=-DY%
+  300 IF ABS(X%(N%)-PX%(N%))<=12 X%(N%)=PX%(N%)
+  310 IF ABS(Y%(N%)-PY%(N%))<=12 Y%(N%)=PY%(N%)
+  320 IF X%(N%)<>PX%(N%) X%(N%)+=DX%:F%=1
+  330 IF Y%(N%)<>PY%(N%) Y%(N%)+=DY%:F%=1
+  340 MOVE X%(N%),Y%(N%):PRINTL$(N%);
+  350 NEXT
+  360 UNTILF%=0
+  370 
+  380 SYS 6,113,S2%:ON ERROR OFF:ON
+  390 VDU4,31,0,24
+  400 INPUT"Nå, hvilket program ønskes (indtast nr): "P%
+  410 S%=INSTR(L$(P%)," "):K$=MID$(L$(P%),S%+1,LEN(L$(P%))-S%)
+  420 CHAIN K$
+  430 END
+  440 
+  450 SYS 6,112,S1%:VDU4:REPORT:PRINT" at line "STR$ERL:ON

@@ -1,0 +1,12 @@
+   10 DIM NAME% &100
+   20 
+   30 SEQ%=0:NUM%=0:P$="adfs::WorkDisk_3.$.!Fg.fractals"
+   40 REPEAT
+   50 SYS "OS_GBPB",9,P$,NAME%,1,SEQ%,100,"*" TO ,,,NUM%,SEQ%
+   60 N%=0:F%=0
+   70 REPEAT
+   80 IF NAME%?N%=0 NAME%?N%=13:F%=1
+   90 N%+=1
+  100 UNTILF%=1
+  110 IF SEQ%<>-1 PRINT$NAME%
+  120 UNTIL SEQ%=-1

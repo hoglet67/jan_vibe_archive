@@ -1,0 +1,33 @@
+   10 REM    >TOP
+   20 REM (c) BAU December 1993
+   30 :
+   40 MODE 12:OFF
+   50 ORIGIN 640,512
+   60 FOR b%=0 TO 3
+   70  FOR g%=0 TO 3
+   80   COLOUR b%+4*g%,0,g%*64,b%*64
+   90  NEXT
+  100 NEXT
+  110 FOR x%=-640 TO 636 STEP 2
+  120  FOR y%=-512 TO 508 STEP 4
+  130   p%=POINT(x%,y%)
+  140   s%=FNspacing
+  150   IF p%=0 THEN
+  160    c%=RND(15)
+  170    GCOL c%
+  180    POINT x%,y%
+  190    p% = c%
+  200   ENDIF
+  210   GCOL p%
+  220   POINT x%+s%,y%
+  230  NEXT
+  240 NEXT
+  250 VDU7
+  260 IFGET
+  270 ON
+  280 END
+  290 :
+  300 DEF FNspacing
+  310 LOCAL d%:d%=SQR(x%^2+y%^2)
+  320 IF d%>=300 THEN = 192
+  330 =192-50+d%/6

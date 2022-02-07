@@ -1,0 +1,52 @@
+   10 REM > ORDLISTE
+   20 
+   30 MODE0:PRINT'''
+   40 PRINT"Dette program laeser en tekstfil igennem, finder alle ord og"
+   50 PRINT"danner en sorteret ordliste uden dubletter som DATA saetninger."'''
+   60 
+   70 DIM TABEL% &40000:ANTAL%=0
+   80 
+   90 INPUT"Filnavn (input)  = "FI$
+  100 INPUT"Filnavn (output) = "FU$
+  110 PRINT''
+  120 
+  130 FILE%=OPENIN(FI$)
+  140 A$=""
+  150 REPEAT
+  160 CH%=BGET#(FILE%)
+  170 CASE CH% OF
+  180 WHEN 10,32
+  190   A$=LEFT$(A$+"                    ",20)
+  200   L%=LENA$+1:DIM A% L%
+  210   FORM%=0TOL%-1
+  220   C%=ASCMID$(A$,M%+1,1)
+  230   A%?M%=C%:NEXT:A%?M%=13
+  240   TABEL%!(4*ANTAL%)=A%
+  250   ANTAL%+=1:A$=""
+  260 WHEN 33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,58,59,60,61,62,63,64
+  270   REM do nothing
+  280 OTHERWISE
+  290   A$+=CHR$(CH%)
+  300 ENDCASE
+  310 UNTIL EOF#FILE%
+  320 CLOSE#0
+  330 
+  340 SYS "OS_HeapSort",ANTAL%,TABEL%,5
+  350 
+  360 OSCLI"SPOOL "+FU$
+  370 PRINT"AUTO 1000"
+  380 A$="":D$="DATA "
+  390 FORN%=0TOANTAL%-1
+  400 B$=$!(TABEL%+4*N%):L%=INSTR(B$," ",1)-1
+  410 B$=LEFT$(B$,L%)
+  420 IF A$<>B$ THEN
+  430   A$=B$:D$+=B$
+  440   IF LEN(D$)<=64 THEN
+  450     D$+=","
+  460   ELSE
+  470     PRINTD$:D$="DATA "
+  480   ENDIF
+  490 ENDIF
+  500 NEXT
+  510 IF D$<>"DATA " PRINTD$
+  520 *SPOOL

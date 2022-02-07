@@ -1,0 +1,201 @@
+   10 REM > AIQBEKAR
+   20 
+   30 MODE 12
+   40 COLOUR 0,0,0,255:VDU19,0,24,0,0,255
+   50 @%=0:Z%=128:LC%=0:Z2%=Z%/2:Z3%=Z%/8
+   60 DIM LX1%(500),LY1%(500),LX2%(500),LY2%(500)
+   70 DIM C1%(8,2),C2%(8,2),C3%(8,2)
+   80 FORN%=1TO8
+   90   C1%(N%,1)=0:C2%(N%,1)=0:C3%(N%,1)=255
+  100   C1%(N%,2)=32*N%-1:C2%(N%,2)=32*N%-1:C3%(N%,2)=32*N%-1
+  110 NEXT
+  120 
+  130 REPEAT
+  140   C%=0:LC%=0:VDU31,0,30:ON
+  150   INPUT"Name="A$:NV$=A$:CLS:OFF
+  160   FORN%=1TO8:COLOUR N%+7,C1%(N%,1),C2%(N%,1),C3%(N%,1):NEXT
+  170   RESTORE
+  180   FORN%=1TO28:READT1$,T2$,T3$,V%,T%
+  190     REPEAT
+  200       K%=INSTR(A$,T1$)
+  210       IF K%<>0 THEN
+  220         C%+=V%
+  230         MID$(A$,K%,LEN(T1$))=T2$
+  240       ENDIF
+  250     UNTIL K%=0
+  260   NEXT
+  270 
+  280   B$="":FORN%=1TOLENA$:T1$=MID$(A$,N%,1)
+  290     IF INSTR("abcdefghijklmnopqrstuvwxyz",T1$) B$+=T1$
+  300   NEXT:A$=B$
+  310   PRINTNV$" chanced to "'B$
+  320   PRINT'"The number is "C%
+  330 
+  340   RESTORE
+  350   FORN%=1TO28:READT1$,T2$,T3$,V%,T%
+  360     REPEAT
+  370       K%=INSTR(A$,T2$)
+  380       IF K%<>0 THEN
+  390         MID$(A$,K%,LEN(T2$))=T3$
+  400       ENDIF
+  410     UNTIL K%=0
+  420   NEXT
+  430   C$="":FORN%=1TOLENA$:T1$=MID$(A$,N%,1)
+  440     IF INSTR("ABCDEFGHIJKLMNOPQRSTUVWXYZ12345",T1$) C$+=T1$
+  450   NEXT:A$=C$
+  460 
+  470   PRINT'"The AIQ BEKAR code for '"B$"' looks like this :"
+  480   GCOL7:PROCSIGN(0,768,A$,48,32,0):GCOL4
+  490   PRINT'''"The monogram could look like this:"
+  500   K%=0:FORN%=1TOLENA$STEP5
+  510     K%+=1:Q$=MID$(A$,N%,5):PROCSIGN(64+K%*Z2%,580-K%*Z2%,Q$,Z%,Z%,1)
+  520   NEXT
+  530   K%=0:FORN%=1TOLENB$STEP5
+  540     K%+=1:Q$=MID$(A$,N%,5):PROCEM(64+K%*Z2%,580-K%*Z2%,Q$,Z%)
+  550   NEXT
+  560   FORN%=8TO1STEP-1:GCOL 16-N%:R%=2*N%
+  570     FORM%=1TOLC%
+  580       X1%=LX1%(M%):Y1%=LY1%(M%):X2%=LX2%(M%):Y2%=LY2%(M%)
+  590       IF X1%=X2% THEN
+  600         ST%=SGN(Y2%-Y1%)*4
+  610         FORI%=Y1%TOY2%STEPST%:CIRCLE FILL X1%,I%,R%:NEXT
+  620       ELSE
+  630         ST%=SGN(X2%-X1%)*2
+  640         FORI%=X1%TOX2%STEPST%:CIRCLE FILL I%,Y1%,R%:NEXT
+  650       ENDIF
+  660     NEXT
+  670   NEXT
+  680   FORI%=0TO32:J%=32-I%
+  690     FORN%=1TO8
+  700       FR%=(J%*C1%(N%,1)+I%*C1%(N%,2))/32
+  710       FG%=(J%*C2%(N%,1)+I%*C2%(N%,2))/32
+  720       FB%=(J%*C3%(N%,1)+I%*C3%(N%,2))/32
+  730       COLOUR N%+7,FR%,FG%,FB%
+  740     NEXT:WAIT
+  750   NEXT
+  760 
+  770 UNTIL0
+  780 
+  790 DEFPROCSIGN(XS%,YS%,A$,Z1%,Z2%,ST%)
+  800 LOCAL X%,Y%,N%,I%,T%,V%,K$,T1$,T2$,T3$
+  810 X%=XS%:Y%=YS%
+  820 FORN%=1TOLENA$
+  830   K$=MID$(A$,N%,1)
+  840   RESTORE 1440
+  850   FORI%=1TO23:READ T1$,T2$,T3$,V%,T%
+  860     IF T1$=K$ THEN
+  870       CASE T% OF
+  880       WHEN 1:PROCS(X%,Y%,Z2%,1,0,0,1,ST%):X%+=Z1%
+  890       WHEN 2:PROCS(X%,Y%,Z2%,1,1,0,1,ST%):X%+=Z1%
+  900       WHEN 3:PROCS(X%,Y%,Z2%,0,1,0,1,ST%):X%+=Z1%
+  910       WHEN 4:PROCS(X%,Y%,Z2%,1,0,1,1,ST%):X%+=Z1%
+  920       WHEN 5:PROCS(X%,Y%,Z2%,1,1,1,1,ST%):X%+=Z1%
+  930       WHEN 6:PROCS(X%,Y%,Z2%,0,1,1,1,ST%):X%+=Z1%
+  940       WHEN 7:PROCS(X%,Y%,Z2%,1,0,1,0,ST%):X%+=Z1%
+  950       WHEN 8:PROCS(X%,Y%,Z2%,1,1,1,0,ST%):X%+=Z1%
+  960       WHEN 9:PROCS(X%,Y%,Z2%,0,1,1,0,ST%):X%+=Z1%
+  970       ENDCASE
+  980     ENDIF
+  990   NEXT
+ 1000 NEXT
+ 1010 ENDPROC
+ 1020 
+ 1030 DEFPROCEM(X%,Y%,A$,Z%)
+ 1040 LOCAL N%
+ 1050 FORN%=1TOLENA$
+ 1060   PROCB(X%,Y%)
+ 1070   PROCB(X%+Z%,Y%)
+ 1080   PROCB(X%,Y%+Z%)
+ 1090   PROCB(X%+Z%,Y%+Z%)
+ 1100   X%+=Z%
+ 1110 NEXT
+ 1120 ENDPROC
+ 1130 
+ 1140 DEFPROCB(X%,Y%)
+ 1150 LOCAL D%:D%=0
+ 1160 IF POINT(X%+4,Y%)<>0 D%+=1
+ 1170 IF POINT(X%-4,Y%)<>0 D%+=2
+ 1180 IF POINT(X%,Y%+4)<>0 D%+=4
+ 1190 IF POINT(X%,Y%-4)<>0 D%+=8
+ 1200 IF D%=1 OR D%=2 PROCL(X%,Y%-Z3%,X%,Y%+Z3%,1)
+ 1210 IF D%=4 OR D%=8 PROCL(X%-Z3%,Y%,X%+Z3%,Y%,1)
+ 1220 ENDPROC
+ 1230 
+ 1240 DEFPROCS(X%,Y%,Z%,L%,R%,T%,B%,ST%)
+ 1250 IF L%=1 PROCL(X%,Y%,X%,Y%+Z%,ST%)
+ 1260 IF R%=1 PROCL(X%+Z%,Y%,X%+Z%,Y%+Z%,ST%)
+ 1270 IF T%=1 PROCL(X%,Y%+Z%,X%+Z%,Y%+Z%,ST%)
+ 1280 IF B%=1 PROCL(X%,Y%,X%+Z%,Y%,ST%)
+ 1290 ENDPROC
+ 1300 
+ 1310 DEFPROCL(X1%,Y1%,X2%,Y2%,ST%)
+ 1320 IF ST%=1 THEN
+ 1330   LC%+=1:LX1%(LC%)=X1%:LY1%(LC%)=Y1%:LX2%(LC%)=X2%:LY2%(LC%)=Y2%
+ 1340 ENDIF
+ 1350 LINE X1%,Y1%,X2%,Y2%
+ 1360 ENDPROC
+ 1370 
+ 1380 DATA SS,ss,1*,300,3
+ 1390 DATA SH,sh,2*,900,9
+ 1400 DATA TH,th,3*,9,9
+ 1410 DATA CH,ch,4*,8,8
+ 1420 DATA EH,eh,5*,70,7
+ 1430 
+ 1440 DATA L,l,L,30,3
+ 1450 DATA G,g,G,3,3
+ 1460 DATA R,r,R,200,2
+ 1470 DATA B,b,B,2,2
+ 1480 DATA Q,q,Q,100,1
+ 1490 DATA J,j,J,10,1
+ 1500 DATA A,a,A,1,1
+ 1510 DATA M,m,M,600,6
+ 1520 DATA S,s,S,60,6
+ 1530 DATA W,w,W,6,6
+ 1540 DATA K,k,K,500,5
+ 1550 DATA H,h,H,5,5
+ 1560 DATA T,t,T,400,4
+ 1570 DATA D,d,D,4,4
+ 1580 DATA P,p,P,800,8
+ 1590 DATA N,n,N,700,7
+ 1600 DATA E,e,E,70,7
+ 1610 DATA Z,z,Z,7,7
+ 1620 
+ 1630 DATA 1,ss,1,300,3
+ 1640 DATA 2,sh,2,900,9
+ 1650 DATA 3,th,3,9,9
+ 1660 DATA 4,ch,4,8,8
+ 1670 DATA 5,eh,5,70,7
+ 1680 
+ 1690 REM                     The AIQ BEKAR code.
+ 1700 REM
+ 1710 REM  The AIQ BEKAR code is a cabalistic cipher used in connection
+ 1720 REM  with magic rituals. The code looks like this:
+ 1740 REM
+ 1750 REM                   !             !
+ 1760 REM       300  30   3 ! 200  20   2 ! 100  10   1
+ 1770 REM        SS   L   G !   R   K   B !   Q   J   A
+ 1780 REM     --------------+-------------+-------------
+ 1790 REM       600  60   6 ! 500  50   6 ! 400  40   4
+ 1800 REM        M+   S   W !  K+   N   H !   T   M   D
+ 1810 REM     --------------+-------------+-------------
+ 1820 REM       900  90   9 ! 800  80   8 ! 700  70   7
+ 1830 REM       SH+  SH  TH !  P+   P  CH !  N+  EH   Z
+ 1840 REM                   !             !
+ 1850 REM
+ 1860 REM  This table is used to find the magic number for a given name.
+ 1870 REM  you can also make a monogram for this name. The walls of the cell
+ 1880 REM  replaces the letter. For example is the letter A replaced by this
+ 1890 REM  figure:
+ 1891 REM           !
+ 1892 REM           !
+ 1893 REM           +--------
+ 1894 REM
+ 1900 REM
+ 1910 REM  I don't know the difference between the letters with or without a
+ 1920 REM  '+' so i have decided to use the letters with a '+' after if such
+ 1930 REM  a letter exists. E and EH are so close that i use E as EH.
+ 1940 REM
+ 1950 REM  When i construct the monogram, i have decided, that the largest
+ 1960 REM  line you can make vithout changing the line if 5 figures long.
+ 1980 REM
+ 1990 REM                     Jan Vibe november 91

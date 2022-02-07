@@ -1,0 +1,27 @@
+   10 REM > TRAVEL      *** Jan Vibe september 92 ***
+   20 
+   30 REM 3D demo. Use blue and red 3D goggles,
+   40 REM Blue lens on right eye, red on left.
+   50 
+   60 MODE141:MODE12:OFF:ORIGIN 640,512
+   70 S1%=1:S2%=2:Q%=30:D=100/Q%
+   80 COLOUR0,32,32,32:COLOUR 1,112,0,0:COLOUR2,0,0,112:COLOUR3,112,0,112
+   90 DIM X%(Q%),Y%(Q%),Z%(Q%),S%(Q%)
+  100 FORN%=1TOQ%:PROCBALL(N%):Z%(N%)=D*N%:NEXT
+  110 
+  120 ONERRORGOTO270
+  130 REPEAT
+  140 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  150 FORN%=1TOQ%:Z%(N%)-=3:IF Z%(N%)<=3 PROCBALL(N%)
+  160 F=4*S%(N%)/Z%(N%):R%=2*(F DIV 2):F=F/25
+  170 GCOL 1,1:CIRCLE FILL F*(X%(N%)-2*Z%(N%)),F*Y%(N%),R%
+  180 GCOL 1,2:CIRCLE FILL F*(X%(N%)+2*Z%(N%)),F*Y%(N%),R%
+  190 NEXT
+  200 UNTIL0
+  210 
+  220 DEFPROCBALL(P%)
+  230 X%(P%)=RND(800)*SGN(RND(1)-.5):Y%(P%)=RND(800)*SGN(RND(1)-.5)
+  240 Z%(P%)=100:S%(P%)=RND(200)+50
+  250 ENDPROC
+  260 
+  270 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

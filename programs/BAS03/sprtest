@@ -1,0 +1,58 @@
+   10 REM > SPRTEST
+   20 
+   30 MODE137:MODE9:OFF
+   40 SYS"OS_UpdateMEMC",64,64
+   50 S1$="1":S2$="2":AX%=0:AY%=0:PX%=640:PY%=512:DX%=12:DY%=12
+   60 
+   70 DIM SPR &4000,SZ &10,X%(128),Y%(128)
+   80 
+   90 SPR!0=&3FFF : REM  spritearealets stRETURNrrelse-1
+  100 SPR!4=0     : REM  antal sprites defineret lige nu
+  110 SPR!8=16    : REM  her starter fRETURNrste spritedef
+  120 SPR!12=16   : REM  her starter det frie areal
+  130 
+  140 FORN%=1TO7:COLOUR 8-N%,32*N%,0,32*(8-N%):NEXT
+  150 FORN%=7TO1STEP-1:GCOLN%:CIRCLE FILL 128,128,18*N%:NEXT
+  160 FORN%=1TO8:Q%=22*N%+79:COLOUR N%+7,Q%,Q%,Q%:NEXT
+  170 FORN%=1TO128:X%(N%)=RND(1280):Y%(N%)=RND(1024):NEXT
+  180 
+  190 REM Definer sprite
+  200 SYS "OS_SpriteOp",256+16,SPR,"BALL",0,0,0,256,256
+  210 
+  220 REM Definer spritemask
+  230 SYS "OS_SpriteOp",256+29,SPR,"BALL"
+  240 
+  250 REM fyld spritemask ud
+  260 FORY%=0TO256STEP4
+  270 FORX%=0TO256STEP4:S%=1
+  280 IF POINT(X%,Y%)=0 S%=0:POINT X%,Y%
+  290 SYS "OS_SpriteOp",256+44,SPR,"BALL",X%/4,Y%/4,S%
+  300 NEXT,
+  310 
+  320 SZ!00=256 : REM  tGCOLller  x-brRETURNk    Denne blok fortGCOLller i brRETURNker
+  330 SZ!04=256 : REM  tGCOLller  y-brRETURNk    hvor stor den plottede sprite
+  340 SZ!08=256 : REM  nGCOLvner  x-brRETURNk    skal vGCOLre.
+  350 SZ!12=256 : REM  nGCOLvner  y-brRETURNk
+  360 CLS
+  370 
+  380 ONERRORGOTO580
+  390 REPEAT
+  400 OSCLI"FX112,"+S1$:OSCLI"FX113,"+S2$:WAIT:CLS:SWAP S1$,S2$
+  410 AX%=(AX%+10)MOD360:X%=112*(SINRADAX%+1)+32
+  420 AY%=(AY%+7)MOD360:Y%=112*(COSRADAY%+1)+32
+  430 SZ!00=X%:SZ!04=Y%
+  440 H%=PX%+DX%:IFH%<=128 OR H%>=1152 DX%=-DX%
+  450 H%=PY%+DY%:IFH%<=128 OR H%>=896 DY%=-DY%
+  460 PX%+=DX%:PY%+=DY%
+  470 K%=-20:C%=0:FORN%=1TO8:GCOLN%+7:K%+=4:IF K%=0 K%+=4
+  480 FORM%=1TO16:C%+=1:X%(C%)=(X%(C%)+1280+K%)MOD1280
+  490 POINT X%(C%),Y%(C%):NEXT
+  500 IF N%=4 THEN
+  510 REM plot sprite skaleret
+  520 SYS "OS_SpriteOp",256+52,SPR,"BALL",PX%-X%/2,PY%-Y%/2,8,SZ,0
+  530 ENDIF
+  540 NEXT
+  550 
+  560 UNTIL0
+  570 
+  580 OSCLI"FX112,"+S1$:REPORT:PRINT" at line "STR$ERL:ON

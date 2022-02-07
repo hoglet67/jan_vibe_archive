@@ -1,0 +1,15 @@
+   10 REM > TRACK
+   20 
+   30 MODE27:OFF
+   40 DIM DX%(7),DY%(7)
+   50 FOR N%=0TO7:READDX%(N%),DY%(N%):NEXT
+   60 X%=640:Y%=480:D%=0:C%=1
+   70 REPEAT
+   80 IF POINT(X%,Y%)=1 C%=4:D%=(D%+1)MOD8
+   90 IF POINT(X%,Y%)=4 C%=1:D%=(D%+7)MOD8
+  100 GCOL C%:POINT X%,Y%
+  110 X%=(X%+1280+DX%(D%))MOD1280
+  120 Y%=(Y%+960+DY%(D%))MOD960
+  130 UNTIL0
+  140 
+  150 DATA2,0, 2,2, 0,-2, -2,-2, -2,0, -2,2, 0,2, 2,2

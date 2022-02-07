@@ -1,0 +1,38 @@
+   10 REM > ONYX
+   20 
+   30 MODE28:OFF
+   40 DIM R%(640),G%(640),B%(640)
+   50 FORN%=0TO640
+   60 R%(N%)=RND(255):G%(N%)=RND(255):B%(N%)=RND(255)
+   70 PROCRGB(R%(N%),G%(N%),B%(N%)):POINT 2*N%,0:NEXT
+   80 
+   90 F=0
+  100 REPEAT
+  110 P%=RND(638)+1:C%=RND(2)
+  120 IF C%=1THEN
+  130 FORN%=1TOP%:R%(N%-1)=R%(N%):G%(N%-1)=G%(N%):B%(N%-1)=B%(N%):NEXT
+  140 ELSE
+  150 FORN%=640TOP%STEP-1:R%(N%)=R%(N%-1):G%(N%)=G%(N%-1):B%(N%)=B%(N%-1):NEXT
+  160 ENDIF
+  170 R%(P%)=FNA((R%(P%-1)+R%(P%+1))/2)
+  180 G%(P%)=FNA((G%(P%-1)+G%(P%+1))/2)
+  190 B%(P%)=FNA((B%(P%-1)+B%(P%+1))/2)
+  200 PROCRGB(R%(P%),G%(P%),B%(P%))
+  210 MOVE 0,0:MOVE 1280,960:PLOT&BE,0,2
+  220 IF C%=1 THEN
+  230 MOVE 2,0:MOVE 2*P%-2,0:PLOT&BD,0,0:POINT 2*P%-2,0
+  240 ELSE
+  250 MOVE 2*P%,0:MOVE 1278,0:PLOT&BD,2*P%+2,0:POINT 2*P%,0
+  260 ENDIF
+  270 UNTIL0
+  280 
+  290 DEFPROCRGB(R%,G%,B%)
+  300 LOCAL C%:C%=(R%<<8)+(G%<<16)+(B%<<24)
+  310 SYS "ColourTrans_SetGCOL",C%,,,&100,0
+  320 ENDPROC
+  330 
+  340 DEFFNA(X%)
+  350 X%=X%+RND(33)-17
+  360 IF X%>255 X%=255
+  370 IF X%<0 X%=0
+  380 =X%

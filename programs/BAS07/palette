@@ -1,0 +1,27 @@
+   10 REM > PALETTE
+   20 
+   30 MODE15
+   40 
+   50 X%=0
+   60 FORB%=0TO3
+   70 FORG%=0TO3
+   80 FORR%=0TO3
+   90 
+  100 Y%=512
+  110 L%=B%
+  120 IF G%>L% L%=G%
+  130 IF R%>L% L%=R%
+  140 L%=3-L%
+  150 
+  160 FORN%=0TOL%
+  170 FORT%=0TO3
+  180 PROCA(R%+N%,G%+N%,B%+N%,T%)
+  190 RECTANGLE FILL X%,Y%,20:Y%+=20
+  200 NEXT,
+  210 X%+=20
+  220 NEXT,,
+  230 END
+  240 
+  250 DEFPROCA(R%,G%,B%,L%)
+  260 GCOL R%+4*G%+16*B% TINT 64*L%
+  270 ENDPROC

@@ -1,0 +1,26 @@
+   10 REM > COLLINES
+   20 
+   30 MODE15:OFF
+   40 SYS "OS_SWINumberFromString",,"ColourTrans_SetGCOL" TO set_gcol%
+   50 REPEAT
+   60 RD%=RND(49)+15
+   70 X1%=RND(1280-2*RD%)+RD%:Y1%=RND(1024-2*RD%)+RD%
+   80 X2%=RND(1280-2*RD%)+RD%:Y2%=RND(1024-2*RD%)+RD%
+   90 R1%=RND(192)+63:G1%=RND(192)+63:B1%=RND(192)+63
+  100 R2%=RND(192)+63:G2%=RND(192)+63:B2%=RND(192)+63
+  110 PROCL(X1%,Y1%,X2%,Y2%,RD%,R1%,G1%,B1%,R2%,G2%,B2%)
+  120 UNTIL0
+  130 
+  140 DEFPROCL(X1%,Y1%,X2%,Y2%,RD%,R1%,G1%,B1%,R2%,G2%,B2%)
+  150 LOCAL N%,N1%,M%,M1%,RM%,S%,F%,F1%,RA%,GA%,BA%,RB%,GB%,BB%
+  160 S%=SQR((X1%-X2%)^2+(Y1%-Y2%)^2):F%=RD%/4:F1%=F%*1.5
+  170 FORN%=F%TO1STEP-1:N1%=F1%-N%
+  180 RM%=((N%*RD%/F%)DIV4)*4
+  190 RA%=R1%*N1%/F1%:GA%=G1%*N1%/F1%:BA%=B1%*N1%/F1%
+  200 RB%=R2%*N1%/F1%:GB%=G2%*N1%/F1%:BB%=B2%*N1%/F1%
+  210 FORM%=0TOS%STEP(RM%/3):M1%=S%-M%
+  220 R%=(M%*RA%+M1%*RB%)/S%:G%=(M%*GA%+M1%*GB%)/S%:B%=(M%*BA%+M1%*BB%)/S%
+  230 SYS set_gcol%,(R%<<8)+(G%<<16)+(B%<<24),,,&100,0
+  240 CIRCLE FILL (X1%*M1%+X2%*M%)/S%,(Y1%*M1%+Y2%*M%)/S%,RM%
+  250 NEXT,
+  260 ENDPROC

@@ -1,0 +1,44 @@
+   10 REM > NET2
+   20 
+   30 SYS"OS_UpdateMEMC",64,64
+   40 MODE128:MODE0:OFF
+   50 S1%=1:S2%=2:K1%=1:K2%=0
+   60 DIM PX%(5,4,1),PY%(5,4,1),DX%(5,4),DY%(5,4)
+   70 PROCN(K1%):PROCN(K2%)
+   80 
+   90 ONERRORGOTO440
+  100 
+  110 REPEAT
+  120 FORN%=0TO20:N1%=20-N%
+  130 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  140 FORY%=0TO4:FORX%=0TO5
+  150 DX%(X%,Y%)=(N%*PX%(X%,Y%,K1%)+N1%*PX%(X%,Y%,K2%))/20
+  160 DY%(X%,Y%)=(N%*PY%(X%,Y%,K1%)+N1%*PY%(X%,Y%,K2%))/20
+  170 NEXT,
+  180 FORY%=0TO3:FORX%=0TO4
+  190 LINE DX%(X%,Y%),DY%(X%,Y%),DX%(X%+1,Y%),DY%(X%+1,Y%)
+  200 LINE DX%(X%,Y%),DY%(X%,Y%),DX%(X%,Y%+1),DY%(X%,Y%+1)
+  210 CX%=(DX%(X%,Y%)+DX%(X%+1,Y%)+DX%(X%,Y%+1)+DX%(X%+1,Y%+1))/4
+  220 CY%=(DY%(X%,Y%)+DY%(X%+1,Y%)+DY%(X%,Y%+1)+DY%(X%+1,Y%+1))/4
+  230 POINT CX%,CY%:FORI%=1TO2:I1%=3-I%
+  240 MX%=(I%*DX%(X%,Y%)+I1%*CX%)/3:MY%=(I%*DY%(X%,Y%)+I1%*CY%)/3:MOVE MX%,MY%
+  250 DRAW (I%*DX%(X%+1,Y%)+I1%*CX%)/3,(I%*DY%(X%+1,Y%)+I1%*CY%)/3
+  260 DRAW (I%*DX%(X%+1,Y%+1)+I1%*CX%)/3,(I%*DY%(X%+1,Y%+1)+I1%*CY%)/3
+  270 DRAW (I%*DX%(X%,Y%+1)+I1%*CX%)/3,(I%*DY%(X%,Y%+1)+I1%*CY%)/3
+  280 DRAW MX%,MY%
+  290 NEXT,,
+  300 LINE0,1020,1278,1020:LINE 1278,0,1278,1020
+  310 NEXT
+  320 SWAP K1%,K2%:PROCN(K1%)
+  330 UNTIL0
+  340 
+  350 DEFPROCN(V%)
+  360 LOCAL X%,Y%,FX%,FY%
+  370 FORY%=0TO4:FY%=1:IF Y%=0 OR Y%=4 FY%=0
+  380 FORX%=0TO5:FX%=1:IF X%=0 OR X%=5 FX%=0
+  390 PX%(X%,Y%,V%)=256*X%+FX%*(RND(128)*SGN(RND(1)-.5))
+  400 PY%(X%,Y%,V%)=256*Y%+FY%*(RND(128)*SGN(RND(1)-.5))
+  410 NEXT,
+  420 ENDPROC
+  430 
+  440 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

@@ -1,0 +1,15 @@
+   10 REM >
+   20 
+   30 MODE137:MODE9:OFF:SC1%=1:SC2%=2
+   40 
+   50 REM Her insdGCOLttes evt. initiering.
+   60 
+   70 ONERRORGOTO150
+   80 REPEAT
+   90 SYS 6,112,SC1%:SYS 6,113,SC2%:WAIT:CLS:SWAP SC1%,SC2%
+  100 
+  110 REM Her indsGCOLttes hovedprogram
+  120 
+  130 UNTIL0
+  140 
+  150 SYS 6,112,SC1%:REPORT:PRINT" at line "STR$ERL:ON

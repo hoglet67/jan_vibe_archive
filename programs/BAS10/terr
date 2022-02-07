@@ -1,0 +1,8 @@
+   10 REM > TERR
+   20 
+   30 MODE13:OFF:K%=20:S%=512
+   40 ORIGIN (1280-S%)/2,(1024-S%)/2:DIMX%(K%),Y%(K%),C%(K%)
+   50 FORN%=1TOK%:X%(N%)=RND(S%):Y%(N%)=RND(S%):C%(N%)=N%:POINTX%(N%),Y%(N%):NEXT
+   60 FORY%=0TOS%STEP4:FORX%=0TOS%STEP4:D%=(X%-X%(1))^2+(Y%-Y%(1))^2:PC%=1
+   70 FORN%=2TOK%:D1%=(X%-X%(N%))^2+(Y%-Y%(N%))^2:IFD1%<D% D%=D1%:PC%=N%
+   80 NEXT:GCOL3,C%(PC%):POINT X%,Y%:NEXT,

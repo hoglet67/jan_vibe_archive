@@ -1,0 +1,29 @@
+   10 REM > VEND
+   20 
+   30 MODE9:PRINTTAB(2,8)"Vent et øjeblik, så skal du bare se !"
+   40 
+   50 DIMA$(8),B% 9
+   60 FORN%=33TO255
+   70 ?B%=N%
+   80 SYS"OS_Word",10,B%
+   90 L%=1:A$()="%"
+  100 FORM%=1TO8:FORI%=1TO8
+  110 IFL%AND(B%?I%) A$(M%)+="1" ELSE A$(M%)+="0"
+  120 NEXT:L%=L%*2:NEXT
+  130 VDU23,N%:FORC%=1TO8:VDU EVAL(A$(C%)):NEXT
+  140 NEXT
+  150 CLS:VDU23,16,12,0,0,0,0,0,0,0
+  160 
+  170 PRINT
+  180 PRINT"*****************************"
+  190 PRINT"*                           *"
+  200 PRINT"* Nu kan du vende skærmen ! *"
+  210 PRINT"*                           *"
+  220 PRINT"*****************************"
+  230 PRINT
+  240 END
+  250 
+  260 REM Her kan du gRETURNre skGCOLrmen normal igen
+  270 VDU23,16,0,0,0,0,0,0,0,0:*ALPHABET LATIN1
+  280 
+  290 REM Jan Vibe juni 90

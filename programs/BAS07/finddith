@@ -1,0 +1,25 @@
+   10 REM > FINDDITH
+   20 
+   30 DIM D%(4,4)
+   40 
+   50 @%=4:F%=0
+   60 PROCA(1,RND(4),RND(4),F%)
+   70 END
+   80 
+   90 DEFPROCA(C%,X%,Y%,RETURN F%)
+  100 LOCAL N%,R%,X1%,Y1%,MX%,MY%
+  110 D%(X%,Y%)=C%
+  120 IF C%<16 THEN
+  130   REPEAT
+  140     N%+=1
+  150     REPEAT:X1%=RND(5)-3:Y1%=RND(5)-3:UNTILABSX1%+ABSY1%>=2
+  160     X1%+=X%:Y1%+=Y%
+  170     IF X1%>=1 AND X1%<=4 AND Y1%>=1 AND Y1%<=4 THEN
+  180       IF D%(X1%,Y1%)=0 PROCA(C%+1,X1%,Y1%,F%)
+  190     ENDIF
+  200   UNTIL F%=1 OR N%=8
+  210 ELSE
+  220   F%=1:FOR Y1%=1TO4:FORX1%=1TO4:PRINTD%(X1%,Y1%);:NEXT:PRINT:NEXT:PRINT
+  230 ENDIF
+  240 D%(X%,Y%)=0
+  250 ENDPROC

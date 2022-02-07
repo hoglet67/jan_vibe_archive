@@ -1,0 +1,92 @@
+   10 REM > ELASTICNET   *** Jan Vibe february 94 ***
+   20 
+   30 MODE140:MODE12:OFF:COLOUR0,0,0,255
+   40 PRINT'TAB(34)"Elastic net"''
+   50 PRINTTAB(10)"This program simulates a elastic net with balls attached"
+   60 PRINTTAB(10)"to the knots."'
+   70 PRINTTAB(10)"You can move a ball by moving the mousepointer over the"
+   80 PRINTTAB(10)"ball, and click the left mousebutton. As long as you hold"
+   90 PRINTTAB(10)"the button depressed, the ball follows the mouse. When"
+  100 PRINTTAB(10)"you release the button, the ball snaps back."'
+  110 PRINTTAB(10)"You can fix balls by moving the moving the pointer over"
+  120 PRINTTAB(10)"the ball, and click the right mousebutton. This stops"
+  130 PRINTTAB(10)"the ball from moving. Getting the right ball when the net"
+  140 PRINTTAB(10)"is moving can be real tricky. Fixed balls can also be"
+  150 PRINTTAB(10)"moved with the pointer."'
+  160 PRINTTAB(10)"You can release fixed balls by moving the pointer over the"
+  170 PRINTTAB(10)"over the ball, and click the the middle mousebutton."
+  180 PRINTTAB(10,25)"Click the mouse to continue.":VDU30
+  190 REPEAT:MOUSE A%,B%,C%:UNTIL C%<>0:CLS:K=INKEY(50)
+  200 
+  210 W%=7     :REM Width in balls
+  220 H%=5     :REM height in balls
+  230 WX%=1000 :REM Width in pixels
+  240 HY%=800  :REM Height in pixels
+  250 V%=6     :REM Weight of the balls
+  260 T=0.5    :REM Balls tendency to stay where it is put originally
+  270 D=0.99   :REM Damping factor
+  280 G=5      :REM Gravity
+  290 
+  300 P1%=1:P2%=2:S1%=1:S2%=2:PX%=0:PY%=0
+  310 WD=(1280-WX%)/2:WB=WX%/(W%-1):HD=(1024-HY%)/2:HB=HY%/(H%-1)
+  320 DIM X(W%,H%,2),Y(W%,H%,2),DX(W%,H%),DY(W%,H%),F%(W%,H%)
+  330 DIM OX(W%,H%),OY(W%,H%)
+  340 
+  350 REM This stops top row from moving
+  360 FORN%=1TOW%:F%(N%,H%)=1:NEXT
+  370 
+  380 REM placing of balls
+  390 FORJ%=1TOH%:FORI%=1TOW%
+  400 X(I%,J%,P1%)=WD+(I%-1)*WB:Y(I%,J%,P1%)=HD+(J%-1)*HB
+  410 OX(I%,J%)=X(I%,J%,P1%):OY(I%,J%)=Y(I%,J%,P1%)
+  420 NEXT,
+  430 
+  440 ONERRORGOTO920
+  450 *POINTER
+  460 
+  470 REM Screen and mouse control
+  480 REPEAT
+  490 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  500 GPX%=PX%:GPY%=PY%:PX%=0:PY%=0:MOUSE XM,YM,BM%
+  510 IF BM%<>0 THEN
+  520 DL=1E9:FORJ%=1TOH%:FORI%=1TOW%
+  530 DM=(X(I%,J%,P1%)-XM)^2+(Y(I%,J%,P1%)-YM)^2:IF DM<DL DL=DM:PX%=I%:PY%=J%
+  540 NEXT,:IF GPX%<>0 PX%=GPX%:PY%=GPY%
+  550 X(PX%,PY%,P1%)=XM:Y(PX%,PY%,P1%)=YM
+  560 IF BM%=1 F%(PX%,PY%)=1
+  570 IF BM%=2 F%(PX%,PY%)=0
+  580 ENDIF
+  590 SWAP P1%,P2%
+  600 
+  610 REM drawing of net
+  620 FORJ%=1TOH%-1:FORI%=1TOW%-1
+  630 LINEX(I%,J%,P2%),Y(I%,J%,P2%),X(I%+1,J%,P2%),Y(I%+1,J%,P2%)
+  640 LINEX(I%,J%,P2%),Y(I%,J%,P2%),X(I%,J%+1,P2%),Y(I%,J%+1,P2%):NEXT,
+  650 FORN%=1TOW%-1
+  660 LINEX(N%,H%,P2%),Y(N%,H%,P2%),X(N%+1,H%,P2%),Y(N%+1,H%,P2%):NEXT
+  670 FORN%=1TOH%-1
+  680 LINEX(W%,N%,P2%),Y(W%,N%,P2%),X(W%,N%+1,P2%),Y(W%,N%+1,P2%):NEXT
+  690 FORJ%=1TOH%:FORI%=1TOW%:CIRCLEFILLX(I%,J%,P2%),Y(I%,J%,P2%),12:NEXT,
+  700 
+  710 REM Calculate new position for net
+  720 FORJ%=1TOH%:FORI%=1TOW%
+  730 IF NOT(I%=PX%ANDJ%=PY%) THEN
+  740 IF F%(I%,J%)=1 THEN
+  750 X(I%,J%,P1%)=X(I%,J%,P2%):Y(I%,J%,P1%)=Y(I%,J%,P2%)
+  760 ELSE
+  770 WT=0:NX=0:NY=0
+  780 IF I%>1 THEN NX+=X(I%-1,J%,P2%):NY+=Y(I%-1,J%,P2%):WT+=1
+  790 IF I%<W% THEN NX+=X(I%+1,J%,P2%):NY+=Y(I%+1,J%,P2%):WT+=1
+  800 IF J%>1 THEN NX+=X(I%,J%-1,P2%):NY+=Y(I%,J%-1,P2%):WT+=1
+  810 IF J%<H% THEN NX+=X(I%,J%+1,P2%):NY+=Y(I%,J%+1,P2%):WT+=1
+  820 NX+=OX(I%,J%)*T:NY+=OY(I%,J%)*T:WT+=T
+  830 NX+=X(I%,J%,P2%)*V%:NY+=Y(I%,J%,P2%)*V%:WT+=V%
+  840 X(I%,J%,P1%)=NX/WT+DX(I%,J%):Y(I%,J%,P1%)=NY/WT+DY(I%,J%)
+  850 DX(I%,J%)=(X(I%,J%,P1%)-X(I%,J%,P2%))*D
+  860 DY(I%,J%)=(Y(I%,J%,P1%)-Y(I%,J%,P2%))*D-G
+  870 ENDIF
+  880 ENDIF
+  890 NEXT,
+  900 UNTIL0
+  910 
+  920 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

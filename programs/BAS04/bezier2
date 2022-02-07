@@ -1,0 +1,32 @@
+   10 REM > BEZIER2
+   20 
+   30 REM Dette program kan tegne bezier kurver med et variabelt
+   40 REM antal kontrolpunkter.
+   50 
+   60 MODE12
+   70 DIM X(9),Y(9):@%=0:OFF
+   80 REPEAT:CLS
+   90 GCOL1:X(0)=RND(1279):Y(0)=RND(1023):MOVE X(0),Y(0)
+  100 A%=RND(7)+2:PRINTTAB(23)"Bezier-kurve med "A%+1" kontrolpunkter."
+  110 FORN%=1TOA%
+  120 X(N%)=RND(1279):Y(N%)=RND(1023):DRAW X(N%),Y(N%):NEXT:GCOL7
+  130 
+  140 REM X-tabel, Y-tabel, antal tabelelementer, antal punkter
+  150 
+  160 PROCBEZIER(X(),Y(),A%,200)
+  170 K%=INKEY(300)
+  180 UNTIL0
+  190 
+  200 DEFPROCBEZIER(X(),Y(),D%,P%)
+  210 LOCAL F(),I%,J%,U1,U2,K,PX,PY
+  220 DIM F(D%)
+  230 FOR I%=0TOD%:F(I%)=1
+  240 FOR J%=1 TO D%:F(I%)=F(I%)*J%:NEXT
+  250 FOR J%=1 TO I%:F(I%)=F(I%)/J%:NEXT
+  260 FOR J%=1 TO D%-I%:F(I%)=F(I%)/J%:NEXT
+  270 NEXT
+  280 MOVE X(0),Y(0)
+  290 FORJ%=0TOP%:U1=J%/P%:U2=1-U1:PX=0:PY=0
+  300 FORI%=0TOD%:K=F(I%)*U1^I%*U2^(D%-I%):PX+=X(I%)*K:PY+=Y(I%)*K
+  310 NEXT:DRAW PX,PY:NEXT
+  320 ENDPROC

@@ -1,0 +1,39 @@
+    1 REM > DRAWMOD
+    2 
+   10 CLS:pathlength%=256
+   20 DIM path% pathlength%-1, transform% 23, joinsandcaps% 15
+   30 xsize=210000:ysize=160000
+   40 xscale%=(1280*256/xsize)*&10000
+   50 yscale%=(1024*256/ysize)*&10000
+   60 transform%!00=xscale%
+   70 transform%!04=0
+   80 transform%!08=0
+   90 transform%!12=yscale%
+  100 transform%!16=0
+  110 transform%!20=0
+  120 joinsandcaps%!0=&010102
+  130 joinsandcaps%!4=0
+  140 joinsandcaps%!8=0
+  150 joinsandcaps%!12=0
+  160 pathptr%=0
+  170 PROCadd(2):PROCadd(80000):PROCadd(80000)
+  180 PROCadd(8):PROCadd(80000):PROCadd(120000)
+  190 PROCadd(8):PROCadd(170000):PROCadd(120000)
+  200 PROCadd(8):PROCadd(170000):PROCadd(80000):PROCadd(5)
+  210 PROCadd(2):PROCadd(50000):PROCadd(50000)
+  220 PROCadd(6):PROCadd(80000):PROCadd(80000)
+  230 PROCadd(85000):PROCadd(30000)
+  240 PROCadd(50000):PROCadd(60000)
+  250 PROCadd(4)
+  260 PROCadd(0):PROCadd(pathlength%-pathptr%-4)
+  270 VDU29,0;0;
+  280 SYS"Draw_Stroke",path%,0,transform%,xsize/640,0,joinsandcaps%,0
+  290 transform%!16=60<<8
+  300 transform%!20=-100<<8
+  310 SYS"Draw_Stroke",path%,0,transform%,xsize/640,4000,joinsandcaps%,0
+  320 END
+  330 DEFPROCadd(value%)
+  340 IF pathptr%+4>pathlength% THEN ERROR 0,"Insufficient path buffer"
+  350 path%!pathptr%=value%
+  360 pathptr%+=4
+  370 ENDPROC

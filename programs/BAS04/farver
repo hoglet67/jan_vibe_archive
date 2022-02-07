@@ -1,0 +1,28 @@
+   10 REM > FARVER
+   20 
+   30 REM Denne procedure giver de 7 grundfarver med 12 intensiteter.
+   40 REM Den kaldes sGOTOdan:
+   50 REM
+   60 REM PROCFARVE(FARVE,INTENSITET)
+   70 REM
+   80 REM Hvor FARVE er defineret sGOTOledes:
+   90 REM 1 RRETURNd, 2 grRETURNn, 3 gul, 4 blGOTO, 5 violet, 6 cyan og 7 hvid.
+  100 REM
+  110 REM INTENSITET er et tal mellem 0 og 11, der angiver farvens styrke
+  120 REM med 0 som den svageste og 11 som den stGCOLrkeste.
+  130 
+  140 MODE15
+  150 FORM%=0TO11
+  160 FORN%=1TO7
+  170 PROCFARVE(N%,M%)
+  180 RECTANGLE FILL 106*M%,106*N%,106
+  190 CIRCLE FILL 160*N%,934,6*(12-M%)
+  200 NEXT,
+  210 END
+  220 
+  230 DEFPROCFARVE(F%,I%)
+  240 LOCALN%,K%
+  250 DATA1,4,5,16,17,20,21
+  260 RESTORE250:FORN%=1TOF%:READK%:NEXT
+  270 I%+=4:GCOL (I%DIV4)*K% TINT (I%MOD4)<<6
+  280 ENDPROC

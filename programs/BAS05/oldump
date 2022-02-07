@@ -1,0 +1,45 @@
+   10 REM > OLDUMP
+   20 
+   30 MODE0:OFF
+   40 RECTANGLE 0,0,1278,1020
+   50 FORN%=0TO800STEP32:CIRCLE 640,512,N%:NEXT
+   60 PROCOLDUMP(4)
+   70 END
+   80 
+   90 DEFPROCOLDUMP(D%)
+  100 REM
+  110 REM *--------------------------------*
+  120 REM ! Screendump til Olivetti JP 150 !
+  130 REM !                                !
+  140 REM ! D%=1:  75 dpi   D%=2: 100 dpi  !
+  150 REM ! D%=3: 150 dpi   D%=4: 300 dpi  !
+  160 REM *--------------------------------*
+  170 REM
+  180 LOCAL X%,Y%,N%,B%
+  190 ORIGIN 0,0
+  200 VDU2
+  210 CASE D% OF
+  220   WHEN 1:PROCPRCH("*t75R")
+  230   WHEN 2:PROCPRCH("*t100R")
+  240   WHEN 3:PROCPRCH("*t150R")
+  250   WHEN 4:PROCPRCH("*t300R")
+  260 ENDCASE
+  270 PROCPRCH("*r0A")
+  280 FORY%=1022TO0STEP-2
+  290   PROCPRCH("*b64X")
+  300   PROCPRCH("*b80W")
+  310   FORX%=0TO1278STEP16
+  320     B%=0
+  330     FORN%=0TO14STEP2
+  340       B%=B%*2:IFPOINT(X%+N%,Y%)<>0 B%+=1
+  350     NEXT:VDU1,B%
+  360 NEXT,
+  370 PROCPRCH("*rB")
+  380 PRINT
+  390 VDU3
+  400 ENDPROC
+  410 
+  420 DEFPROCPRCH(A$)
+  430 LOCAL N%
+  440 VDU1,27:FORN%=1TOLENA$:VDU 1,ASCMID$(A$,N%,1):NEXT
+  450 ENDPROC

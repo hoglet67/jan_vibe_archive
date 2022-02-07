@@ -1,0 +1,10 @@
+   10 REM > MODE32
+   20 
+   30 REM 800*600 med 256 programmerbare farver
+   40 
+   50 DIM MD% 64
+   60 MD%!00=1:MD%!04=800:MD%!08=600:MD%!12=3:MD%!16=-1:MD%!20=3:MD%!24=2^8-1:MD%!28=-1
+   70 MODE MD%
+   80 
+   90 FORN%=0TO255:COLOURN%,N%,N%,N%:NEXT
+  100 FORN%=0TO255:GCOL N%,N%,N%:CIRCLE FILL 800,600,2*(255-N%):NEXT

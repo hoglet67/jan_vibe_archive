@@ -1,0 +1,45 @@
+   10 REM > COLPAT
+   20 
+   30 MODE31:OFF
+   40 FORN%=1TO15:COLOURN%,255,16*N%,0:NEXT
+   50 FORN%=255TO1STEP-1
+   60 PROCP(256-N%)
+   70 CIRCLE FILL 800,600,N%*2
+   80 NEXT
+   90 END
+  100 
+  110 DEFPROCP(P%)
+  120 LOCAL A%,B%,C%,P1%,P2%,C1%,C2%,N%,M%,T1$(),T2$(),D1%(),D2%()
+  130 DIM T1$(4),T2$(4),D1%(4),D2%(4)
+  140 A%=P%DIV16:B%=P%MOD16
+  150 IFA%=15 B%=0
+  160 IFA%=0:A%=1:B%=0
+  170 RESTORE 440
+  180 FORN%=1TO4:READP1%,P2%
+  190 IF B%<P1% T1$(N%)="0" ELSE T1$(N%)="1"
+  200 IF B%<P2% T1$(N%)+="0" ELSE T1$(N%)+="1"
+  210 NEXT
+  220 FORN%=1TO4:READP1%,P2%
+  230 IF B%<P1% T2$(N%)="0" ELSE T2$(N%)="1"
+  240 IF B%<P2% T2$(N%)+="0" ELSE T2$(N%)+="1"
+  250 NEXT
+  260 FORM%=1TO4
+  270 C1%=A%:IF LEFT$(T1$(M%),1)="1" C1%+=1
+  280 C2%=A%:IF RIGHT$(T1$(M%),1)="1" C2%+=1
+  290 C%=8:FORN%=1TO4
+  300 D1%(M%)=D1%(M%)*2:IF C%ANDC1% D1%(M%)+=1
+  310 D1%(M%)=D1%(M%)*2:IF C%ANDC2% D1%(M%)+=1
+  320 C%=C%/2:NEXT
+  330 C1%=A%:IF LEFT$(T2$(M%),1)="1" C1%+=1
+  340 C2%=A%:IF RIGHT$(T2$(M%),1)="1" C2%+=1
+  350 C%=8:FORN%=1TO4
+  360 D2%(M%)=D2%(M%)*2:IF C%ANDC1% D2%(M%)+=1
+  370 D2%(M%)=D2%(M%)*2:IF C%ANDC2% D2%(M%)+=1
+  380 C%=C%/2:NEXT,
+  390 VDU23,2,D1%(1),D1%(2),D1%(3),D1%(4),D1%(1),D1%(2),D1%(3),D1%(4)
+  400 VDU23,3,D2%(1),D2%(2),D2%(3),D2%(4),D2%(1),D2%(2),D2%(3),D2%(4)
+  410 VDU23,4,D1%(1),D1%(2),D1%(3),D1%(4),D1%(1),D1%(2),D1%(3),D1%(4)
+  420 VDU23,5,D2%(1),D2%(2),D2%(3),D2%(4),D2%(1),D2%(2),D2%(3),D2%(4)
+  430 GCOL80,0
+  440 DATA 16,8,4,12,14,6,2,10,13,5,1,9,15,7,3,11
+  450 ENDPROC

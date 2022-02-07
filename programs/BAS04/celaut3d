@@ -1,0 +1,74 @@
+   10 REM > CELAUT3D
+   20 
+   30 REM *--------------------*
+   40 REM | Jan Vibe august 91 |
+   50 REM *--------------------*
+   60 
+   70 REM SidelGCOLngde pGOTO matricen (3-12)
+   80 SI%=10
+   90 
+  100 REM Afstand mellem cellerne (front side og top).
+  110 D%=64:DX%=40:DY%=20
+  120 
+  130 REM CellestRETURNrrelse (front side og top).
+  140 B%=44:BX%=24:BY%=12
+  150 
+  160 REM OpsGCOLtning.
+  170 MODE141:MODE13:OFF
+  180 DIM B1%(13,13,13),B2%(13,13,13),C%(7)
+  190 S1%=1:S2%=2:R%=RND(-TIME):V%=RND(7)+1
+  200 FORN%=0TO7:C%(N%)=N%:NEXT
+  210 IF SI%MOD2=1 THEN
+  220 I%=SI%DIV2+1:FX%=640-I%*(D%+DX%)-D%/2:FY%=512-I%*(D%+DY%)-D%/2
+  230 B1%(I%,I%,I%)=1
+  240 ELSE
+  250 I%=SI%DIV2:FX%=640-I%*(D%+DX%)-D%:FY%=512-I%*(D%+DY%)-D%
+  260 B1%(I%,I%,I%)=1:B1%(I%+1,I%,I%)=1:B1%(I%,I%+1,I%)=1
+  270 B1%(I%+1,I%+1,I%)=1:B1%(I%,I%,I%+1)=1:B1%(I%+1,I%,I%+1)=1
+  280 B1%(I%,I%+1,I%+1)=1:B1%(I%+1,I%+1,I%+1)=1
+  290 ENDIF
+  300 
+  310 ONERRORGOTO740
+  320 REPEAT
+  330 
+  340 REM Visning af matrice.
+  350 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  360 B2%()=B1%():B1%()=0
+  370 FORZ%=SI%TO1STEP-1:FORY%=1TOSI%:FORX%=1TOSI%
+  380 X1%=D%*X%+Z%*DX%+FX%:Y1%=D%*Y%+Z%*DY%+FY%
+  390 X2%=X1%+B%:Y2%=Y1%+B%
+  400 IF B2%(X%,Y%,Z%)<>0 THEN
+  410 PROCF(C%(B2%(X%,Y%,Z%)),12-Z%)
+  420 MOVEX1%,Y1%:MOVEX2%,Y1%:PLOT85,X1%,Y2%:PLOT85,X2%+BX%,Y1%+BY%
+  430 PLOT85,X1%+BX%,Y2%+BY%:PLOT85,X2%+BX%,Y2%+BY%
+  440 GCOL0TINT0
+  450 DRAWX1%+BX%,Y2%+BY%:DRAWX1%,Y2%:DRAWX1%,Y1%:DRAWX2%,Y1%
+  460 DRAWX2%+BX%,Y1%+BY%:DRAWX2%+BX%,Y2%+BY%:DRAWX2%,Y2%:DRAWX2%,Y1%
+  470 LINE X1%,Y2%,X2%,Y2%
+  480 ENDIF
+  490 NEXT,,
+  500 
+  510 REM Beregning af nGCOLste generation.
+  520 V%=RND(7)+1
+  530 FORN%=1TO10:F1%=RND(8)-1
+  540 REPEAT:F2%=RND(8)-1:UNTILF2%<>F1%
+  550 SWAP C%(F1%),C%(F2%):NEXT
+  560 FORZ%=1TOSI%:FORY%=1TOSI%:FORX%=1TOSI%
+  570 S%=0
+  580 FORZ1%=-1TO1:FORY1%=-1TO1:FORX1%=-1TO1
+  590 S%+=B2%(X%+X1%,Y%+Y1%,Z%+Z1%):NEXT,,
+  600 S%-=B2%(X%,Y%,Z%):B1%(X%,Y%,Z%)=S%MODV%
+  610 NEXT,,
+  620 
+  630 UNTIL0
+  640 
+  650 REM Beregning af farve/intensitet.
+  660 DEFPROCF(F%,I%)
+  670 LOCALN%,K%
+  680 DATA1,4,5,16,17,20,21
+  690 RESTORE680:FORN%=1TOF%:READK%:NEXT
+  700 I%+=4:GCOL (I%DIV4)*K% TINT (I%MOD4)<<6
+  710 ENDPROC
+  720 
+  730 REM I tilfGCOLlde af fejl/Esc.
+  740 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

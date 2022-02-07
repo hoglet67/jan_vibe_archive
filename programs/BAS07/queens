@@ -1,0 +1,35 @@
+   10 REM > QUEENS
+   20 
+   30 MODE9
+   40 PRINT'"This program solves the problem of"
+   50 PRINT"placing queens on a board of without"
+   60 PRINT"any of them threatening any other."
+   70 PRINT"The board can be from 4 to 16 in size."'
+   80 INPUT"Board size = "BZ%
+   90 Q%=0:@%=0:DIM XY%(BZ%)
+  100 X1%=(1280-64*BZ%)/2:Y1%=(1024-64*BZ%)/2
+  110 X2%=X1%+64*BZ%:Y2%=Y1%+64*BZ%:CX%=X1%-32:CY%=Y1%-32
+  120 FORI%=1TOBZ%:PROCA(I%,1):NEXT
+  130 END
+  140 
+  150 DEFPROCA(I%,C%)
+  160 LOCAL N%,A%,B%,F%
+  170 IF C%>=2 THEN
+  180 FORN%=1TOC%-1
+  190 IF XY%(N%)=I% F%=1
+  200 A%=ABS(N%-C%):B%=ABS(XY%(N%)-I%):IF A%=B% F%=1
+  210 NEXT
+  220 ENDIF
+  230 IF F%=0 THEN
+  240 XY%(C%)=I%
+  250 IF C%=BZ% THEN
+  260 Q%+=1:CLS:OFF:PRINTQ%
+  270 LINE X1%,Y1%,X2%,Y1%:LINE X1%,Y1%,X1%,Y2%
+  280 FORN%=1TOBZ%
+  290 LINEX1%,64*N%+Y1%,X2%,64*N%+Y1%:LINE64*N%+X1%,Y1%,64*N%+X1%,Y2%
+  300 CIRCLE FILL 64*N%+CX%,64*XY%(N%)+CY%,24:NEXT:N%=INKEY(100)
+  310 ELSE
+  320 FORN%=1TOBZ%:PROCA(N%,C%+1):NEXT
+  330 ENDIF
+  340 ENDIF
+  350 ENDPROC

@@ -1,0 +1,30 @@
+   10 REM > TRAILS
+   20 
+   30 MODE13:OFF
+   40 DIM X%(500,2),Y%(500,2),DX%(500,2),DY%(500,2),C%(500,2)
+   50 REPEAT:CLS:T1%=1:P1%=1:P2%=2:X%(T1%,P1%)=640:Y%(T1%,P1%)=512
+   60 DX%(T1%,P1%)=4*(RND(3)-2):DY%(T1%,P1%)=4*(RND(3)-2):C%(T1%,P1%)=RND(62)
+   70 REPEAT:T2%=0
+   80 FORN%=1TOT1%:GCOLC%(N%,P1%):POINT X%(N%,P1%),Y%(N%,P1%)
+   90 IF RND(1)>.85 THEN
+  100 M%=0:REPEAT
+  110 M%+=1:DX%(N%,P1%)=4*(RND(3)-2):DY%(N%,P1%)=4*(RND(3)-2)
+  120 UNTIL POINT(X%(N%,P1%)+DX%(N%,P1%),Y%(N%,P1%)+DY%(N%,P1%))=0 OR M%=3
+  130 ENDIF
+  140 NX%=X%(N%,P1%)+DX%(N%,P1%):NY%=Y%(N%,P1%)+DY%(N%,P1%)
+  150 IF POINT(NX%,NY%)=0 THEN
+  160 T2%+=1:X%(T2%,P2%)=NX%:Y%(T2%,P2%)=NY%:C%(T2%,P2%)=C%(N%,P1%)
+  170 DX%(T2%,P2%)=DX%(N%,P1%):DY%(T2%,P2%)=DY%(N%,P1%)
+  180 GCOL63:POINT NX%,NY%
+  190 IFRND(1)>.9 THEN
+  200 T2%+=1:X%(T2%,P2%)=NX%:Y%(T2%,P2%)=NY%:C%(T2%,P2%)=RND(62)
+  210 M%=0:REPEAT:M%+=1
+  220 DX%(T2%,P2%)=4*(RND(3)-2):DY%(T2%,P2%)=4*(RND(3)-2)
+  230 UNTIL POINT(NX%+DX%(T2%,P2%),NY%+DY%(T2%,P2%))=0 OR M%=3
+  240 ENDIF
+  250 ENDIF
+  260 NEXT
+  270 SWAP T1%,T2%:SWAP P1%,P2%
+  280 UNTIL T1%=0
+  290 K=INKEY(300)
+  300 UNTIL0

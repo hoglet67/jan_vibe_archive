@@ -1,0 +1,35 @@
+   10 REM > CONNECT
+   20 
+   30 SYS"OS_UpdateMEMC",64,64
+   40 ONERRORGOTO350
+   50 
+   60 MODE128:MODE0:K%=10:S1$="1":S2$="2":OFF
+   70 DIMX%(K%),Y%(K%),DX%(K%),DY%(K%),Z%(K%),D%(K%)
+   80 FORN%=1TOK%
+   90 X%(N%)=RND(1280):Y%(N%)=RND(1024)
+  100 DX%(N%)=RND(4)*4*SGN(RND(1)-.5)
+  110 DY%(N%)=RND(4)*4*SGN(RND(1)-.5)
+  120 POINT X%(N%),Y%(N%)
+  130 NEXT
+  140 
+  150 REPEAT
+  160 OSCLI"FX112,"+S1$:OSCLI"FX113,"+S2$:WAIT:SWAP S1$,S2$:CLS
+  170 FORI%=1TOK%
+  180 X1%=X%(I%)+DX%(I%):IF X1%>1280 OR X1%<0 THEN DX%(I%)=-DX%(I%):GOTO180
+  190 Y1%=Y%(I%)+DY%(I%):IF Y1%>1020 OR Y1%<0 THEN DY%(I%)=-DY%(I%):GOTO190
+  200 X%(I%)=X1%:Y%(I%)=Y1%:NEXT
+  210 
+  220 FORN%=1TOK%
+  230 FORM%=1TOK%
+  240 Z%(M%)=M%:D%(M%)=((X%(N%)-X%(M%))^2+(Y%(N%)-Y%(M%))^2)
+  250 NEXT
+  260 FORI%=K%TO2STEP-1
+  270 FORJ%=1TOI%-1
+  280 IF D%(J%)>D%(I%) SWAP D%(J%),D%(I%):SWAP Z%(J%),Z%(I%)
+  290 NEXT,
+  300 FORI%=2TO4
+  310 LINE X%(N%),Y%(N%),X%(Z%(I%)),Y%(Z%(I%))
+  320 NEXT,
+  330 UNTIL0
+  340 
+  350 OSCLI"FX112,"+S1$:REPORT:PRINT" at line "STR$(ERL):ON

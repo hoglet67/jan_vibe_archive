@@ -1,0 +1,53 @@
+   10 REM > STARCROSS
+   20 
+   30 REM *** Jan vibe januar 92 ***
+   40 
+   50 MODE137:MODE9:OFF
+   60 ORIGIN 640,512
+   70 S1%=1:S2%=2:F1%=1:F2%=2:A%=40:L%=5:Z%=500/L%
+   80 DIM X%(16,2),Y%(16,2),DX%(16),DY%(16),R%(L%,2),G%(L%,2),B%(L%,2)
+   90 PROCMAKE(1):PROCMAKE(2)
+  100 
+  110 ONERRORGOTO530
+  120 REPEAT
+  130   FORN%=1TOA%
+  140     SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  150     FORI%=1TO16
+  160       DX%(I%)=FNA(X%(I%,F1%),X%(I%,F2%),A%,N%)
+  170       DY%(I%)=FNA(Y%(I%,F1%),Y%(I%,F2%),A%,N%)
+  180     NEXT
+  190     FORI%=1TOL%:GCOLI%
+  200       MOVE I%*DX%(16),I%*DY%(16)
+  210       FORJ%=1TO16:DRAW I%*DX%(J%),I%*DY%(J%):NEXT
+  220     NEXT
+  230     FORI%=1TOL%
+  240       R%=FNA(R%(I%,F1%),R%(I%,F2%),A%,N%)
+  250       G%=FNA(G%(I%,F1%),G%(I%,F2%),A%,N%)
+  260       B%=FNA(B%(I%,F1%),B%(I%,F2%),A%,N%)
+  270       COLOUR I%,R%,G%,B%
+  280   NEXT,
+  290   SWAP F1%,F2%:PROCMAKE(F2%)
+  300 UNTIL0
+  310 
+  320 DEFFNA(T1%,T2%,D%,N%)
+  330 =T1%+N%*(T2%-T1%)/D%
+  340 
+  350 DEFPROCMAKE(K%)
+  360 LOCAL R1%,R2%,N%
+  370 R1%=0:R2%=RND(2*Z%)-Z%
+  380 X%(01,K%)= R1%:Y%(01,K%)= R2%:X%(05,K%)= R2%:Y%(05,K%)= R1%
+  390 X%(09,K%)= R1%:Y%(09,K%)=-R2%:X%(13,K%)=-R2%:Y%(13,K%)= R1%
+  400 R1%=RND(2*Z%)-Z%:R2%=RND(2*Z%)-Z%
+  410 X%(02,K%)= R1%:Y%(02,K%)= R2%:X%(04,K%)= R2%:Y%(04,K%)= R1%
+  420 X%(06,K%)= R2%:Y%(06,K%)=-R1%:X%(08,K%)= R1%:Y%(08,K%)=-R2%
+  430 X%(10,K%)=-R1%:Y%(10,K%)=-R2%:X%(12,K%)=-R2%:Y%(12,K%)=-R1%
+  440 X%(14,K%)=-R2%:Y%(14,K%)= R1%:X%(16,K%)=-R1%:Y%(16,K%)= R2%
+  450 R1%=RND(2*Z%)-Z%
+  460 X%(03,K%)= R1%:Y%(03,K%)= R1%:X%(07,K%)= R1%:Y%(07,K%)=-R1%
+  470 X%(11,K%)=-R1%:Y%(11,K%)=-R1%:X%(15,K%)=-R1%:Y%(15,K%)= R1%
+  480 FORN%=1TOL%
+  490 R%(N%,K%)=RND(256)-1:G%(N%,K%)=RND(256)-1:B%(N%,K%)=RND(256)-1
+  500 NEXT
+  510 ENDPROC
+  520 
+  530 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

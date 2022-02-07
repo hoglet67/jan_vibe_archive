@@ -1,0 +1,21 @@
+   10 REM > BUG1
+   20 
+   30 DIM MD% 64:MD%!00=1:MD%!04=800:MD%!08=600:MD%!12=5:MD%!16=-1:MD%!20=-1:MODE MD%
+   40 A%=20:P1%=1:P2%=2
+   50 DIMX%(A%,2),Y%(A%,2)
+   60 
+   70 REPEAT
+   80 FORN%=1TOA%:X%(N%,P1%)=RND(1600):Y%(N%,P1%)=RND(1200):NEXT:CLS:C%=0
+   90 REPEAT
+  100 SWAP P1%,P2%:C%+=1
+  110 X%(0,P2%)=X%(A%,P2%):Y%(0,P2%)=Y%(A%,P2%)
+  120 FORN%=1TOA%
+  130 X%(N%,P1%)=X%(N%,P2%)+(X%(N%-1,P2%)-X%(N%,P2%))/50
+  140 Y%(N%,P1%)=Y%(N%,P2%)+(Y%(N%-1,P2%)-Y%(N%,P2%))/50
+  150 NEXT
+  160 MOVE X%(A%,P2%),Y%(A%,P2%)
+  170 FORN%=1TOA%:DRAW X%(N%,P2%),Y%(N%,P2%)
+  180 NEXT
+  190 UNTIL C%=100
+  200 Q=INKEY(100)
+  210 UNTIL0

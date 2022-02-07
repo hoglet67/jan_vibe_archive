@@ -1,0 +1,62 @@
+   10 REM > SPRTEST2
+   20 
+   30 MODE15:OFF
+   40 
+   50 DIM SP% &10000,SC% 16,ADR%(8)
+   60 
+   70 SP%!0=&10000 : REM  spritearealets stRETURNrrelse-1
+   80 SP%!4=0     : REM  antal sprites defineret lige nu
+   90 SP%!8=16    : REM  her starter fRETURNrste spritedef
+  100 SP%!12=16   : REM  her starter det frie areal
+  110 
+  120 SC%!00=256  : REM  X tGCOLller    Skaleringsfaktorer
+  130 SC%!04=256  : REM  Y tGCOLller    til spriteplot
+  140 SC%!08=256  : REM  X nGCOLvner
+  150 SC%!12=256  : REM  Y nGCOLvner
+  160 
+  170 FORI%=1TO8:NAME$="DUMMY"+STR$I%
+  180 PRINTTAB(0,26)"Danner "NAME$
+  190 C%=RND(27)-1
+  200 FORN%=64TO8STEP-8:PROCF(C%,8-N%/8)
+  210 CIRCLE FILL 64,64,N%:NEXT:GCOL63
+  220 
+  230 REM Tag sprite fra skGCOLrmbilledet
+  240 SYS"OS_SpriteOp",256+16,SP%,NAME$,0,0,0,128,128
+  250 
+  260 REM Definer spritemask
+  270 SYS "OS_SpriteOp",256+29,SP%,NAME$
+  280 
+  290 REM Udfyld spritemask
+  300 FORY%=0TO128STEP4
+  310 FORX%=0TO128STEP2:S%=1
+  320 IF POINT(X%,Y%)=0 S%=0:POINT X%,Y%
+  330 SYS "OS_SpriteOp",256+44,SP%,NAME$,X%/2,Y%/4,S%
+  340 NEXT,
+  350 
+  360 REM Find spritepointer
+  370 SYS"OS_SpriteOp",256+24,SP%,NAME$ TO ,,ADR%(I%)
+  371 CLS
+  380 
+  390 FORN%=1TOI%
+  400 SYS"OS_SpriteOp",512+34,SP%,ADR%(N%),132*(N%-1),300,8
+  401 NEXT
+  410 
+  420 NEXT
+  430 
+  440 CLS
+  450 FORN%=1TO2000
+  460 SC%!00=RND(256)+32
+  470 SC%!04=RND(256)+32
+  480 SYS"OS_SpriteOp",512+52,SP%,ADR%(RND(8)),RND(1280)-64,RND(1024)-64,8,SC%,0
+  490 NEXT
+  500 END
+  510 
+  520 DEFPROCF(F%,I%)
+  530 LOCAL R%,G%,B%
+  540 B%=F%DIV9:F%=F%-9*B%
+  550 G%=F%DIV3:F%=F%-3*G%
+  560 R%=F%
+  570 F%=R%+4*G%+16*B%
+  580 IF I%>=4 F%=F%+&15
+  590 GCOL F% TINT (64*I%)MOD256
+  600 ENDPROC

@@ -1,0 +1,96 @@
+   10 REM > DIRTREE
+   20 REM
+   30 REM
+   40 REM AcornUser, aug. 88
+   50 REM
+   60 :
+   70 PROCinit
+   80 LINE INPUT'"Start at directory: "dir$'
+   90 IF dir$="" dir$="$"
+  100 OSCLI "dir "+dir$
+  110 length=FNtree
+  120 END
+  130 :
+  140 DEFPROCinit
+  150 DIM level(127),name &100
+  160 level=0:indent=6
+  170 IF MODE=7 THEN
+  180 topline=ASC"-"
+  190 vertical=ASC"!"
+  200 horizontal=ASC"-"
+  210 righttree=ASC"+"
+  220 bottomcorner=ASC"+"
+  230 ELSE
+  240 VDU23,167,0,0,0,255,24,24,24,24
+  250 VDU23,169,24,24,24,24,24,24,24,24
+  260 VDU23,166,0,0,0,255,0,0,0,0
+  270 VDU23,171,24,24,24,31,24,24,24,24
+  280 VDU23,170,24,24,24,31,0,0,0,0
+  290 topline=167
+  300 vertical=169
+  310 horizontal=166
+  320 righttree=171
+  330 bottomcorner=170
+  340 ENDIF
+  350 space=32
+  360 ENDPROC
+  370 :
+  380 DEFFNtree
+  390 LOCAL seq,number,found,length,filelen
+  400 seq=0:length=0
+  410 REPEAT
+  420 SYS "OS_GBPB",8,,name,1,seq TO ,,,number,seq
+  430 IF number=0 THEN
+  440 name?(1+?name)=13
+  450 name$=$(name+1)
+  460 IF INSTR(name$," ") name$=LEFT$(name$,INSTR(name$," ")-1)
+  470 PROCindent(level)
+  480 SYS "OS_GBPB",8,,name,1,seq TO ,,,nextone
+  490 IF nextone THEN
+  500 IF level=0 AND seq=1 THEN
+  510 VDU horizontal
+  520 ELSE
+  530 VDU bottomcorner
+  540 ENDIF
+  550 ELSE
+  560 IF level=0 AND seq=1 THEN
+  570 VDU topline
+  580 ELSE
+  590 VDU righttree
+  600 ENDIF
+  610 ENDIF
+  620 SYS "OS_File",5,name$ TO found,,,,filelen
+  630 length+=filelen
+  640 PRINT STRING$(indent-1,CHR$(horizontal));name$;
+  650 IF found=2 THEN
+  660 PRINT":"
+  670 IF nextone THEN
+  680 level(level)=space
+  690 ELSE
+  700 level(level)=vertical
+  710 ENDIF
+  720 level+=1
+  730 OSCLI"dir "+name$
+  740 length+=FNtree
+  750 level-=1
+  760 *dir ^
+  770 ELSE
+  780 PRINT
+  790 ENDIF
+  800 ENDIF
+  810 UNTIL number
+  820 IF level THEN
+  830 PROCindent(level)
+  840 PRINT"(Length=&";~length")"
+  850 ENDIF
+  860 =length
+  870 :
+  880 DEFPROCindent(level)
+  890 levels=0
+  900 WHILE levels<level
+  910 VDU level(levels)
+  920 PRINT STRING$(indent-1,CHR$space);
+  930 levels+=1
+  940 ENDWHILE
+  950 ENDPROC
+  960 

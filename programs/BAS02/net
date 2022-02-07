@@ -1,0 +1,33 @@
+   10 REM > NET
+   20 SYS"OS_UpdateMEMC",64,64
+   30 MODE0:MODE128:OFF:ORIGIN 128,0
+   40 ONERRORGOTO310
+   50 DIMX%(8,8),Y%(8,8),A%(8,8)
+   60 S1$="1":S2$="2"
+   70 
+   80 FORY%=1TO8:FORX%=1TO8
+   90 A%(X%,Y%)=-80*X%+50*Y%
+  100 NEXT,
+  110 
+  120 REPEAT
+  130 WAIT:OSCLI"FX113,"+S1$:OSCLI"FX112,"+S2$:CLS:SWAP S1$,S2$
+  140 FORY%=1TO8:AY%=(Y%-1)*128+64
+  150 FORX%=1TO8:AX%=(X%-1)*128+64
+  160 T=RAD(A%(X%,Y%))
+  170 X%(X%,Y%)=56*COST+AX%:Y%(X%,Y%)=56*SINT+AY%
+  180 A%(X%,Y%)=(A%(X%,Y%)+15)MOD360
+  190 NEXT,
+  200 
+  210 FORY%=1TO7:FORX%=1TO7
+  220 LINE X%(X%,Y%),Y%(X%,Y%),X%(X%+1,Y%),Y%(X%+1,Y%)
+  230 LINE X%(X%,Y%),Y%(X%,Y%),X%(X%,Y%+1),Y%(X%,Y%+1)
+  240 NEXT,
+  250 FORN%=1TO7:KN%=96*N%+80
+  260 LINE X%(N%,8),Y%(N%,8),X%(N%+1,8),Y%(N%+1,8)
+  270 LINE X%(8,N%),Y%(8,N%),X%(8,N%+1),Y%(8,N%+1)
+  280 NEXT
+  290 UNTIL0
+  300 
+  310 *FX112,1
+  320 *FX113,1
+  330 REPORT:PRINT" at line "ERL:ON

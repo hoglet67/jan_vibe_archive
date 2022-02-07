@@ -1,0 +1,39 @@
+   10 REM > MELT
+   20 
+   30 MODE 32:OFF
+   40 INPUT"Spritefile="SPF$:CLS
+   50 SYS"OS_FSControl",28,SPF$ TO ,,LG%:LG%+=&2000
+   60 DIM SPR LG%,BUF 16
+   70 SPR!0=LG%:SPR!4=0:SPR!8=16:SPR!12=16
+   80 SYS"OS_SpriteOp",256+10,SPR,SPF$
+   90 SYS"OS_SpriteOp",256+13,SPR,BUF,16,1
+  100 ONERRORGOTO380
+  110 N$="":P%=0:REPEAT
+  120 T%=BUF?P%:IF T%<>0 N$+=CHR$(T%)
+  130 P%+=1:UNTIL T%=0
+  140 SYS"OS_SpriteOp",256+40,SPR,N$ TO ,,,W%,H%,,M%
+  150 SYS"OS_ReadModeVariable",-1,4 TO,,SX%:SX%=2^SX%
+  160 SYS"OS_ReadModeVariable",-1,5 TO,,SY%:SY%=2^SY%
+  170 SYS"OS_ReadModeVariable",-1,11 TO,,XS%
+  180 SYS"OS_ReadModeVariable",-1,12 TO,,YS%
+  190 PX%=(SX%*(XS%-W%))/2:PY%=(SY%*(YS%-H%))/2
+  200 WS%=W%*SX%:HS%=H%*SY%
+  210 SYS"OS_SpriteOp",256+34,SPR,N$,PX%,PY%,0
+  220 
+  230 REPEAT
+  240 R%=RND(8)*2:X%=RND(WS%)+PX%:Y%=RND(HS%-R%-2)+PY%
+  250 SYS"OS_SpriteOp",256+16,SPR,"DROP",0,X%-R%,Y%-R%,X%+R%,Y%+R%
+  260 SYS"OS_SpriteOp",256+29,SPR,"DROP"
+  270 N%=R%:REPEAT
+  280 SYS"OS_SpriteOp",256+61,SPR,"DROP"
+  290 GCOL0TINT0:RECTANGLE FILL 0,0,2*R%
+  300 GCOL63TINT255:CIRCLE FILL R%,R%,N%
+  310 SYS"OS_SpriteOp",256+61,SPR,0
+  320 Y%=Y%-2
+  330 SYS"OS_SpriteOp",256+34,SPR,"DROP",X%-R%,Y%-R%,8
+  340 N%-=2
+  350 UNTILN%=0
+  360 UNTIL0
+  370 
+  380 SYS"OS_SpriteOp",256+61,SPR,0
+  390 REPORT:PRINT" at line ";:PRINTSTR$(ERL)

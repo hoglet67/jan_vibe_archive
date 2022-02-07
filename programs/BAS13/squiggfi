@@ -1,0 +1,35 @@
+   10 REM > SQUIGGFILL
+   20 
+   30 MODE31:OFF
+   40 K%=1000
+   50 DIM DX%(7),DY%(7),X%(K%),Y%(K%),D%(K%),C%(K%)
+   60 FORN%=0TO7:READDX%(N%),DY%(N%):NEXT
+   70 FORN%=1TOK%:X%(N%)=RND(1600):Y%(N%)=RND(1200):D%(N%)=RND(8)-1:C%(N%)=0:NEXT
+   80 PC%=0
+   90 
+  100 REPEAT
+  110 FORN%=1TOK%
+  120   D%(N%)=(D%(N%)+RND(3)-2+8)MOD8
+  130   IF FNP(X%(N%)+DX%(D%(N%)),Y%(N%)+DY%(D%(N%)))<=1 THEN
+  140     X%(N%)+=DX%(D%(N%)):Y%(N%)+=DY%(D%(N%)):C%(N%)=0:PC%=0:POINT X%(N%),Y%(N%)
+  150   ELSE
+  160     C%(N%)+=1:PC%+=1:IF C%(N%)=100 THEN
+  170       REPEAT
+  180         X%(N%)=RND(1600):Y%(N%)=RND(1200):C%(N%)=0
+  190       UNTILFNP(X%(N%),Y%(N%))=0
+  200     ENDIF
+  210     D1%=RND(8)-1
+  220     IF POINT(X%+DX%(D1%),Y%+DY%(D1%))=0 D%(N%)=D1%
+  230   ENDIF
+  240 NEXT
+  250 UNTILPC%>=200
+  260 END
+  270 
+  280 DEFFNP(X%,Y%)
+  290 LOCAL N%,C%:C%=0
+  300 FORN%=0TO7
+  310 IFPOINT(X%+DX%(N%),Y%+DY%(N%))<>0 C%+=1
+  320 NEXT
+  330 =C%
+  340 
+  350 DATA 2,2, 2,0, 2,-2, 0,-2, -2,-2, -2,0, -2,2, 0,2

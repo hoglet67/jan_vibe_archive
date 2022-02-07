@@ -1,0 +1,1 @@
+   10 MODE4:OFF:DIM A%(321,1):K%=1:Y%=1020:FORN%=1TO320:A%(N%,K%)=RND(2)-1:NEXT:REPEAT:FORN%=1TO320:GCOLA%(N%,K%):POINT4*(N%-1),Y%:S%=A%(N%-1,K%)+A%(N%,K%)+A%(N%+1,K%):A%(N%,1-K%)=ABS((S%=1)+(S%=2)):NEXT:Y%-=4:K%=1-K%:UNTILY%<0:ON

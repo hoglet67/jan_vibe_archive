@@ -1,0 +1,30 @@
+   10 REM > GROW
+   20 
+   30 MODE12
+   40 K%=100
+   50 DIM X%(K%),Y%(K%),A%(K%),Z%(K%)
+   60 X%(1)=640:Y%(1)=0:A%(1)=0:Z%(1)=100:P%=1
+   70 REPEAT
+   80 R%=RND(1)*P%+1:X1%=X%(R%):Y1%=Y%(R%):A1%=A%(R%):Z1%=Z%(R%)
+   90 IF RND(1)>.2 THEN
+  100 P%+=1
+  110 PROCG(X1%,Y1%,Z1%,A1%-RND(30),R%):PROCG(X1%,Y1%,Z1%,A1%+RND(30),P%)
+  120 ELSE
+  130 PROCG(X1%,Y1%,Z1%,A1%-RND(41)+20,R%)
+  140 ENDIF
+  150 UNTILP%=K%
+  160 FORN%=1TOP%
+  170 GCOL4:CIRCLE FILL X%(N%),Y%(N%),12:GCOL5:CIRCLE FILL X%(N%),Y%(N%),04
+  180 NEXT
+  190 END
+  200 
+  210 DEFPROCG(X1%,Y1%,Z1%,A1%,P%)
+  220 LOCAL X2%,Y2%,T
+  230 Z%(P%)=Z1%*(RND(1)/20+0.95):A%(P%)=A1%
+  240 X%(P%)=Z%(P%)*SINRADA%(P%)+X1%:Y%(P%)=Z%(P%)*COSRADA%(P%)+Y1%
+  250 GCOL1:LINE X1%,Y1%,X%(P%),Y%(P%):GCOL2
+  260 X2%=(X1%*2+X%(P%))/3:Y2%=(Y1%*2+Y%(P%))/3:T=RAD(A%(P%)+45)
+  270 ELLIPSE FILL X2%+Z%(P%)*SINT/6,Y2%+Z%(P%)*COST/6,Z%(P%)/18,Z%(P%)/6,PI-T
+  280 X2%=(X1%+X%(P%)*2)/3:Y2%=(Y1%+Y%(P%)*2)/3:T=RAD(A%(P%)-45)
+  290 ELLIPSE FILL X2%+Z%(P%)*SINT/6,Y2%+Z%(P%)*COST/6,Z%(P%)/18,Z%(P%)/6,PI-T
+  300 ENDPROC

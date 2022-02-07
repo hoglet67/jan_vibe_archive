@@ -1,0 +1,25 @@
+   10 REM > CIRCLES
+   20 
+   30 MODE0:OFF
+   40 SYS"OS_UpdateMEMC",64,64
+   50 ONERRORGOTO250
+   60 
+   70 K%=12:S1$="1":S2$="2"
+   80 DIM X%(K%),Y%(K%),R%(K%),DX%(K%),DY%(K%)
+   90 FORN%=1TOK%
+  100 X%(N%)=640:Y%(N%)=512:R%(N%)=8*N%:DX%(N%)=8:DY%(N%)=8
+  110 NEXT
+  120 
+  130 REPEAT
+  140 OSCLI"FX 112,"+S1$:OSCLI"FX 113,"+S2$:WAIT:SWAP S1$,S2$:CLS
+  150 MOVEX%(1),Y%(1):FORN%=2TOK%:DRAWX%(N%),Y%(N%):NEXT
+  160 FORN%=1TOK%
+  170 CIRCLE X%(N%),Y%(N%),R%(N%)
+  180 Q%=X%(N%)+DX%(N%):IF Q%-R%(N%)<0 OR Q%+R%(N%)>1278 DX%(N%)=-DX%(N%)
+  190 Q%=Y%(N%)+DY%(N%):IF Q%-R%(N%)<0 OR Q%+R%(N%)>1020 DY%(N%)=-DY%(N%)
+  200 X%(N%)=X%(N%)+DX%(N%):Y%(N%)=Y%(N%)+DY%(N%)
+  210 NEXT
+  220 RECTANGLE 0,0,1278,1020
+  230 UNTIL0
+  240 
+  250 OSCLI"FX112,"+S1$:REPORT:PRINT" at line "STR$(ERL):ON

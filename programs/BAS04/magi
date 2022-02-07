@@ -1,0 +1,142 @@
+   10 REM > MAGI
+   20 
+   30 REM                     *----------------------*
+   40 REM                     ! Jan Vibe november 90 !
+   50 REM                     *----------------------*
+   60 
+   70 MODE0:COLOUR0,0,0,255
+   80 COLOUR129:COLOUR0:VDU19,0,24,0,0,255
+   90 FORN%=1TO6:PRINTTAB(34,N%+1)"             ":NEXT
+  100 PRINTTAB(34,3)"   Magiske   "
+  110 PRINTTAB(34,6)"  kvadrater  "
+  120 COLOUR128:COLOUR1
+  130 PRINTTAB(10,11)"Et magisk kvadrat er en kvadratisk tabel med tallene"
+  140 PRINTTAB(10)"fra 1 og op til kvadratets sidelængde² arrangeret"
+  150 PRINTTAB(10)"således at alle rækker og søjler giver samme sum, ved"
+  160 PRINTTAB(10)"addition."'
+  170 PRINTTAB(10)"Dette program kan teoretisk danne magiske kvadrater af en"
+  180 PRINTTAB(10)"hvilken som helst orden (sidelængde), men jo større ordenen"
+  190 PRINTTAB(10)"er, jo længere tid tager det, og jo mere hukommelse skal"
+  200 PRINTTAB(10)"der bruges."'
+  210 PRINTTAB(10)"Grundet hukommelse, hastighed m.v., er den størte orden"
+  220 PRINTTAB(10)"dette program kan 'klare' desværre kun 5."
+  230 PRINT''
+  240 INPUTTAB(10)"Indtast ordenstallet (3-5) her : "O%
+  250 CLS
+  260 
+  270 @%=3:K%=O%*(O%^2+1)/2:AM%=79/(O%*3+3):Q%=0:BM%=0:GM%=0
+  280 DIM L%(O%),RL%(2000,O%)
+  290 DIM SQG%(O%,O%,1000),SQ1%(O%,O%),SQ2%(O%,O%),SQ3%(O%,O%,AM%)
+  300 
+  310 PROCDL(1,O%,1)
+  320 PROCRK(1,Q%,1)
+  330 PROCPR(1)
+  340 END
+  350 
+  360 DEFPROCDL(ST%,B%,P%)
+  370 LOCAL N%,I%,BB%
+  380 BB%=B%^2-B%+P%
+  390 IF P%<=B% THEN
+  400   FOR N%=ST% TO BB%
+  410     L%(P%)=N%
+  420     IF SUM L%()=K% AND P%=B% THEN
+  430       Q%+=1:FORI%=1TOB%:RL%(Q%,I%)=L%(I%):NEXT
+  440     ENDIF
+  450     IF P%<B% PROCDL(N%+1,B%,P%+1)
+  460   NEXT
+  470 ENDIF
+  480 ENDPROC
+  490 
+  500 DEFPROCRK(ST%,B%,P%)
+  510 LOCAL N%,I%,BB%,T%
+  520 BB%=B%-O%+P%
+  530 IF ST%<BB% THEN
+  540   FOR N%=ST% TO BB%
+  550     FOR I%=1 TO O%:SQ1%(I%,P%)=RL%(N%,I%):NEXT
+  560     T%=FNC(P%)
+  570     IF T%=0 AND P%=O% PROCSQ(1,1):T%=1
+  580     IF P%<O% AND T%=0 PROCRK(N%+1,B%,P%+1)
+  590   NEXT
+  600 ENDIF
+  610 ENDPROC
+  620 
+  630 DEFFNC(P%)
+  640 LOCAL R1%,C1%,R2%,C2%,C%
+  650 IF P%>1 THEN
+  660   FORC1%=1TOP%-1
+  670     FORR1%=1TOO%
+  680       FORC2%=C1%+1TOP%
+  690         FORR2%=1TOO%
+  700           IF SQ1%(R1%,C1%)=SQ1%(R2%,C2%) C%=1
+  710   NEXT,,,
+  720 ENDIF
+  730 =C%
+  740 
+  750 DEFPROCSQ(R%,C%)
+  760 LOCAL N%,M%,S%
+  770 IF R%>O% OR C%>O% ENDPROC
+  780 FOR N%=1 TOO%
+  790   IF SQ1%(N%,R%)<>0 THEN
+  800     SQ2%(R%,C%)=SQ1%(N%,R%):SQ1%(N%,R%)=0
+  810     IF R%=O% THEN
+  820       S%=0:FORM%=1TOO%:S%+=SQ2%(M%,C%):NEXT
+  830       IF S%=K% THEN
+  840         IF C%<O% PROCSQ(1,C%+1) ELSE PROCPR(0)
+  850       ENDIF
+  860     ENDIF
+  870     PROCSQ(R%+1,C%)
+  880     SQ1%(N%,R%)=SQ2%(R%,C%):SQ2%(R%,C%)=0
+  890   ENDIF
+  900 NEXT
+  910 ENDPROC
+  920 
+  930 DEFPROCPR(ST%)
+  940 LOCAL N%,M%,I%,R%,C%,F1%,F2%,F%
+  950 FORN%=1TOO%
+  960   FORM%=1TOO%
+  970     IF SQ2%(M%,N%)=1 C%=M%:R%=N%
+  980 NEXT,
+  990 FORN%=1TOO%-1
+ 1000   FORM%=N%+1TOO%
+ 1010     IF SQ2%(N%,R%)>SQ2%(M%,R%) THEN
+ 1020       FORI%=1TOO%:SWAP SQ2%(N%,I%),SQ2%(M%,I%):NEXT
+ 1030     ENDIF
+ 1040 NEXT,
+ 1050 FORN%=1TOO%-1
+ 1060   FORM%=N%+1TOO%
+ 1070     IF SQ2%(C%,N%)>SQ2%(C%,M%) THEN
+ 1080       FORI%=1TOO%:SWAP SQ2%(I%,N%),SQ2%(I%,M%):NEXT
+ 1090     ENDIF
+ 1100 NEXT,
+ 1110 FORI%=1TOGM%:F1%=0:F2%=0:F%=1
+ 1120   FORN%=1TOO%
+ 1130     FORM%=1TOO%
+ 1140       IF SQ2%(M%,N%)=SQG%(M%,N%,I%) F1%+=1
+ 1150       IF SQ2%(N%,M%)=SQG%(M%,N%,I%) F2%+=1
+ 1160   NEXT,
+ 1170   IFF1%=O%^2 OR F2%=O%^2 I%=GM%:F%=0
+ 1180 NEXT
+ 1190 IF F%=1 THEN
+ 1200   GM%+=1:BM%+=1
+ 1210   FORN%=1TOO%
+ 1220     FORM%=1TOO%
+ 1230       SQG%(M%,N%,GM%)=SQ2%(M%,N%)
+ 1240       SQ3%(M%,N%,BM%)=SQ2%(M%,N%)
+ 1250   NEXT,
+ 1260 ENDIF
+ 1270 IF BM%=AM% OR ST%=1 THEN
+ 1280   PRINT "  +"STRING$(AM%,STRING$(3*O%+2,"-")+"+")
+ 1290   FORN%=1TOO%
+ 1300     PRINT"  !";
+ 1310     FOR I%=1TOAM%
+ 1320       FORM%=1TOO%
+ 1330         IF SQ3%(M%,N%,I%)<>0 PRINTSQ3%(M%,N%,I%); ELSE PRINT"   ";
+ 1340       NEXT
+ 1350       PRINT"  !";
+ 1360     NEXT
+ 1370     PRINT
+ 1380   NEXT
+ 1390   IF ST%=1 PRINT "  +"STRING$(AM%,STRING$(3*O%+2,"-")+"+")
+ 1400   BM%=0:SQ3%()=0
+ 1410 ENDIF
+ 1420 ENDPROC

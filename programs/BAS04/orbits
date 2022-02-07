@@ -1,0 +1,27 @@
+   10 REM > ORBITS
+   20 
+   30 SYS"OS_UpdateMEMC",64,64
+   40 MODE128:MODE0:OFF
+   50 S1%=1:S2%=2:K%=10
+   60 DIM X%(K%),Y%(K%),DX%(K%),DY%(K%)
+   70 FORN%=1TOK%
+   80 X%(N%)=RND(1024)+128:DX%(N%)=0
+   90 Y%(N%)=RND(768)+128:DY%(N%)=0
+  100 NEXT
+  110 
+  120 ONERRORGOTO270
+  130 REPEAT
+  140 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  150 CX%=0:CY%=0:FORN%=1TOK%:CX%+=X%(N%):CY%+=Y%(N%):NEXT
+  160 CX%=CX%/K%:CY%=CY%/K%:POINT CX%,CY%
+  170 FORN%=1TOK%
+  180 DX%(N%)=DX%(N%)+SGN(CX%-X%(N%)):T%=X%(N%)+DX%(N%)
+  190 IF T%>1264 OR T%<16 DX%(N%)=-DX%(N%)
+  200 DY%(N%)=DY%(N%)+SGN(CY%-Y%(N%)):T%=Y%(N%)+DY%(N%)
+  210 IF T%>1008 OR T%<16 DY%(N%)=-DY%(N%)
+  220 X%(N%)+=DX%(N%):Y%(N%)+=DY%(N%)
+  230 CIRCLE X%(N%),Y%(N%),12
+  240 NEXT
+  250 UNTIL0
+  260 
+  270 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

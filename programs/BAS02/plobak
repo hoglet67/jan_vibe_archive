@@ -1,0 +1,172 @@
+   10 REM >PLOBAK
+   20 REM MICRO USER APRIL 1988
+   30 SYS"OS_UpdateMEMC",64,64
+   40 MODE 7
+   50 PRINT
+   60 PRINT"Z X    : rotation about Y":PRINT
+   70 PRINT"/ '    : rotation about X":PRINT
+   80 PRINT"Q W    : rotation about Z":PRINT
+   90 PRINT"RETURN : forward":PRINT
+  100 PRINT"SPACE  : backward":PRINT:PRINT
+  110 PRINT"Line or solid? (L/S)";
+  120 REPEAT QW$=CHR$(GETAND&DF)
+  130 UNTIL INSTR("LS",QW$)>0:MODE 140:MODE12
+  140 ONERRORGOTO1720
+  150 OFF
+  160 numverts%=19
+  170 numfaces%=17
+  180 DIM col%(numfaces%)
+  190 DIM pnt(2,19)
+  200 DIM face%(numfaces%,3)
+  210 DIM scr_pts%(1,numverts%)
+  220 DIM ck%(numfaces%)
+  230 DIM pnts%(numfaces%)
+  240 cpos=COS(.1):spos=SIN(.1)
+  250 cneg=COS(-0.1):sneg=SIN(-.1)
+  260 D%=2000
+  270 E%=1
+  280 Distance%=500
+  290 S1$="1":S2$="2"
+  300 OSCLI"FX112,"+S1$:OSCLI"FX113,"+S2$:SWAP S1$,S2$
+  310 PROCRead_data
+  320 REPEAT
+  330 TIME=0
+  340 IF INKEY-80 PROCRotate_X(cpos,spos):E%=1
+  350 IF INKEY-105 PROCRotate_X(cneg,sneg):E%=1
+  360 IF INKEY-98 PROCRotate_Y(cneg,sneg):E%=1
+  370 IF INKEY-67 PROCRotate_Y(cpos,spos):E%=1
+  380 IF INKEY-17 PROCRotate_Z(cpos,spos):E%=1
+  390 IF INKEY-34 PROCRotate_Z(cneg,sneg):E%=1
+  400 IF INKEY-99 PROCTranslate(-20):E%=1
+  410 IF INKEY-74 PROCTranslate(20):E%=1
+  420 IF E%=1 PROCChange:PROCCheck_face:PROCWhich_face:PRINTTAB(0,0);TIME/100
+  430 E%=0:*FX15,1
+  440 UNTIL FALSE
+  450 DATA -30,0,-100
+  460 DATA 30,0,-100
+  470 DATA 60,0,65
+  480 DATA -60,0,65
+  490 DATA -25,8,100
+  500 DATA 25,8,100
+  510 DATA 0,25,50
+  520 DATA -25,-8,100
+  530 DATA 25,-8,100
+  540 DATA 0,-25,50
+  550 DATA -20,-8,-55
+  560 DATA -18,-10,-40
+  570 DATA 18,-10,-40
+  580 DATA 20,-8,-55
+  590 DATA -35,10,40
+  600 DATA -30,6,-30
+  610 DATA -25,14,25
+  620 DATA 25,14,25
+  630 DATA 30,6,-30
+  640 DATA 35,10,40
+  650 DATA 3,6,1,2
+  660 DATA 3,0,1,6
+  670 DATA 3,3,0,6
+  680 DATA 3,3,6,4
+  690 DATA 3,4,6,5
+  700 DATA 3,5,6,2
+  710 DATA 3,9,0,3
+  720 DATA 3,1,0,9
+  730 DATA 3,2,1,9
+  740 DATA 3,2,9,8
+  750 DATA 3,8,9,7
+  760 DATA 3,7,9,3
+  770 DATA 3,5,2,8
+  780 DATA 4,5,8,7,4
+  790 DATA 3,4,7,3
+  800 DATA 4,10,11,12,13
+  810 DATA 3,14,15,16
+  820 DATA 3,17,18,19
+  830 DATA 4,6,4,2,4,2,3,4,3
+  840 DATA 2,7,2,4,1,4,5,3,3
+  850 :
+  860 DEFPROCRead_data
+  870 FOR Vertex%=0 TO 19
+  880 READ pnt(0,Vertex%),pnt(1,Vertex%),pnt(2,Vertex%)
+  890 NEXT
+  900 FOR Face%=0 TO numfaces%
+  910 READ pnts%(Face%)
+  920 FOR Pnt_num%=0 TO pnts%(Face%)-1
+  930 READ face%(Face%,Pnt_num%)
+  940 NEXT:NEXT
+  950 FOR Face%=0 TO numfaces%
+  960 READ col%(Face%):NEXT
+  970 ENDPROC
+  980 :
+  990 DEFPROCRotate_X(C,S)
+ 1000 FOR Vertex%=0 TO numverts%
+ 1010 Z=pnt(2,Vertex%):Y=pnt(1,Vertex%)
+ 1020 pnt(1,Vertex%)=Y*C-Z*S
+ 1030 pnt(2,Vertex%)=Y*S+Z*C
+ 1040 NEXT:ENDPROC
+ 1050 :
+ 1060 DEFPROCRotate_Y(C,S)
+ 1070 FOR Vertex%=0 TO numverts%
+ 1080 Z=pnt(2,Vertex%):X=pnt(0,Vertex%)
+ 1090 pnt(0,Vertex%)=X*C-Z*S
+ 1100 pnt(2,Vertex%)=X*S+Z*C
+ 1110 NEXT:ENDPROC
+ 1120 :
+ 1130 DEFPROCRotate_Z(C,S)
+ 1140 FOR Vertex%=0 TO numverts%
+ 1150 Y=pnt(1,Vertex%):X=pnt(0,Vertex%)
+ 1160 pnt(0,Vertex%)=X*C-Y*S
+ 1170 pnt(1,Vertex%)=X*S+Y*C
+ 1180 NEXT:ENDPROC
+ 1190 :
+ 1200 DEFPROCTranslate(T%)
+ 1210 FOR Vertex%=0 TO numverts%
+ 1220 pnt(2,Vertex%)=pnt(2,Vertex%)+T%
+ 1230 NEXT:ENDPROC
+ 1240 :
+ 1250 DEFPROCChange
+ 1260 FOR Vertex%=0 TO numverts%
+ 1270 A%=pnt(0,Vertex%)
+ 1280 B%=pnt(1,Vertex%)
+ 1290 C%=pnt(2,Vertex%)-Distance%
+ 1300 scr_pts%(0,Vertex%)=D%*A%/C%
+ 1310 scr_pts%(1,Vertex%)=D%*B%/C%
+ 1320 NEXT:ENDPROC
+ 1330 :
+ 1340 DEFPROCCheck_face
+ 1350 FOR F%=0 TO numfaces%
+ 1360 VX0%=face%(F%,0)
+ 1370 VX1%=face%(F%,1)
+ 1380 VX2%=face%(F%,2)
+ 1390 AX%=scr_pts%(0,VX0%)-scr_pts%(0,VX1%)
+ 1400 AY%=scr_pts%(1,VX0%)-scr_pts%(1,VX1%)
+ 1410 BX%=scr_pts%(0,VX2%)-scr_pts%(0,VX1%)
+ 1420 BY%=scr_pts%(1,VX2%)-scr_pts%(1,VX1%)
+ 1430 NZ%=AX%*BY%-AY%*BX%
+ 1440 IF NZ%>=0 ck%(F%)=1 ELSE ck%(F%)=0
+ 1450 NEXT:ENDPROC
+ 1460 :
+ 1470 DEFPROCWhich_face
+ 1480 CLS:FOR Face%=0 TO numfaces%
+ 1490 IF ck%(Face%) PROCDraw_face
+ 1500 NEXT:OSCLI"FX112,"+S1$:OSCLI"FX113,"+S2$:SWAP S1$,S2$
+ 1510 ENDPROC
+ 1520 :
+ 1530 DEFPROCDraw_face
+ 1540 IF QW$="S" PROCSolid_face:GCOL 0,0 ELSE GCOL 0,7
+ 1550 K%=scr_pts%(0,face%(Face%,0))+640
+ 1560 M%=scr_pts%(1,face%(Face%,0))+512
+ 1570 MOVE K%,M%
+ 1580 FOR S%=1 TO pnts%(Face%)-1
+ 1590 DRAW scr_pts%(0,face%(Face%,S%))+640,scr_pts%(1,face%(Face%,S%))+512
+ 1600 NEXT:DRAW K%,M%:ENDPROC
+ 1610 :
+ 1620 DEFPROCSolid_face
+ 1630 IF col%(Face%)>-1 GCOL0,col%(Face%) ELSE GCOL 0,7
+ 1640 MOVE scr_pts%(0,face%(Face%,0))+640,scr_pts%(1,face%(Face%,0))+512
+ 1650 DRAW scr_pts%(0,face%(Face%,1))+640,scr_pts%(1,face%(Face%,1))+512
+ 1660 PLOT85,scr_pts%(0,face%(Face%,2))+640,scr_pts%(1,face%(Face%,2))+512
+ 1670 IF pnts%(Face%)=3 ENDPROC
+ 1680 DRAW scr_pts%(0,face%(Face%,0))+640,scr_pts%(1,face%(Face%,0))+512
+ 1690 PLOT 85,scr_pts%(0,face%(Face%,3))+640,scr_pts%(1,face%(Face%,3))+512
+ 1700 ENDPROC
+ 1710 
+ 1720 OSCLI"FX112,"+S1$:REPORT:PRINT" at line "STR$ERL:ON

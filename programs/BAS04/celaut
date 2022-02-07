@@ -1,0 +1,30 @@
+   10 REM > CELAUT
+   20 
+   30 MODE137:MODE9:OFF
+   40 SYS"OS_UpdateMEMC",64,64
+   50 S1%=1:S2%=2
+   60 
+   70 Z%=21 :REM sidelGCOLngde
+   80 F%=4  :REM antal farver
+   90 
+  100 DIM R%(Z%+1,Z%+1,2),TX%(8),TY%(8)
+  110 R%(Z%/2+1,Z%/2+1,2)=1
+  120 K%=1024/Z%:K%=4*(K%DIV4):L%=K%-8
+  130 SX%=(1280-K%*Z%)/2-K%:SY%=(1024-K%*Z%)/2-K%
+  140 FORN%=1TO8:READ TX%(N%),TY%(N%):NEXT
+  150 
+  160 ONERRORGOTO280
+  170 REPEAT
+  180 SYS"OS_Byte",112,S1%:SYS"OS_Byte",113,S2%:WAIT:CLS:SWAP S1%,S2%
+  190 
+  200 FORN%=1TOZ%:FORM%=1TOZ%
+  210 C%=0:FORI%=1TO8:C%+=R%(N%+TX%(I%),M%+TY%(I%),S1%):NEXT
+  220 R%(N%,M%,S2%)=C%MODF%
+  230 GCOLR%(N%,M%,S1%):RECTANGLE FILL SX%+K%*N%,SY%+K%*M%,L%
+  240 NEXT,
+  250 
+  260 UNTIL0
+  270 
+  280 SYS"OS_Byte",112,S1%:REPORT:PRINT" at line "STR$ERL:ON
+  290 
+  300 DATA -1,-1,-1,0,-1,1,0,-1,0,1,1,-1,1,0,1,1

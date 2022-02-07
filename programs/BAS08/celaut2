@@ -1,0 +1,25 @@
+   10 REM > CELAUT2
+   20 
+   30 MODE13:OFF
+   40 DIM R%(63,8),X%(5000,2),Y%(5000,2),C%(5000,2)
+   50 FOR N%=1TO63:FORI%=0TO4STEP4
+   60 R%(N%,I%+1)=RND(63):R%(N%,I%+2)=4*RND(2)
+   70 REPEAT:R%(N%,I%+3)=RND(3)-2:R%(N%,I%+4)=RND(3)-2
+   80 UNTIL R%(N%,I%+3)<>0 OR R%(N%,I%+4)<>0
+   90 NEXT,:C1%=0:P1%=1:P2%=2
+  100 FORN%=1TO5:C1%+=1
+  110 X%(C1%,P1%)=RND(1024)+128:Y%(C1%,P1%)=RND(768)+128:C%(C1%,P1%)=RND(63)
+  120 GCOL C%(C1%,P1%):POINT X%(C1%,P1%),Y%(C1%,P1%):NEXT
+  130 
+  140 REPEAT
+  150 C2%=C1%:C1%=0:SWAP P1%,P2%
+  160 FORN%=1TOC2%:FORI%=0TO4STEP4
+  170 PC%=R%(C%(N%,P2%),I%+1)
+  180 PX%=X%(N%,P2%)+R%(C%(N%,P2%),I%+3)*R%(C%(N%,P2%),I%+2)
+  190 PY%=Y%(N%,P2%)+R%(C%(N%,P2%),I%+4)*R%(C%(N%,P2%),I%+2)
+  200 IF POINT(PX%,PY%)=0 THEN
+  210 GCOL PC%:POINT PX%,PY%
+  220 C1%+=1:X%(C1%,P1%)=PX%:Y%(C1%,P1%)=PY%:C%(C1%,P1%)=PC%
+  230 ENDIF
+  240 NEXT,
+  250 UNTILC1%=0

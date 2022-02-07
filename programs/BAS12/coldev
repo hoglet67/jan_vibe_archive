@@ -1,0 +1,43 @@
+   10 REM > COLDEV
+   20 
+   30 MODE21:OFF
+   40 Q%=20000:T%=0
+   50 DIM X%(Q%),Y%(Q%),R%(Q%),G%(Q%),B%(Q%)
+   60 REPEAT:C%=0
+   70 REPEAT:X%=RND(1280):Y%=RND(1024):C%+=1:UNTIL POINT(X%,Y%)=0 OR C%=5000
+   80 IF C%<5000 THEN
+   90 T%+=1:X%(T%)=X%:Y%(T%)=Y%
+  100 R%(T%)=127:G%(T%)=127:B%(T%)=127
+  110 CIRCLE FILL X%(T%),Y%(T%),400
+  120 ENDIF
+  130 UNTIL C%=5000:CLS
+  140 
+  150 REPEAT
+  160 R%=RND(T%):IF R%=0 R%=1
+  170 SWAP X%(R%),X%(T%):SWAP Y%(R%),Y%(T%)
+  180 SWAP R%(R%),R%(T%):SWAP G%(R%),G%(T%):SWAP B%(R%),B%(T%)
+  190 X1%=X%(T%):Y1%=Y%(T%):R1%=R%(T%):G1%=G%(T%):B1%=B%(T%):T%-=1
+  200 PROCP(X1%+2,Y1%,R1%,G1%,B1%)
+  210 PROCP(X1%-2,Y1%,R1%,G1%,B1%)
+  220 PROCP(X1%,Y1%+2,R1%,G1%,B1%)
+  230 PROCP(X1%,Y1%-2,R1%,G1%,B1%)
+  240 UNTIL T%=0
+  250 END
+  260 
+  270 DEFPROCP(X%,Y%,R%,G%,B%)
+  280 IF POINT(X%,Y%)=0 THEN
+  290 R%=R%+RND(25)-13:IFR%>255 R%=255
+  300 IFR%<0 R%=0
+  310 G%=G%+RND(25)-13:IFG%>255 G%=255
+  320 IFG%<0 G%=0
+  330 B%=B%+RND(25)-13:IFB%>255 B%=255
+  340 IFB%<0 B%=0
+  350 T%+=1:X%(T%)=X%:Y%(T%)=Y%:R%(T%)=R%:G%(T%)=G%:B%(T%)=B%
+  360 PROCRGB(R%,G%,B%):POINT X%,Y%
+  370 ENDIF
+  380 ENDPROC
+  390 
+  400 DEFPROCRGB(R%,G%,B%)
+  410 LOCAL C%:C%=(R%<<8)+(G%<<16)+(B%<<24)
+  420 SYS "ColourTrans_SetGCOL",C%,,,&100,0
+  430 ENDPROC

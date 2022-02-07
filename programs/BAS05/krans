@@ -1,0 +1,33 @@
+   10 REM > KRANS
+   20 
+   30 MODE15:OFF
+   40 ORIGIN 640,512
+   50 K%=8
+   60 DIM A%(K%),B%(K%),C%(K%),D%(K%),E%(K%),F%(K%),G%(K%),H%(K%),I%(K%)
+   70 FORN%=1TOK%:PROCA:NEXT
+   80 REPEAT
+   90 FORN%=1TOK%
+  100 T=RAD(F%(N%)+G%(N%))
+  110 X%=064*(SIN(T*A%(N%))+SIN(T*B%(N%)))+360*SINT
+  120 Y%=064*(SIN(T*C%(N%))+SIN(T*D%(N%)))+360*COST
+  130 IF H%(N%)=7 OR H%(N%)=0 I%(N%)=-I%(N%)
+  140 H%(N%)+=I%(N%):PROCF(E%(N%),H%(N%))
+  150 CIRCLE FILL X%,Y%,24
+  160 GCOL0:CIRCLE X%,Y%,24
+  170 F%(N%)=F%(N%)-1
+  180 IFF%(N%)=0 PROCA
+  190 NEXT
+  200 UNTIL0
+  210 
+  220 DEFPROCA
+  230 A%(N%)=(RND(15)+1)*SGN(RND(1)-.5):B%(N%)=(RND(15)+1)*SGN(RND(1)-.5)
+  240 C%(N%)=(RND(15)+1)*SGN(RND(1)-.5):D%(N%)=(RND(15)+1)*SGN(RND(1)-.5)
+  250 E%(N%)=RND(26):F%(N%)=RND(360):G%(N%)=RND(360):H%(N%)=3:I%(N%)=1
+  260 ENDPROC
+  270 
+  280 DEFPROCF(F%,I%)
+  290 LOCAL R%,G%,B%
+  300 B%=F%DIV9:F%=F%MOD9:G%=F%DIV3:F%=F%MOD3:R%=F%
+  310 F%=R%+4*G%+16*B%:IF I%>=4 F%=F%+&15
+  320 GCOL F% TINT (64*I%)MOD256
+  330 ENDPROC

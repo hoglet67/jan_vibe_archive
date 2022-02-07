@@ -1,0 +1,29 @@
+   10 REM > MAZE2
+   20 
+   30 MODE31:OFF
+   40 DIM X%(5000),Y%(5000)
+   50 P%=0:CC%=0:FORN%=1TO5
+   60 P%+=1:X%(P%)=RND(200)*8:Y%(P%)=RND(150)*8:NEXT
+   70 REPEAT
+   80 R%=RND(P%):IF P%=1 R%=1
+   90 FORN%=1TO4
+  100 DX%=X%(R%):DY%=Y%(R%)
+  110 CASE RND(4) OF
+  120 WHEN1:DX%+=8
+  130 WHEN2:DX%-=8
+  140 WHEN3:DY%+=8
+  150 WHEN4:DY%-=8
+  160 ENDCASE
+  170 IF POINT(DX%,DY%)=0 P%+=1:X%(P%)=DX%:Y%(P%)=DY%:LINE X%(R%),Y%(R%),X%(P%),Y%(P%):N%=10
+  180 NEXT
+  190 CC%=(CC%+1)MOD500:IF CC%=0 THEN
+  200 P1%=0:FORN%=1TOP%
+  210 K%=0
+  220 IF POINT(X%(N%)+8,Y%(N%))<>0 K%+=1
+  230 IF POINT(X%(N%)-8,Y%(N%))<>0 K%+=1
+  240 IF POINT(X%(N%),Y%(N%)+8)<>0 K%+=1
+  250 IF POINT(X%(N%),Y%(N%)-8)<>0 K%+=1
+  260 IF K%<>4 P1%+=1:X%(P1%)=X%(N%):Y%(P1%)=Y%(N%)
+  270 NEXT:P%=P1%
+  280 ENDIF
+  290 UNTILP%=0

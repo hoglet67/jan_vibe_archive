@@ -1,0 +1,33 @@
+   10 REM > CALC2
+   20 
+   30 MODE31
+   40 PRINT'"Multiplication of big integer numbers"'
+   50 FORN%=1TO23:A$=A$+STR$(RND(10)-1):B$=B$+STR$(RND(10)-1)
+   60 PRINTA$" * "B$" = ";FNMUL(A$,B$):NEXT
+   70 FORN%=1TO22:A$=RIGHT$(A$,LEN(A$)-1):B$=RIGHT$(B$,LEN(B$)-1)
+   80 PRINTA$" * "B$" = ";:PRINTFNMUL(A$,B$):NEXT
+   90 PRINT'"Multiplication of two 120 digit numbers"':A$="":B$=""
+  100 FORN%=1TO120:A$+=STR$(RND(10)-1):B$+=STR$(RND(10)-1):NEXT
+  110 PRINT"A:"'A$''"B:"'B$''"Result A*B:"'FNMUL(A$,B$)'
+  120 END
+  130 
+  140 DEFFNMUL(A$,B$)
+  150 LOCAL T$(),W$,R$,N%
+  160 DIM T$(9):W$="0":R$="0"
+  170 FORN%=1TO9:W$=FNADD(W$,A$):T$(N%)=W$:NEXT
+  180 FORN%=LEN(B$)TO1STEP-1:W%=VALMID$(B$,N%,1):W$=T$(W%)
+  190 W$=W$+STRING$(LEN(B$)-N%,"0")
+  200 R$=FNADD(R$,W$):NEXT
+  210 =R$
+  220 
+  230 DEFFNADD(A$,B$)
+  240 LOCAL R$,C%,N%,W%,P%,T%
+  250 P%=LEN(A$):IF LEN(B$)>P% P%=LEN(B$)
+  260 IF P%MOD8<>0 P%=8*(P%DIV8+1)
+  270 A$=RIGHT$(STRING$(P%-LEN(A$),"0")+A$,P%):B$=RIGHT$(STRING$(P%-LEN(B$),"0")+B$,P%):P%=P%DIV8
+  280 FORN%=P%TO1STEP-1:T%=8*N%-7:W%=VALMID$(A$,T%,8)+VALMID$(B$,T%,8)+C%
+  290 C%=W%DIV1E8:W$="00000000"+STR$(W%MOD1E8):R$=RIGHT$(W$,8)+R$
+  300 NEXT:IF C%<>0 R$=STR$(C%)+R$
+  310 P%=1:WHILE MID$(R$,P%,1)="0" P%+=1:ENDWHILE:R$=RIGHT$(R$,LEN(R$)-P%+1)
+  320 IFR$="" R$="0"
+  330 =R$

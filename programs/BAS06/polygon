@@ -1,0 +1,29 @@
+   10 REM > POLYGON
+   20 
+   30 MODE0:OFF
+   40 
+   50 DIM X(10,2),Y(10,2),PX%(10),PY%(10)
+   60 R1%=200:R2%=550
+   70 FORN%=1TO10:T=RAD(36*N%)
+   80 PX%(N%)=640+R1%*SINT:PY%(N%)=460+R1%*COST:SWAP R1%,R2%:NEXT
+   90 FORN%=1TO10:N1%=N%MOD10+1:N2%=N1%MOD10+1
+  100 X(1,1)=PX%(N%):X(2,1)=PX%(N1%):X(3,1)=PX%(N2%)
+  110 Y(1,1)=PY%(N%):Y(2,1)=PY%(N1%):Y(3,1)=PY%(N2%)
+  120 PROCP(3,1,15):NEXT
+  130 FORN%=1TO5:P%=2*N%-1:X(N%,1)=PX%(P%):Y(N%,1)=PY%(P%):NEXT
+  140 PROCP(5,10,1)
+  150 END
+  160 
+  170 DEFPROCP(K%,D1%,D2%)
+  180 LOCAL N%,M%,I%,L%,L1%,P1%,P2%
+  190 L%=1000:P1%=1:P2%=2
+  200 REPEAT
+  210 MOVEX(K%,P1%),Y(K%,P1%):FORN%=1TOK%:DRAW X(N%,P1%),Y(N%,P1%):NEXT
+  220 FORN%=1TOK%:M%=N%MODK%+1
+  230 X(N%,P2%)=(D1%*X(N%,P1%)+D2%*X(M%,P1%))/(D1%+D2%)
+  240 Y(N%,P2%)=(D1%*Y(N%,P1%)+D2%*Y(M%,P1%))/(D1%+D2%)
+  250 L1%=(X(N%,P2%)-X(M%,P2%))^2+(Y(N%,P2%)-Y(M%,P2%))^2
+  260 IF L1%<L% L%=L1%
+  270 NEXT:SWAP P1%,P2%
+  280 UNTIL L%<=128
+  290 ENDPROC

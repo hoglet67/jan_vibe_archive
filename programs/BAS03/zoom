@@ -1,0 +1,25 @@
+   10 REM > ZOOM
+   20 
+   30 MODE0
+   40 T$="Hvor mange programmører skal der til at skifte en pære ??? Ingen det er et hardware problem! HA HA HA "
+   50 
+   60 DIMC%(3),D%(3):S1$="1":S2$="2":P2%=0:OFF:VDU5
+   70 ONERRORGOTO250
+   80 
+   90 REPEAT
+  100 Z%=0:FORN%=1TO3:C%(N%)=RND(255):D%(N%)=C%(N%)/16:NEXT
+  110 COLOUR1,C%(1),C%(2),C%(3)
+  120 P1%=P2%+1:P2%=INSTR(T$," ",P1%)
+  130 IF P2%=0:P1%=1:P2%=INSTR(T$," ",P1%):K=INKEY(300)
+  140 A$=MID$(T$,P1%,P2%-P1%)
+  150 REPEAT
+  160 Z%+=2:X%=1280-LENA$*2*Z%:Y%=1020+4*Z%:MOVEX%/2,Y%/2
+  170 VDU23,17,7,6,Z%;Z%|:PRINTA$
+  180 OSCLI"FX112,"+S1$:OSCLI"FX113,"+S2$:WAIT:CLS:SWAP S1$,S2$
+  190 UNTILX%<0ORZ%>=100
+  200 OSCLI"FX112,"+S1$:K=INKEY(50)
+  210 FORN%=15TO0STEP-1
+  220 FORM%=1TO3:C%(M%)-=D%(M%):NEXT:COLOUR1,C%(1),C%(2),C%(3):WAIT
+  230 NEXT:CLS:UNTIL0
+  240 
+  250 VDU4,20:OSCLI"FX112,"+S1$:ON:REPORT:PRINT" at line "STR$ERL

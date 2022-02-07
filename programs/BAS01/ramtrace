@@ -1,0 +1,48 @@
+   10 REM >RAMtrace
+   20 REM logical RAM tracer
+   30 REM
+   40 REM
+   50 REM
+   60 REM Risc User vol. 4
+   70 :
+   80 MODE12:OFF:contig=FALSE:Y=12:T=0
+   90 DIM B% &20:VDU19,0,24,128,128,240
+  100 PRINTTAB(18,3)"A R C H I M E D E S   R A M   T R A C E R"
+  110 PRINTTAB(27,7)"Checking RAM at"
+  120 PROCcheckit
+  130 addr%=FNscrn:PROCstart
+  140 addr%=&2000000:PROCend
+  150 PRINTTAB(8,Y+1)"TOTAL"SPC(43)T;" K"
+  160 PRINTTAB(0,31);:ON:END
+  170 :
+  180 DEFPROCcheckit
+  190 FOR addr%=0 TO &1FC8000 STEP &2000
+  200 PRINTTAB(43,7)~addr%;SPC7
+  210 ram=FNcheck(addr%)
+  220 IF (NOT ram) AND contig PROCend
+  230 IF ram AND NOT contig PROCstart
+  240 NEXT:ENDPROC
+  250 :
+  260 DEFFNcheck(addr%)
+  270 SYS &3A,addr%,addr%+1 TO ;flag
+  280 =(flag AND 2)=0
+  290 :
+  300 DEFPROCend
+  310 PRINTTAB(44,Y)"-"~(addr%-1)
+  320 ram%=(addr%-start%)/&400:T+=ram%
+  330 PRINTTAB(56,Y)ram%;" K"
+  340 Y=Y+2:contig=FALSE:ENDPROC
+  350 :
+  360 DEFPROCstart
+  370 PRINTTAB(8,Y)FNtxt,TAB(28,Y)~addr%
+  380 start%=addr%:contig=TRUE:ENDPROC
+  390 :
+  400 DEFFNscrn
+  410 :!B%=148:!(B%+4)=-1
+  420 SYS &31,B%,B%+&10:=!(B%+&10)
+  430 :
+  440 DEFFNtxt:RESTORE
+  450 REPEAT READ start,text$
+  460 UNTIL addr%/&10000<=start:=text$
+  470 DATA 0,"System/Basic",&100,"RAM Filing",&140,"Sprites",&180,"Reloc Modules",&1C0,"System Heap",&1F0,"Cursor/Syst Space",&200,"Screen RAM"
+  480 

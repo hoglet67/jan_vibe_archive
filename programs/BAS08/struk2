@@ -1,0 +1,18 @@
+   10 REM > STRUK2
+   20 
+   30 MODE15:OFF
+   40 DIM PX%(10000),PY%(10000):PX%()=640:PY%()=512:P%=1
+   50 REPEAT:C%=0:RESTORE 180
+   60 R%=RND(P%):X%=PX%(R%):Y%=PY%(R%):PX%(R%)=PX%(P%):PY%(R%)=PY%(P%):P%-=1
+   70 FORI%=1TO8:READ A%,B%:C%+=1:X1%=X%+A%:Y1%=Y%+B%
+   80 IF POINT(X1%,Y1%)=0 THEN
+   90 R%=127*(SINRAD(45*I%-RND(45)+120)+1)
+  100 G%=127*(SINRAD(45*I%-RND(45)+180)+1)
+  110 B%=127*(SINRAD(45*I%-RND(45)+240)+1)
+  120 T%=(R%<<8)+(G%<<16)+(B%<<24)
+  130 SYS "ColourTrans_SetGCOL",T%,,,&100,0
+  140 LINE X1%,Y1%,X1%+2,Y1%
+  150 P%+=1:PX%(P%)=X1%:PY%(P%)=Y1%:VDU30
+  160 ENDIF
+  170 NEXT:UNTILP%=0
+  180 DATA -4,-4, 0,-4, 4,-4, 4,0, 4,4, 0,4, -4,4, -4,0

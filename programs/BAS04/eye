@@ -1,0 +1,54 @@
+   10 REM > EYE
+   20 
+   30 SYS"OS_UpdateMEMC",64,64
+   40 MODE137:MODE9:OFF
+   50 S1%=1:S2%=2
+   60 
+   70 ONERRORGOTO540
+   80 
+   90 REM Reserver memory til spriteareal
+  100 DIM SP% &10000 , SC% &10
+  110 
+  120 REM Initier spriteareal
+  130 SP%!0=&10000 : REM  spritearealets stRETURNrrelse
+  140 SP%!4=0      : REM  antal sprites defineret lige nu
+  150 SP%!8=16     : REM  her starter fRETURNrste spritedef
+  160 SP%!12=16    : REM  her starter det frie areal
+  170 
+  180 REM Lav noget grafik pGOTO skGCOLrmen
+  190 FORN%=0TO15:COLOUR N%,16*N%,00*N%,16*(15-N%):NEXT
+  200 F=1.3416:A1=1280:C%=0
+  210 REPEAT
+  220 A2=A1/F:A3=A2/F:S=(A3-A1)/15
+  230 FORN%=0TO15:GCOL N%:ELLIPSEFILL 640,512,A1+N%*S,A2:NEXT
+  240 A1+=15*S:S=S/F
+  250 FORN%=1TO14:GCOL 15-N%:ELLIPSEFILL 640,512,A1,A2+N%*S:NEXT
+  260 UNTILA1<=4
+  270 
+  280 REM Tag sprite fra skGCOLrmbilledets grafik
+  290 SYS"OS_SpriteOp",256+16,SP%,"PIC",0,0,0,1279,1024
+  300 
+  310 REPEAT
+  320 
+  330 REM Initier skaleringsfaktorer
+  340 K=1000
+  350 SC%!00=K  : REM  x tGCOLller
+  360 SC%!04=K  : REM  y tGCOLller
+  370 SC%!08=K  : REM  x nGCOLvner
+  380 SC%!12=K  : REM  y nGCOLvner
+  390 REPEAT
+  400 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  410 XP%=640-(1280*K/1000)/2
+  420 YP%=512-(1024*K/1000)/2
+  430 SYS "OS_SpriteOp",256+52,SP%,"PIC",XP%,YP%,8,SC%
+  440 K=K+80
+  450 SC%!00=K
+  460 SC%!04=K
+  470 IF TIME<20 THEN
+  480 REPEAT UNTIL TIME>=20
+  490 ENDIF
+  500 TIME=0
+  510 UNTIL K>=1800
+  520 UNTIL0
+  530 
+  540 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

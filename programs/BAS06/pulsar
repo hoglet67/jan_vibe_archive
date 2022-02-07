@@ -1,0 +1,94 @@
+   10 REM > PULSAR
+   20 
+   30 REM---------------------------------------------------------------
+   40 REM                       Jan Vibe june 92
+   50 REM---------------------------------------------------------------
+   60 
+   70 MODE12:ORIGIN 640,512:COLOUR 0,0,0,240:VDU19,0,24,0,0,240
+   80 PRINT'TAB(34)"P U L S A R"'
+   90 PRINTTAB(28)"Psychedelic mathematics"'''
+  100 PRINT"This program displays a polygon with a swirling colour pattern."
+  110 PRINT"The pattern can best be seen from a distance of 2 to 3 meters."'
+  120 PRINT"If the emerging pattern don't look interesting, just tap the"
+  130 PRINT"keyboard, and a new pattern will be generated immediately."''
+  140 PRINT'"Which polygon is to be selected ?"'
+  150 PRINT"1: Square"
+  160 PRINT"2: Hexagon"
+  170 PRINT"3: Octagon"
+  180 PRINT"4: Polygon with 12 sides"
+  190 PRINT'"Polygon number ";
+  200 *FX15,0
+  210 REPEAT:FG$=INKEY$(0):UNTIL INSTR("1234",FG$)<>0 AND FG$<>""
+  220 FG%=VAL(FG$)
+  230 CASE FG% OF
+  240   WHEN 1:V%=0 :Z%=512:W=1.0
+  250   WHEN 2:V%=30:Z%=580:W=1.5
+  260   WHEN 3:V%=45:Z%=512:W=2.0
+  270   WHEN 4:V%=60:Z%=512:W=2.5
+  280 ENDCASE
+  290 CLS:OFF
+  300 
+  310 T1=RAD(V%):T2=RAD(90):K%=180/(90-V%):R%=RND(-TIME)
+  320 CS%=1:CP%=RND(3):TI%=TIME
+  330 DIM SI(K%),CO(K%),C%(15,3),PX%(6),PY%(6),PW(6)
+  340 FORN%=1TOK%:T=RAD(2*(90-V%)*N%):SI(N%)=SINT:CO(N%)=COST:NEXT
+  350 DATA 16,32,80,112,144,176,208,240,224,192,160,128,96,64,32
+  360 FORN%=1TO15
+  370   READ C%(N%,1):C%(N%,2)=C%(N%,1):C%(N%,3)=C%(N%,1)
+  380   COLOUR N%,C%(N%,1),C%(N%,2),C%(N%,3)
+  390 NEXT
+  400 
+  410 REPEAT
+  420   D%=RND(6):F=28/(2*D%):T$=""
+  430   FORN%=1TOD%:PX%(N%)=RND(Z%):PY%(N%)=RND(Z%):PW(N%)=W*RND(1)+.5:NEXT
+  440   PROCA(0,0,Z%*SINT1,Z%*COST1,Z%*SINT2,Z%*COST2)
+  450   IF T$="" THEN
+  460     T%=TIME+1000:REPEAT:PROCF:UNTIL TIME>T%
+  470   ENDIF
+  480 UNTIL0
+  490 
+  500 DEFPROCA(X1,Y1,X2,Y2,X3,Y3)
+  510 LOCAL XA,YA,XB,YB,XC,YC
+  520 IF T$="" T$=INKEY$(0)
+  530 IF (X2-X1)^2+(Y2-Y1)^2>=256 AND T$="" THEN
+  540   XA=(X1+X2)/2:YA=(Y1+Y2)/2
+  550   XB=(X2+X3)/2:YB=(Y2+Y3)/2
+  560   XC=(X3+X1)/2:YC=(Y3+Y1)/2
+  570   PROCF
+  580   PROCA(X1,Y1,XA,YA,XC,YC):PROCF
+  590   PROCA(XA,YA,X2,Y2,XB,YB):PROCF
+  600   PROCA(XA,YA,XB,YB,XC,YC):PROCF
+  610   PROCA(XC,YC,XB,YB,X3,Y3):PROCF
+  620 ELSE
+  630   IF T$="" THEN
+  640     XT=(X1+X2+X3)/3:YT=(Y1+Y2+Y3)/3:C=0
+  650     FORN%=1TOD%
+  660       C+=(1+SINRAD(PW(N%)*SQR((PX%(N%)-XT)^2+(PY%(N%)-YT)^2))):PROCF
+  670     NEXT:PROCC(F*C+1):PROCF
+  680     FORN%=1TOK%
+  690       XT1=X1*CO(N%)+Y1*SI(N%):YT1=Y1*CO(N%)-X1*SI(N%)
+  700       XT2=X2*CO(N%)+Y2*SI(N%):YT2=Y2*CO(N%)-X2*SI(N%)
+  710       XT3=X3*CO(N%)+Y3*SI(N%):YT3=Y3*CO(N%)-X3*SI(N%)
+  720       MOVE XT1,YT1:MOVE XT2,YT2:PLOT85,XT3,YT3
+  730       MOVE XT1,-YT1:MOVE XT2,-YT2:PLOT85,XT3,-YT3
+  740       PROCF
+  750     NEXT
+  760   ENDIF
+  770 ENDIF
+  780 ENDPROC
+  790 
+  800 DEFPROCC(A%)
+  810 GCOL ABS(14-((A%+13)MOD28))+1
+  820 ENDPROC
+  830 
+  840 DEFPROCF
+  850 LOCAL N%,T%
+  860 IF TIME-TI%>=8 THEN
+  870   IF RND(1)>.6 CP%=RND(3)
+  880   T%=C%(15,CP%)
+  890   FORN%=15TO2STEP-1:C%(N%,CP%)=C%(N%-1,CP%):NEXT:C%(1,CP%)=T%
+  900   CS%=CS%MOD15+1
+  910   FORN%=1TO15:COLOUR (N%+CS%+15)MOD15+1,C%(N%,1),C%(N%,2),C%(N%,3):NEXT
+  920   TI%=TIME
+  930 ENDIF
+  940 ENDPROC

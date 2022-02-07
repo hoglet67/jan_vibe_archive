@@ -1,0 +1,136 @@
+   10 REM > ROTRGB
+   20 
+   30 REM *--------------------*
+   40 REM | Jan Vibe august 91 |
+   50 REM *--------------------*
+   60 
+   70 MODE140:MODE12:OFF:ORIGIN 640,512
+   80 S1%=1:S2%=2
+   90 
+  100 REM skalering,perspektivfaktor,antal punkter
+  110 S=800:PF=2:AP%=FNCP(0)
+  120 
+  130 REM OpsGCOLtning af matricer.
+  140 DIM A(4,4),T(4,4),C(4,4),K(4),R(4)
+  150 C()=0:FORN%=1TO4:C(N%,N%)=1:NEXT
+  160 
+  170 REM OpsGCOLtning af koordinattabeller
+  180 AP%=FNCP(0):DIM PX(AP%),PY(AP%),PZ(AP%),SX(AP%),SY(AP%):PROCOBJ
+  190 
+  200 REM OpsGCOLtning af linietabel.
+  210 AL%=FNCL(0):DIM L%(AL%,3):PROCLIN
+  220 
+  230 PROCROT(3-RND(1)*6,3-RND(1)*6,3-RND(1)*6)
+  240 
+  250 ONERRORGOTO470
+  260 
+  270 REM drej objektet, tegn det og vis det. (main loop)
+  280 REPEAT
+  290 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  300 
+  310 FORN%=1TOAP%
+  320 K(1)=PX(N%):K(2)=PY(N%):K(3)=PZ(N%):K(4)=1
+  330 R()=K().T()
+  340 PX(N%)=R(1):PY(N%)=R(2):PZ(N%)=R(3)
+  350 P=1+PZ(N%)/(S*PF)
+  360 SX(N%)=R(1)/P:SY(N%)=R(2)/P
+  370 NEXT
+  380 FORN%=1TOAL%:GCOL L%(N%,3)
+  390 LINE SX(L%(N%,1)),SY(L%(N%,1)),SX(L%(N%,2)),SY(L%(N%,2))
+  400 NEXT
+  410 
+  420 IF RND(1)>.99 PROCROT(3-RND(1)*6,3-RND(1)*6,3-RND(1)*6)
+  430 
+  440 UNTIL0
+  450 REM Slut pGOTO main loop.
+  460 
+  470 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON
+  480 END
+  490 
+  500 REM ---------- Procedurer ------------
+  510 
+  520 REM Beregn roteringsmatricen.
+  530 DEFPROCROT(DX,DY,DZ)
+  540 LOCAL T,SI,CO
+  550 T()=C()
+  560 
+  570 REM drejning om X.
+  580 A()=C():T=RADDX:CO=COST:SI=SINT
+  590 A(2,2)=CO:A(3,2)=-SI:A(2,3)=SI:A(3,3)=CO
+  600 T()=A()
+  610 
+  620 REM drejning om Y.
+  630 A()=C():T=RADDY:CO=COST:SI=SINT
+  640 A(1,1)=CO:A(3,1)=SI:A(1,3)=-SI:A(3,3)=CO
+  650 T()=A().T()
+  660 
+  670 REM drejning om Z.
+  680 A()=C():T=RADDZ:CO=COST:SI=SINT
+  690 A(1,1)=CO:A(2,1)=-SI:A(1,2)=SI:A(2,2)=CO
+  700 T()=A().T()
+  710 ENDPROC
+  720 
+  730 DEFFNCP(X%)
+  740 LOCAL A$,B$,C$
+  750 X%=0:RESTORE 1200
+  760 REPEAT:READ A$,B$,C$:IF A$<>"*" X%+=1
+  770 UNTIL A$="*"
+  780 =X%
+  790 
+  800 DEFFNCL(X%)
+  810 LOCAL A$,B$,C$
+  820 X%=0:RESTORE 1270
+  830 REPEAT:READ A$,B$,C$:IF A$<>"*" X%+=1
+  840 UNTIL A$="*"
+  850 =X%
+  860 
+  870 REM Definition af objekt.
+  880 DEFPROCOBJ
+  890 LOCAL N%,K,SC,MAXX,MINX,MAXY,MINY,MAXZ,MINZ
+  900 RESTORE 1200
+  910 SC=0:FORN%=1TO3*AP%:READ K:IF ABS(K)>SC SC=ABS(K)
+  920 NEXT
+  930 RESTORE 1200:FORN%=1TOAP%:READ PX(N%),PY(N%),PZ(N%)
+  940 PX(N%)=S*PX(N%)/SC:PY(N%)=S*PY(N%)/SC:PZ(N%)=S*PZ(N%)/SC:NEXT
+  950 MAXX=PX(1):MINX=PX(1)
+  960 MAXY=PY(1):MINY=PY(1)
+  970 MAXZ=PZ(1):MINZ=PZ(1)
+  980 FORN%=1TOAP%
+  990 IF PX(N%)>MAXX MAXX=PX(N%)
+ 1000 IF PX(N%)<MINX MINX=PX(N%)
+ 1010 IF PY(N%)>MAXY MAXY=PY(N%)
+ 1020 IF PY(N%)<MINY MINY=PY(N%)
+ 1030 IF PZ(N%)>MAXZ MAXZ=PZ(N%)
+ 1040 IF PZ(N%)<MINZ MINZ=PZ(N%)
+ 1050 NEXT
+ 1060 MAXX=(MINX+MAXX)/2:MAXY=(MINY+MAXY)/2:MAXZ=(MINZ+MAXZ)/2
+ 1070 FORN%=1TOAP%:PX(N%)-=MAXX:PY(N%)-=MAXY:PZ(N%)-=MAXZ:NEXT
+ 1080 ENDPROC
+ 1090 
+ 1100 REM Definition af linier og farver.
+ 1110 DEFPROCLIN
+ 1120 LOCAL N%
+ 1130 RESTORE 1270
+ 1140 FORN%=1TOAL%:READ L%(N%,1),L%(N%,2),L%(N%,3):NEXT
+ 1150 ENDPROC
+ 1160 
+ 1170 REM --------------------- Data ------------------------
+ 1180 
+ 1190 REM Punkter (X,Y,Z).
+ 1200 DATA 2,0,3, 5,0,3, 5,7,3, 2,7,3, 2,0,4, 5,0,4, 5,7,4, 2,7,4
+ 1210 DATA 3,2,0, 4,2,0, 4,5,0, 3,5,0, 3,2,7, 4,2,7, 4,5,7, 3,5,7
+ 1220 DATA 0,3,2, 7,3,2, 7,4,2, 0,4,2, 0,3,5, 7,3,5, 7,4,5, 0,4,5
+ 1230 
+ 1240 DATA "*","*","*"
+ 1250 
+ 1260 REM Punkt a, punkt b, farve. A forbindes med b med en farvet linie
+ 1270 DATA 01,02,1, 02,03,1, 03,04,1, 04,01,1, 05,06,1, 06,07,1
+ 1280 DATA 07,08,1, 08,05,1, 01,05,1, 02,06,1, 03,07,1, 04,08,1
+ 1290 
+ 1300 DATA 09,10,2, 10,11,2, 11,12,2, 12,09,2, 13,14,2, 14,15,2
+ 1310 DATA 15,16,2, 16,13,2, 09,13,2, 10,14,2, 11,15,2, 12,16,2
+ 1320 
+ 1330 DATA 17,18,4, 18,19,4, 19,20,4, 20,17,4, 21,22,4, 22,23,4
+ 1340 DATA 23,24,4, 24,21,4, 17,21,4, 18,22,4, 19,23,4, 20,24,4
+ 1350 
+ 1360 DATA "*","*","*"

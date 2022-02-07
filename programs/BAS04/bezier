@@ -1,0 +1,39 @@
+   10 REM > BEZIER
+   20 
+   30 MODE12
+   40 DIM X(3),Y(3)
+   50 
+   60 *POINTER
+   70 REPEAT
+   80 CLS:GCOL1
+   90 PRINT"   Startpunkt:   ";:PROCMUS(0):POINT X(0),Y(0)
+  100 PRINT"1. Kontrolpunkt: ";:PROCMUS(1):LINE X(0),Y(0),X(1),Y(1)
+  110 PRINT"   Slutpunkt:    ";:PROCMUS(3):POINT X(3),Y(3)
+  120 PRINT"2. Kontrolpunk:  ";:PROCMUS(2):LINE X(3),Y(3),X(2),Y(2)
+  130 GCOL7:PROCBEZ(X(),Y(),100)
+  140 REPEAT MOUSE MX%,MY%,MB%:UNTIL MB%<>0
+  150 T=TIME+50:REPEAT UNTIL TIME>=T
+  160 UNTIL0
+  170 
+  180 DEFPROCMUS(I%)
+  190 LOCAL MX%,MY%,MB%,T,@%:@%=0
+  200 REPEAT:MOUSE MX%,MY%,MB%:UNTIL MB%<>0
+  210 PRINT"("MX%","MY%")":X(I%)=MX%:Y(I%)=MY%
+  220 T=TIME+50:REPEAT UNTIL TIME>=T
+  230 ENDPROC
+  240 
+  250 DEFPROCBEZ(X(),Y(),N%)
+  260 LOCAL A(),B(),I%,T,T1
+  270 DIM A(3),B(3)
+  280 A(0)=X(0):B(0)=Y(0)
+  290 A(1)=X(1)+2*X(0):B(1)=Y(1)+2*Y(0)
+  300 A(2)=X(2)+2*X(3):B(2)=Y(2)+2*Y(3)
+  310 A(3)=X(3):B(3)=Y(3)
+  320 MOVE X(0),Y(0)
+  330 FORI%=0TON%
+  340 T=I%/N%:T1=1-T
+  350 X=A(0)*T1^3+A(1)*T*T1^2+A(2)*T1*T^2+A(3)*T^3
+  360 Y=B(0)*T1^3+B(1)*T*T1^2+B(2)*T1*T^2+B(3)*T^3
+  370 DRAWX,Y
+  380 NEXT
+  390 ENDPROC

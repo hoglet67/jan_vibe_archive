@@ -1,0 +1,16 @@
+   10 REM > COLMIX
+   20 
+   30 MODE 13:OFF
+   40 SYS "OS_SWINumberFromString",,"ColourTrans_SetGCOL" TO set_gcol%
+   50 RX%=640+512*SINRAD(0):RY%=450+512*COSRAD(0)
+   60 GX%=640+512*SINRAD(120):GY%=430+512*COSRAD(120)
+   70 BX%=640+512*SINRAD(240):BY%=430+512*COSRAD(240)
+   80 FORY%=0TO1020STEP4
+   90 FORX%=0TO1276STEP4
+  100 R%=(SQR((X%-RX%)^2+(Y%-RY%)^2))/3.7
+  110 G%=(SQR((X%-GX%)^2+(Y%-GY%)^2))/3.7
+  120 B%=(SQR((X%-BX%)^2+(Y%-BY%)^2))/3.7
+  130 R%=255-R%:G%=255-G%:B%=255-B%
+  140 SYS set_gcol%,(R%<<8)+(G%<<16)+(B%<<24),,,&100,0
+  150 POINT X%,Y%
+  160 NEXT,

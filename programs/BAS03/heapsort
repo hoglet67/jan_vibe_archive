@@ -1,0 +1,39 @@
+   10 REM > HEAPSORT2
+   20 
+   30 MODE0
+   40 
+   50 REM HeapSort demonstration
+   60 REM Acorn User (Risc Revue)
+   70 REM April 90
+   80 REM
+   90 REM SYS "OS_HeapSort",antal,arrayadr,type
+  100 REM
+  110 REM type = 0  Cardinal number
+  120 REM type = 1  Integer
+  130 REM type = 2  Pointer to cardinal number
+  140 REM type = 3  Pointer to integer
+  150 REM type = 4  Pointer to string (case insensitive)
+  160 REM type = 5  Pointer to string (case sensitive)
+  170 
+  180 ANTAL%=25
+  190 PRINT"HeapSort demonstration"'
+  200 PRINT"Usorteret                     Sorteret"'
+  210 DIM TABEL% 4*ANTAL%
+  220 FORN%=0TOANTAL%-1
+  230 L%=RND(13)+1:DIM A% L%
+  240 FORM%=0TOL%-1
+  250 C%=RND(26)+64:IF RND(1)>.5 C%+=32
+  260 A%?M%=C%:NEXT:A%?M%=13
+  270 TABEL%!(4*N%)=A%
+  280 PRINT$!(TABEL%+4*N%)
+  290 NEXT:PRINT'
+  300 TIME=0
+  310 
+  320 SYS "OS_HeapSort",ANTAL%,TABEL%,4
+  330 
+  340 T%=TIME
+  350 VDU30
+  360 FORN%=0TOANTAL%-1
+  370 PRINTTAB(30,N%+4)$!(TABEL%+4*N%)
+  380 NEXT:PRINT
+  390 PRINT"Tid for sortering: ";T%/100;" sek."

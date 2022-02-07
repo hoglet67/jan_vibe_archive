@@ -1,0 +1,22 @@
+   10 REM > DLA2
+   20 
+   30 MODE13
+   40 DIMH%(320)
+   41 
+   50 X1%=160:X2%=160
+   70 C%=0:K%=60:GCOLRND(64)TINTRND(255)
+   80 REPEAT
+   90 C%+=1:IFC%=K% GCOLRND(64)TINTRND(255):C%=0:K%=1.1*K%
+  100 X%=FNR(X2%-X1%+1)+X1%-1
+  110 H1%=H%(X%)
+  120 IF H%(X%-1)>H1% H1%=H%(X%-1)
+  130 IF H%(X%+1)>H1% H1%=H%(X%+1)
+  140 POINT 4*X%,H1%:H%(X%)=H1%+4
+  150 IF X%=X1%:X1%=X1%-1
+  160 IF X%=X2%:X2%=X2%+1
+  170 UNTIL H1%>1016
+  180 END
+  190 
+  200 DEFFNR(X%)
+  210 IF X%=1 THEN=1
+  220 =RND(X%)

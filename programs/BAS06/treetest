@@ -1,0 +1,28 @@
+   10 REM > TREETEST
+   20 
+   30 REM The formula at line 120 calculates the factor used to scale the
+   40 REM length of a new branch given the length of the parent branch
+   50 REM and the angle, so that no branches overlaps any other.
+   60 
+   70 MODE128:MODE0:OFF:@%=&304:S1%=1:S2%=2:A=0
+   80 
+   90 ONERRORGOTO280
+  100 REPEAT
+  110 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%:A+=1
+  120 F=0.00254*A+0.473
+  130 PRINT"Angle="A;TAB(16)"Factor="F
+  140 PROCA(640,0,430,0)
+  150 UNTILA>=90
+  160 SYS 6,113,S2%:ON:END
+  170 
+  180 DEFPROCA(X,Y,Z,BA)
+  190 LOCAL X1,Y1
+  200 X1=X+Z*SINRADBA:Y1=Y+Z*COSRADBA
+  210 LINE X,Y,X1,Y1
+  220 IF Z>=16THEN
+  230   PROCA(X1,Y1,Z*F,BA-A)
+  240   PROCA(X1,Y1,Z*F,BA+A)
+  250 ENDIF
+  260 ENDPROC
+  270 
+  280 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

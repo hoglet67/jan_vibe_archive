@@ -1,0 +1,56 @@
+   10 REM > STARFRAC
+   20 
+   30 REM Jan Vibe july 92
+   40 
+   50 MODE0:OFF:COLOUR0,0,0,255:VDU19,0,24,0,0,255
+   60 PRINT'TAB(33)"Star fractals"'''
+   70 PRINTTAB(10)"A star fractal is a fractal, which can be drawn in one line"
+   80 PRINTTAB(10)"without lifting the pencil from the paper."'
+   90 PRINTTAB(10)"This program demonstrates a procedure which can draw these"
+  100 PRINTTAB(10)"fractals. In fact, it draws 16 different kinds. First an"
+  110 PRINTTAB(10)"overview, which shows all 16, then each fractal is drawn"
+  120 PRINTTAB(10)"again, but this time the fractal fills the whole screen..."
+  130 K=INKEY(1000):CLS
+  140 FORY%=768TO0STEP-256
+  150 FORX%=128TO1024STEP256
+  160 READ LG,D%,F,S%:IF S%>=1 S%-=1
+  170 LG=LG/4:PROCA(LG,D%,X%+128,Y%+128)
+  180 NEXT,:K=INKEY(1000):RESTORE
+  190 FORN%=1TO16:READ LG,D%,F,S%:CLS:PROCA(LG,D%,640,512):K=INKEY(500):NEXT
+  200 ON:END
+  210 
+  220 DEFPROCA(LG,D%,XC%,YC%)
+  230 LOCAL X,Y,CX,CY,T,C%,A%
+  240 REPEAT:A%=(A%+D%)MOD360:T=RADA%
+  250 X=X+LG*COST:Y=Y+LG*SINT:CX+=X:CY+=Y:C%+=1:UNTIL A%=0
+  260 CX=CX/C%:CY=CY/C%:PROCF(XC%-CX,YC%-CY,LG,0,D%,0)
+  270 ENDPROC
+  280 
+  290 DEFPROCF(X,Y,LG,A%,D%,C%)
+  300 LOCAL A1%,T
+  310 A1%=A%:MOVE X,Y
+  320 REPEAT
+  330 A1%=(A1%+D%+360)MOD360:T=RADA1%:X=X+LG*COST:Y=Y+LG*SINT:DRAW X,Y
+  340 IF C%<=S% AND A1%<>A% PROCF(X,Y,LG/F,(A1%+D%+360)MOD360,-D%,C%+1)
+  350 UNTIL A1%=A%
+  360 IF C%=0 AND C%<=S% PROCF(X,Y,LG/F,(A1%+D%+360)MOD360,-D%,C%+1)
+  370 ENDPROC
+  380 
+  390 REM  length, angle, reduction factor, recursion depth
+  400 
+  410 DATA 210,  40,  4,     2
+  420 DATA 280,  48,  6,     1
+  430 DATA 350,  54,  8,     1
+  440 DATA 280,  60,  3,     3
+  450 DATA 280,  72,  2.6,   3
+  460 DATA 370,  80,  4,     2
+  470 DATA 340,  90,  2,     4
+  480 DATA 500,  96,  4,     0
+  490 DATA 580, 100,  7,     1
+  500 DATA 520, 108,  4.2,   2
+  510 DATA 250, 120,  1.61,  6
+  520 DATA 500, 135,  3.1,   1
+  530 DATA 450, 144,  2.6,   2
+  540 DATA 650, 150,  5,     1
+  550 DATA 600, 160,  4,     2
+  560 DATA 650, 168,  6,     1

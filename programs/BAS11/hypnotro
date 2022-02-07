@@ -1,0 +1,15 @@
+   10 REM > HYPNOTRON
+   20 
+   30 REM Stare fixedly on the center of the rotating disk for about
+   40 REM 15 - 20 seconds, then watch the flesh on the back of your
+   50 REM hand crawl...
+   60 
+   70 MODE31:OFF:ORIGIN 800,600:K=RAD(360/45):MOVE0,0:S%=0:C1%=0:C2%=7
+   80 FORN%=1TO9:PROCSH:NEXT:FORM%=500TO0STEP-2:S%+=1
+   90 FORN%=0TO45:GCOL(N%+S%)MOD15+1:T=N%*K:MOVE0,0:PLOT85,M%*SINT,M%*COST:NEXT,
+  100 REPEAT:PROCSH:UNTIL0
+  110 
+  120 DEFPROCSH
+  130 COLOURC1%,0,0,0:COLOURC2%,255,255,255
+  140 C1%=C1%MOD15+1:C2%=C2%MOD15+1:WAIT
+  150 ENDPROC

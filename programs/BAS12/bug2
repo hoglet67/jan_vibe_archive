@@ -1,0 +1,65 @@
+   10 REM > BUG2
+   20 
+   30 DIM MD% 64:MD%!00=1:MD%!04=800:MD%!08=600:MD%!12=5:MD%!16=-1:MD%!20=-1:MODE MD%
+   40 
+   50 DIM PATH% 100,JC% 15
+   60 JC%!0=0:JC%!4=0:JC%!8=0:JC%!12=0
+   70 
+   80 A%=10:P1%=1:P2%=2
+   90 DIMX%(A%,2),Y%(A%,2),R%(A%,2),G%(A%,2),B%(A%,2)
+  100 
+  110 REPEAT
+  120 FORN%=1TOA%:X%(N%,P1%)=RND(1600):Y%(N%,P1%)=RND(1200)
+  130 R%(N%,P1%)=RND(255):G%(N%,P1%)=RND(255):B%(N%,P1%)=RND(255)
+  140 NEXT:C%=0
+  150 REPEAT
+  160 SWAP P1%,P2%:C%+=1
+  170 X%(0,P2%)=X%(A%,P2%):Y%(0,P2%)=Y%(A%,P2%)
+  180 FORN%=1TOA%
+  190 X%(N%,P1%)=X%(N%,P2%)+(X%(N%-1,P2%)-X%(N%,P2%))/50
+  200 Y%(N%,P1%)=Y%(N%,P2%)+(Y%(N%-1,P2%)-Y%(N%,P2%))/50
+  210 R%(N%,P1%)=(R%(N%-1,P2%)*N%+R%(N%,P2%)*(200-N%))/200
+  211 G%(N%,P1%)=(G%(N%-1,P2%)*N%+G%(N%,P2%)*(200-N%))/200
+  212 B%(N%,P1%)=(B%(N%-1,P2%)*N%+B%(N%,P2%)*(200-N%))/200
+  220 NEXT
+  240 X%(0,P2%)=X%(A%,P2%):Y%(0,P2%)=Y%(A%,P2%)
+  241 R%(0,P2%)=R%(A%,P2%):G%(0,P2%)=G%(A%,P2%):B%(0,P2%)=B%(A%,P2%)
+  250 FORN%=1TOA%
+  251 X1%=X%(N%,P2%):Y1%=Y%(N%,P2%):R1%=R%(N%,P2%):G1%=G%(N%,P2%):B1%=B%(N%,P2%)
+  252 X2%=X%(N%-1,P2%):Y2%=Y%(N%-1,P2%):R2%=R%(N%-1,P2%):G2%=G%(N%-1,P2%):B2%=B%(N%-1,P2%)
+  253 PROCLINE(X1%,Y1%,R1%,G1%,B1%,X2%,Y2%,R2%,G2%,B2%,16)
+  260 NEXT
+  270 UNTIL C%=200
+  280 Q=INKEY(100)
+  290 UNTIL0
+  300 
+  310 DEFPROCLINE(X1,Y1,R1%,G1%,B1%,X2,Y2,R2%,G2%,B2%,B)
+  320 LOCAL L,K%,N%,N1%,XA,YA,XB,YB,R%,G%,B%
+  330 L=SQR((X2-X1)^2+(Y2-Y1)^2)
+  340 K%=L/12:IFK%=0 THEN K%=1
+  341 XA=(X1+X2)/2:YA=(Y1+Y2)/2
+  350 JC%!0=&010000:GCOL R1%,G1%,B1%:PROCL(X1,Y1,XA,YA,B)
+  360 JC%!0=&000100:GCOL R2%,G2%,B2%:PROCL(XA,YA,X2,Y2,B)
+  370 JC%!0=&000000
+  380 FORN%=2TOK%:N1%=K%-N%
+  390 XA=(X1%*(N%-2)+X2%*(N1%+2))/K%:YA=(Y1%*(N%-2)+Y2%*(N1%+2))/K%
+  400 XB=(X1*N%+X2*N1%)/K%:YB=(Y1*N%+Y2*N1%)/K%
+  410 R%=((N%-2)*R1%+(N1%+2)*R2%)/K%:G%=((N%-2)*G1%+(N1%+2)*G2%)/K%
+  420 B%=((N%-2)*B1%+(N1%+2)*B2%)/K%:GCOL R%,G%,B%
+  430 PROCL(XA,YA,XB,YB,B)
+  440 NEXT
+  450 XA=(X1%*(K%-1)+X2%)/K%:YA=(Y1%*(K%-1)+Y2%)/K%:XB=X1:YB=Y1
+  460 R%=((K%-1)*R1%+R2%)/K%:G%=((K%-1)*G1%+G2%)/K%
+  470 B%=((K%-1)*B1%+B2%)/K%:GCOL R%,G%,B%
+  480 PROCL(XA,YA,XB,YB,B)
+  490 ENDPROC
+  500 
+  510 DEFPROCL(X1,Y1,X2,Y2,B)
+  520 LOCAL PP%,W
+  530 X1=256*X1:Y1=256*Y1:X2=256*X2:Y2=256*Y2
+  540 PATH%!PP%=2:PP%+=4:PATH%!PP%=X1:PP%+=4:PATH%!PP%=Y1:PP%+=4
+  550 PATH%!PP%=8:PP%+=4:PATH%!PP%=X2:PP%+=4:PATH%!PP%=Y2:PP%+=4
+  560 PATH%!PP%=0:PP%+=4:PATH%!PP%=PP%
+  570 W=256*B
+  580 SYS"Draw_Stroke",PATH%,0,0,0,W,JC%,0
+  590 ENDPROC

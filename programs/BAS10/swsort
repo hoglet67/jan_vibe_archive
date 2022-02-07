@@ -1,0 +1,23 @@
+   10 REM > SWSORT
+   20 
+   30 MODE31:OFF:Q%=500:@%=4
+   40 DIM A%(Q%)
+   50 FORN%=1TOQ%:A%(N%)=RND(999):PRINTA%(N%);:NEXT:PRINT'
+   60 TIME=0
+   70 
+   80 IF A%(1)>A%(2) SWAP A%(1),A%(2)
+   90 FOR N%=3 TO Q%
+  100   S%=A%(N%):A1%=1:A3%=N%-1
+  110   REPEAT
+  120     A2%=(A1%+A3%)/2
+  130     IF A2%<>A1% AND A2%<>A3% THEN
+  140       IF S%>A%(A2%) A1%=A2% ELSE A3%=A2%
+  150     ENDIF
+  160   UNTIL A3%-A1%=1
+  170   S1%=A3%+1
+  180   IF A%(A3%)>S% S1%=A2%
+  190   IF A%(A1%)>S% S1%=A1%
+  200   FOR M%=N% TO S1% STEP-1:A%(M%)=A%(M%-1):NEXT:A%(S1%)=S%
+  210 NEXT
+  220 
+  230 FORN%=1TOQ%:PRINTA%(N%);:NEXT:PRINT''"TIME="TIME/100

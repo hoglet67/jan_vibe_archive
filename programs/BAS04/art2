@@ -1,0 +1,27 @@
+   10 REM > ART2
+   20 
+   30 MODE141:MODE13:OFF:SC1%=1:SC2%=2
+   40 
+   50 REM Her insdGCOLttes evt. initiering.
+   60 K%=20
+   70 DIM X%(K%),Y%(K%),DX%(K%),DY%(K%),C%(K%)
+   80 FORN%=1TOK%
+   90 X%(N%)=640:Y%(N%)=512:C%(N%)=RND(63)
+  100 DX%(N%)=RND(32)-16:DY%(N%)=RND(32)-16
+  110 NEXT
+  120 
+  130 ONERRORGOTO270
+  140 REPEAT
+  150 SYS 6,112,SC1%:SYS 6,113,SC2%:WAIT:CLS:SWAP SC1%,SC2%
+  160 
+  170 REM Her indsGCOLttes hovedprogram
+  180 FORN%=1TOK%
+  190 X1%=X%(N%)+DX%(N%):IF X1%<32 OR X1%>1248 DX%(N%)=-DX%(N%)
+  200 Y1%=Y%(N%)+DY%(N%):IF Y1%<32 OR Y1%>0992 DY%(N%)=-DY%(N%)
+  210 X%(N%)+=DX%(N%):Y%(N%)+=DY%(N%)
+  220 GCOL C%(N%):CIRCLE FILL X%(N%),Y%(N%),20
+  230 NEXT
+  240 
+  250 UNTIL0
+  260 
+  270 SYS 6,112,SC1%:REPORT:PRINT" at line "STR$ERL:ON

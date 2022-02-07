@@ -1,0 +1,108 @@
+   10 REM > PTEST3
+   20 
+   30 REM 256 farvetoner i mode 12 ved hjGCOLlp af mRETURNnstre.
+   40 REM kaldes pGOTO denne mGOTOde:
+   50 REM
+   60 REM PROCFARVE(F%)    hvor F% ligger mellem 0 og 255.
+   70 REM
+   80 REM Funktionen FNFLET benyttes af PROCFARVE
+   90 REM
+  100 REM Proceduren kan anvendes i fRETURNlgende modes : 2,9,12,16,20
+  110 
+  120 MODE12:OFF
+  130 DIM F(15,3,2),C(15,3):P%=1:S%=20
+  140 FORN%=1TO15
+  150 F(N%,1,P%)=16*N%:F(N%,2,P%)=16*N%:F(N%,3,P%)=16*N%
+  160 COLOURN%,F(N%,1,P%),F(N%,2,P%),F(N%,3,P%):NEXT
+  170 COLOUR0,80,100,180
+  180 
+  190 FORN%=1TO15:GCOL16-N%:RECTANGLE FILL 85*N%-72,924,64,64:NEXT
+  200 FORN%=16TO240
+  210   PROCFARVE(N%)
+  220   CIRCLE FILL 320,512,(256-N%)*1.25
+  230   T=RAD(1.6*(N%-16)):T2=RAD(1.6*(N%-15))
+  240   MOVE960,512
+  250   MOVE960+300*SINT,512+300*COST
+  260   PLOT85,960+300*SINT2,512+300*COST2
+  270   RECTANGLE FILL 5.7*N%-91,32,5.7,80
+  280 NEXT
+  290 
+  300 FORR%=0TO3
+  310 FORG%=0TO3
+  320 FORB%=0TO3
+  330 GP%=P%:P%=3-P%
+  340 FORN%=1TO15
+  350 F(N%,1,P%)=FNA(R%,N%):C(N%,1)=(F(N%,1,P%)-F(N%,1,GP%))/S%
+  360 F(N%,2,P%)=FNA(G%,N%):C(N%,2)=(F(N%,2,P%)-F(N%,2,GP%))/S%
+  370 F(N%,3,P%)=FNA(B%,N%):C(N%,3)=(F(N%,3,P%)-F(N%,3,GP%))/S%
+  380 NEXT
+  390 FORN%=1TOS%
+  391 IF N%=S% GP%=P%:P%=3-P%
+  410 FORI%=1TO15
+  420 COLOURI%,F(I%,1,GP%),F(I%,2,GP%),F(I%,3,GP%)
+  430 F(I%,1,GP%)+=C(I%,1):F(I%,2,GP%)+=C(I%,2):F(I%,3,GP%)+=C(I%,3)
+  440 NEXT:WAIT
+  450 NEXT:Q=INKEY(200)
+  460 NEXT,,
+  470 
+  480 ON:END
+  490 
+  500 DEFFNA(X%,N%)
+  510 LOCAL Y%
+  520 CASE X% OF
+  530   WHEN 0: Y%=0
+  540   WHEN 1: Y%=N%
+  550   WHEN 2: Y%=16-N%
+  560   WHEN 3: Y%=15
+  570 ENDCASE
+  580 =16*Y%
+  590 
+  600 DEFPROCFARVE(C%)
+  610 LOCAL CP%,C1%,C2%,N%,B%(),P$
+  620 DIMB%(8)
+  630 C%=C%MOD256
+  640 CP%=C%AND%00001111
+  650 C1%=(C%AND%11110000)>>4
+  660 C2%=(C1%+1)MOD16
+  670 CASE CP% OF
+  680   WHEN 00 : P$="00000000"
+  690   WHEN 01 : P$="01000000"
+  700   WHEN 02 : P$="01000001"
+  710   WHEN 03 : P$="01000101"
+  720   WHEN 04 : P$="01010101"
+  730   WHEN 05 : P$="21010101"
+  740   WHEN 06 : P$="21010121"
+  750   WHEN 07 : P$="21012121"
+  760   WHEN 08 : P$="21212121"
+  770   WHEN 09 : P$="21212321"
+  780   WHEN 10 : P$="21232321"
+  790   WHEN 11 : P$="23232321"
+  800   WHEN 12 : P$="23232323"
+  810   WHEN 13 : P$="23232333"
+  820   WHEN 14 : P$="33232333"
+  830   WHEN 15 : P$="33233333"
+  840 ENDCASE
+  850 FORN%=1TO8
+  860   CASE MID$(P$,N%,1) OF
+  870     WHEN "0" : B%(N%)=FNFLET(C1%,C1%)
+  880     WHEN "1" : B%(N%)=FNFLET(C1%,C2%)
+  890     WHEN "2" : B%(N%)=FNFLET(C2%,C1%)
+  900     WHEN "3" : B%(N%)=FNFLET(C2%,C2%)
+  910   ENDCASE
+  920 NEXT
+  930 VDU23,2,B%(1),B%(2),B%(3),B%(4),B%(1),B%(2),B%(3),B%(4)
+  940 VDU23,3,B%(5),B%(6),B%(7),B%(8),B%(5),B%(6),B%(7),B%(8)
+  950 VDU23,4,B%(1),B%(2),B%(3),B%(4),B%(1),B%(2),B%(3),B%(4)
+  960 VDU23,5,B%(5),B%(6),B%(7),B%(8),B%(5),B%(6),B%(7),B%(8)
+  970 GCOL 80,0
+  980 ENDPROC
+  990 
+ 1000 DEFFNFLET(A%,B%)
+ 1010 LOCAL N%,C%,AB%
+ 1020 C%=8
+ 1030 FORN%=1TO4
+ 1040   AB%=AB%<<1:IF C%ANDA% AB%+=1
+ 1050   AB%=AB%<<1:IF C%ANDB% AB%+=1
+ 1060   C%=C%/2
+ 1070 NEXT
+ 1080 =AB%

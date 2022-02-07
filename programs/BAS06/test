@@ -1,0 +1,17 @@
+   10 REM > TEST
+   20 
+   30 MODE12
+   40 *SET Font$Prefix $.!Fonts
+   50 FONT$="Trinity.Medium"
+   60 SYS"Font_SetFontColours",0,0,7,0
+   70 SYS"Font_FindFont",,FONT$,1350,1500,0,0 TO HAN%
+   80 SYS"Font_Paint",,"Dette er en test",16,0,830
+   90 SYS"Font_FindFont",,FONT$,700,900,0,0 TO HAN%
+  100 K%=75
+  110 SYS"Font_Paint",,"Her følger hele tegnsættet:",16,0,700
+  120 SYS"Font_FindFont",,FONT$,350,400,0,0 TO HAN%
+  130 A$="":FORN%=33TO255:A$+=CHR$(N%):NEXT
+  140 L%=0:FORN%=1TOLENA$STEP32:L%+=1
+  150 SYS"Font_Paint",,MID$(A$,N%,32),16,0,650-L%*K%
+  160 NEXT
+  170 SYS"Font_LoseFont",HAN%

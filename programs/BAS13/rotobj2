@@ -1,0 +1,81 @@
+   10 REM > ROTOBJ2
+   20 
+   30 MODE159:MODE31:OFF:ORIGIN 800,600
+   40 S1%=1:S2%=2
+   50 
+   60 REM skalering,perspektivfaktor,antal punkter
+   70 S=400:PF=4:AP%=60
+   80 
+   90 REM OpsGCOLtning.
+  100 DIM A(4,4),T(4,4),C(4,4),K(4),R(4)
+  110 DIM PX(AP%),PY(AP%),PZ(AP%),SX(AP%),SY(AP%)
+  120 C()=0:FORN%=1TO4:C(N%,N%)=1:NEXT
+  130 PROCROT(2-RND(1)*4,2-RND(1)*4,2-RND(1)*4)
+  140 
+  150 REM Definition af objekt.
+  160 P%=0
+  170 FORN%=1TO30
+  180 T=RAD(12*N%)
+  190 P%+=1:PX(P%)=100*SINT:PY(P%)=100*COST:PZ(P%)=-50
+  200 P%+=1:PX(P%)=100*SINT:PY(P%)=100*COST:PZ(P%)=50
+  210 NEXT
+  220 
+  230 REM normaliser
+  240 NORM=0:FORN%=1TOAP%
+  250 IF ABS(PX(N%))>NORM NORM=ABS(PX(N%))
+  260 IF ABS(PY(N%))>NORM NORM=ABS(PY(N%))
+  270 IF ABS(PZ(N%))>NORM NORM=ABS(PZ(N%))
+  280 NEXT
+  290 FORN%=1TOAP%
+  300 PX(N%)=S*PX(N%)/NORM:PY(N%)=S*PY(N%)/NORM:PZ(N%)=S*PZ(N%)/NORM:NEXT
+  310 
+  320 ONERRORGOTO810
+  330 
+  340 REM drej objektet, tegn det og vis det.
+  350 REPEAT
+  360 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  370 
+  380 FORN%=1TOAP%
+  390 K(1)=PX(N%):K(2)=PY(N%):K(3)=PZ(N%):K(4)=1
+  400 R()=K().T()
+  410 PX(N%)=R(1):PY(N%)=R(2):PZ(N%)=R(3)
+  420 P=1+PZ(N%)/(S*PF)
+  430 SX(N%)=R(1)/P:SY(N%)=R(2)/P
+  440 NEXT
+  450 
+  460 FORN%=1TOAP%STEP2
+  470 N1%=N%+1:IF N1%>60 THEN N1%=1
+  480 N2%=N%+2:IF N2%>60 THEN N2%=1
+  490 N3%=N%+3:IF N3%>60 THEN N3%=2
+  500 LINE SX(N%),SY(N%),SX(N1%),SY(N1%)
+  510 LINE SX(N%),SY(N%),SX(N2%),SY(N2%)
+  520 LINE SX(N1%),SY(N1%),SX(N3%),SY(N3%)
+  530 
+  540 NEXT
+  550 
+  560 IF RND(1)>.99 PROCROT(2-RND(1)*4,2-RND(1)*4,2-RND(1)*4)
+  570 
+  580 UNTIL0
+  590 
+  600 REM generer roteringsmatricen
+  610 DEFPROCROT(DX,DY,DZ)
+  620 LOCAL T,SI,CO
+  630 T()=C()
+  640 
+  650 REM drejning om X.
+  660 A()=C():T=RADDX:CO=COST:SI=SINT
+  670 A(2,2)=CO:A(3,2)=SI:A(2,3)=-SI:A(3,3)=CO
+  680 T()=A()
+  690 
+  700 REM drejning om Y.
+  710 A()=C():T=RADDY:CO=COST:SI=SINT
+  720 A(1,1)=CO:A(3,1)=-SI:A(1,3)=SI:A(3,3)=CO
+  730 T()=A().T()
+  740 
+  750 REM drejning om Z.
+  760 A()=C():T=RADDZ:CO=COST:SI=SINT
+  770 A(1,1)=CO:A(2,1)=SI:A(1,2)=-SI:A(2,2)=CO
+  780 T()=A().T()
+  790 ENDPROC
+  800 
+  810 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

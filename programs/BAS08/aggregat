@@ -1,0 +1,30 @@
+   10 REM > AGGREGAT
+   20 
+   30 MODE0:OFF
+   40 DIM PX%(1000,2),PY%(1000,2),P%(2)
+   50 PROCA(640,512,256,1)
+   60 END
+   70 
+   80 DEFPROCA(X%,Y%,Z%,L%)
+   90 LOCAL X1%,Y1%,Z1%,N%
+  100 FORN%=1TO200
+  110 T=RND(1)*2*PI:S%=RND(Z%)*SGN(RND(1)-.5)+Z%
+  120 X1%=X%+S%*SINT:Y1%=Y%+S%*COST
+  130 IF P%(L%)=0 THEN
+  140 P%(L%)+=1:PX%(P%(L%),L%)=X1%:PY%(P%(L%),L%)=Y1%
+  150 ELSE
+  160 F%=0:FORI%=1TOP%(L%)
+  170 IF SQR((X1%-PX%(I%,L%))^2+(Y1%-PY%(I%,L%))^2)<Z%/1.5 F%=1:I%=P%(L%)
+  180 NEXT
+  190 IF F%=0 THEN
+  200 P%(L%)+=1:PX%(P%(L%),L%)=X1%:PY%(P%(L%),L%)=Y1%
+  210 LINE X%,Y%,X1%,Y1%
+  220 IF L%=2 THEN
+  230 CIRCLE X1%,Y1%,8
+  240 ELSE
+  250 PROCA(X1%,Y1%,Z%/6,L%+1)
+  260 ENDIF
+  270 ENDIF
+  280 ENDIF
+  290 NEXT
+  300 ENDPROC

@@ -1,0 +1,7 @@
+   10 REM > CIRCLE2
+   20 
+   30 REM Inspired from Allister Jenks 'Cropcircle' in the september issue
+   40 REM of Acorn user. The flattened corn has been given the plaited look
+   50 REM the 'real' crop circles always have.
+   60 
+   70 MODE12:OFF:R=350:L=640:M=512:FORN=1TO15:COLOURN,16*N,12*N,0:NEXT:COLOUR0,112,64,0:FORY=950TO0STEP-50:FORX=0TO1280STEP2:A=X+RND(32):B=Y+RND(50):Q=SQR((L-A)^2+(M-B)^2):Z=-(ABS(Q-R)<80):K=A-L:O=ACS(K/Q):V=PI+O*(B>M)-O*(B<=M):C=Z*4*SINV+(1-Z)*(4*RND(1)-2):D=Z*4*COSV+(1-Z)*4:MOVEA,B:FORN=1TO15:GCOLN:DRAWBYC,D:NEXT,,

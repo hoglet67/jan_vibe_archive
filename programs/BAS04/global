@@ -1,0 +1,97 @@
+   10 REM > GLOBAL
+   20 
+   30 DIM screen%(3),sin(128)
+   40 DIM code% 1000, table% 21736*8
+   50 PROCassemble
+   60 SYS"OS_ReadVduVariables",in,out
+   70 IF !out<&3c000 PRINT"Programmet kræver 240K til screen memory":END
+   80 
+   90 REM SkGCOLrmprogram her, mode 12 eller 13
+  100 
+  110 MODE13
+  120 FOR N%=1TO500:GCOL RND(64)-1 TINT RND(256)-1
+  130 CIRCLE FILL RND(1280),RND(1024),RND(64)+8
+  140 NEXT
+  150 
+  160 REM Slut pGOTO skGCOLrmprogram
+  170 
+  180 IF MODE<>12 AND MODE<>13 PRINT"Programmet fungerer kun i MODE 12 eller 13 ":END
+  190 
+  200 ON ERROR GOTO 970
+  210 !in=148:FORA%=1TO3
+  220 SYS"OS_Byte",112,A%:IFA%>1 CLS
+  230 SYS"OS_ReadVduVariables",in,out
+  240 screen%(A%)=!out
+  250 NEXT:OFF
+  260 
+  270 PROCcreate_table
+  280 *FX113,3
+  290 *POINTER
+  300 MOUSE TO 640,512
+  310 F%=screen%(1):offset%=0:bank%=2
+  320 REPEAT
+  330 MOUSE X%,Y%,B%
+  340 offset%+=128-Y%DIV4
+  350 G%=screen%(bank%)
+  360 H%=320*(offset%>>3 AND 255)
+  370 CALL code%
+  380 WAIT :SYS 6,113,bank% TO,bank%
+  390 UNTIL FALSE
+  400 
+  410 DEFPROCcreate_table
+  420 A%=0:FORA=0TO PI/2 STEP PI/256
+  430 sin(A%)=SINA:A%+=1:NEXT
+  440 R%=83:OX%=1:x%=0:T%=table%
+  450 FORX=0 TO PI/2 STEP PI/320
+  460 X%=.5+R%*SINX:IF X%<>OX% PROCline
+  470 x%+=1:NEXT
+  480 ENDPROC
+  490 
+  500 DEFPROCline
+  510 H%=R%*COSX:OX%=X%:OY%=1
+  520 FORA%=0TO127:Y%=H%*sin(A%)
+  530 IF Y%<>OY% PROCpix
+  540 NEXT:ENDPROC
+  550 
+  560 DEFPROCpix
+  570 T%!00=41120+A%*320+x%
+  580 T%!04=41120+Y%*320+X%
+  590 T%!08=41119+A%*320-x%
+  600 T%!12=41119+Y%*320-X%
+  610 T%!16=40800-A%*320+x%
+  620 T%!20=40800-Y%*320+X%
+  630 T%!24=40799-A%*320-x%
+  640 T%!28=40799-Y%*320-X%
+  650 OY%=Y%:T%+=32
+  660 ENDPROC
+  670 
+  680 DEFPROCassemble
+  690 FORA%=0TO1:P%=code%
+  700 [OPT A%*2
+  710 LDR R8,pixs
+  720 ADR R9,table%
+  730 .next_block
+  740 ]
+  750 FORB%=1TO19
+  760 [OPT A%*2
+  770 LDMIA R9!,{R1-R4}
+  780 SUBS R1,R1,R7
+  790 ADDMI R1,R1,#81920
+  800 LDRB R0,[R5,R1]
+  810 STRB R0,[R6,R2]
+  820 SUBS R3,R3,R7
+  830 ADDMI R3,R3,#81920
+  840 LDRB R0,[R5,R3]
+  850 STRB R0,[R6,R4]
+  860 ]:NEXT
+  870 [OPT A%*2
+  880 SUBS R8,R8,#38
+  890 BNE next_block
+  900 MOV PC,R14
+  910 .pixs EQUD 21736
+  920 .in EQUD 150:EQUD -1
+  930 .out EQUD 0
+  940 ]:NEXT
+  950 ENDPROC
+  960 
+  970 SYS 6,112,bank%:SYS 6,113,bank%:REPORT:PRINT" at line "STR$ERL:ON

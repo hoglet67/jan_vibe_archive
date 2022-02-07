@@ -1,0 +1,27 @@
+   10 REM > SHELLSORT
+   20 
+   30 I%=200:DIM P%(I%):OFF
+   40 CLS:@%=4:PRINT"Listen usorteret...":PRINT
+   50 FORN%=1TOI%:P%(N%)=RND(999):PRINTP%(N%);:NEXT:PRINT:PRINT
+   60 TIME=0:PROCSORT(I%,P%()):T=TIME
+   70 PRINT"og sorteret.":PRINT
+   80 FORN%=1TOI%:PRINTP%(N%);:NEXT:PRINT:PRINT"tid : "T/100" sek."
+   90 ON:END
+  100 
+  110 DEFPROCSORT(N%,A%())
+  120 LOCAL G%,J%,K%,M%
+  130 M%=1
+  140 REPEAT:M%=M%+M%:UNTIL M%>N%:M%=M%-1
+  150 REPEAT:M%=M%DIV2
+  160 FORK%=1TON%-M%:J%=K%
+  170 REPEAT:G%=J%+M%
+  180 IF A%(J%)>A%(G%) SWAP A%(J%),A%(G%) ELSE J%=1
+  190 J%=J%-1:UNTILJ%=0
+  200 NEXT:UNTILM%=1
+  210 ENDPROC
+  220 
+  230 REM Denne procedure sorterer elementerne i et array i stigende
+  240 REM rGCOLkkefoelge, ved hjGCOLlp af en sGOTOkaldt Shell-Metzner sort.
+  250 REM Den kaldes paa denne mGOTOde: PROCSORT(ANTAL%,ARRAY%())
+  260 REM Hvor ANTAL% er antallet af elementer i ARRAY%()
+  270 REM Proceduren leverer et sorteret array tilbage.

@@ -1,0 +1,20 @@
+   10 REM > FACTORIAL
+   20 
+   30 MODE31:@%=0
+   40 INPUT"Max number (2-1000) "S%:CLS
+   50 DIM A%(3000),B%(3000),C%(3000)
+   60 C%(1)=1:LC%=1:F%=1
+   70 REPEAT
+   80 F%+=1:K$=STR$(F%):L%=LENK$
+   90 FORN%=1TOL%:A%(L%-N%+1)=VALMID$(K$,N%,1):NEXT:LA%=L%
+  100 B%()=C%():LB%=LC%:C%()=0
+  110 FORN%=1TOLA%:M%=0:LC%=LB%
+  120 FORI%=1TOLB%
+  130 C%(I%)=C%(I%)+A%(N%)*B%(I%)+M%:M%=C%(I%)DIV10:C%(I%)=C%(I%)MOD10
+  140 NEXT:IF M%<>0 LC%+=1:C%(LC%)=M%
+  150 FORI%=LB%TO1STEP-1:B%(I%+1)=B%(I%):NEXT:B%(1)=0:LB%+=1
+  160 NEXT
+  170 VDU30:PRINTF%
+  180 UNTILF%=S%
+  190 CLS:PRINT'F%"!=";
+  200 FORN%=LC%TO1STEP-1:PRINTC%(N%);:NEXT:PRINT

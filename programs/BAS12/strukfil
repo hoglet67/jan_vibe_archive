@@ -1,0 +1,45 @@
+   10 REM > STRUKFILL
+   20 
+   30 DIM MD% 64:MD%!00=1:MD%!04=640:MD%!08=512:MD%!12=5:MD%!16=-1:MD%!20=-1:MODE MD%
+   40 DIM SX%(10000),SY%(10000),PX%(4),PY%(4)
+   50 GCOL RND(255),RND(255),RND(255):POINT 640,512:CIRCLE 640,512,300
+   60 C%=1:SX%(C%)=640:SY%(C%)=512
+   70 REPEAT
+   80 IF C%>=1 THEN
+   90 P%=C%:IFP%<>1 P%=RND(C%)
+  100 T%=0:X%=SX%(P%):Y%=SY%(P%)
+  110 IF POINT(X%+2,Y%)=0 T%+=1:PX%(T%)=X%+2:PY%(T%)=Y%
+  120 IF POINT(X%-2,Y%)=0 T%+=1:PX%(T%)=X%-2:PY%(T%)=Y%
+  130 IF POINT(X%,Y%+2)=0 T%+=1:PX%(T%)=X%:PY%(T%)=Y%+2
+  140 IF POINT(X%,Y%-2)=0 T%+=1:PX%(T%)=X%:PY%(T%)=Y%-2
+  150 IF T%<>0 THEN
+  160 NP%=T%:IF NP%<>1 NP%=RND(T%)
+  170 C%+=1:SX%(C%)=PX%(NP%):SY%(C%)=PY%(NP%)
+  180 PROCP(SX%(C%),SY%(C%))
+  190 ELSE
+  200 FOR N%=P%+1 TO C%:SX%(N%-1)=SX%(N%):SY%(N%-1)=SY%(N%):NEXT:C%-=1
+  210 ENDIF
+  220 ENDIF
+  230 UNTIL C%=0
+  240 END
+  250 
+  260 DEFPROCP(X%,Y%)
+  270 LOCAL I%,J%,C%,T%,R%,G%,B%
+  280 FORI%=-2TO2STEP2
+  290 FORJ%=-2TO2STEP2
+  300 C%=POINT(X%+I%,Y%+J%)
+  310 IF C%<>0 THEN
+  320 T%+=1
+  330 R%+=C%AND&FF
+  340 G%+=(C%>>8)AND&FF
+  350 B%+=(C%>>16)AND&FF
+  360 ENDIF
+  370 NEXT,
+  380 R%=R%/T%+33-RND(65):IF R%>255 R%=255
+  390 IF R%<0 R%=0
+  400 G%=G%/T%+33-RND(65):IF G%>255 G%=255
+  410 IF G%<0 G%=0
+  420 B%=B%/T%+33-RND(65):IF B%>255 B%=255
+  430 IF B%<0 B%=0
+  440 GCOL R%,G%,B%:POINT X%,Y%
+  450 ENDPROC

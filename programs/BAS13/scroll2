@@ -1,0 +1,54 @@
+   10 REM > SCROLL2
+   20 
+   30 DIM MD% 64:MD%!00=1:MD%!04=800:MD%!08=600:MD%!12=5:MD%!16=-1:MD%!20=-1:MODE MD%:OFF
+   40 
+   50 K%=64:C%=K%/2
+   60 DIM X1%(2),Y1%(2),DX1%(2),DY1%(2),X2%(2),Y2%(2),DX2%(2),DY2%(2),OX2%(2),OY2%(2)
+   70 DIM R%(K%),G%(K%),B%(K%),SX1%(K%),SY1%(K%),SX2%(K%),SY2%(K%)
+   80 DIM CT%(6),FF%(6)
+   90 
+  100 FORN%=1TO6:CT%(N%)=RND(360):NEXT:PROCCH
+  110 
+  120 FORN%=1TO2
+  130 X1%(N%)=400:Y1%(N%)=400:DX1%(N%)=RND(8)*SGN(RND(1)-.5):DY1%(N%)=RND(8)*SGN(RND(1)-.5)
+  140 X2%(N%)=400:Y2%(N%)=400:DX2%(N%)=0:DY2%(N%)=0
+  150 NEXT
+  160 
+  170 REPEAT
+  180 PROCCH
+  190 FORN%=1TO2
+  200 OX2%(N%)=X2%(N%):OY2%(N%)=Y2%(N%)
+  210 H%=X1%(N%)+DX1%(N%):IF H%>800ORH%<200 THEN DX1%(N%)=-SGN(DX1%(N%))*RND(16)
+  220 H%=Y1%(N%)+DY1%(N%):IF H%>600ORH%<200 THEN DY1%(N%)=-SGN(DY1%(N%))*RND(16)
+  230 X1%(N%)+=DX1%(N%):Y1%(N%)+=DY1%(N%)
+  240 IF X2%(N%)<X1%(N%) AND DX2%(N%)<20 DX2%(N%)+=1
+  250 IF X2%(N%)>X1%(N%) AND DX2%(N%)>-20 DX2%(N%)-=1
+  260 IF Y2%(N%)<Y1%(N%) AND DY2%(N%)<20 DY2%(N%)+=1
+  270 IF Y2%(N%)>Y1%(N%) AND DY2%(N%)>-20 DY2%(N%)-=1
+  280 X2%(N%)+=DX2%(N%):Y2%(N%)+=DY2%(N%)
+  290 NEXT
+  300 FORN%=0TOK%:N1%=K%-N%
+  310 SX1%(N%)=(OX2%(1)*N%+OX2%(2)*N1%)/K%:SY1%(N%)=(OY2%(1)*N%+OY2%(2)*N1%)/K%
+  320 SX2%(N%)=(X2%(1)*N%+X2%(2)*N1%)/K%:SY2%(N%)=(Y2%(1)*N%+Y2%(2)*N1%)/K%
+  330 NEXT
+  340 FORN%=1TOK%:GCOL R%(N%),G%(N%),B%(N%)
+  350 MOVE SX1%(N%-1),SY1%(N%-1):MOVESX1%(N%),SY1%(N%)
+  360 PLOT85,SX2%(N%-1),SY2%(N%-1):PLOT85,SX2%(N%),SY2%(N%)
+  370 MOVE 1600-SX1%(N%-1),SY1%(N%-1):MOVE1600-SX1%(N%),SY1%(N%)
+  380 PLOT85,1600-SX2%(N%-1),SY2%(N%-1):PLOT85,1600-SX2%(N%),SY2%(N%)
+  390 MOVE 1600-SX1%(N%-1),1200-SY1%(N%-1):MOVE1600-SX1%(N%),1200-SY1%(N%)
+  400 PLOT85,1600-SX2%(N%-1),1200-SY2%(N%-1):PLOT85,1600-SX2%(N%),1200-SY2%(N%)
+  410 MOVE SX1%(N%-1),1200-SY1%(N%-1):MOVESX1%(N%),1200-SY1%(N%)
+  420 PLOT85,SX2%(N%-1),1200-SY2%(N%-1):PLOT85,SX2%(N%),1200-SY2%(N%)
+  430 NEXT
+  440 UNTIL0
+  450 
+  460 DEFPROCCH
+  470 LOCAL N%
+  480 FORN%=1TO6:CT%(N%)=(CT%(N%)+RND(4))MOD360:FF%(N%)=(SINRAD(CT%(N%))+1)*127:NEXT
+  490 FORN%=0TOC%
+  500 R%(N%)=(N%*FF%(1)+(C%-N%)*FF%(4))/C%:R%(K%-N%)=R%(N%)
+  510 G%(N%)=(N%*FF%(2)+(C%-N%)*FF%(5))/C%:G%(K%-N%)=G%(N%)
+  520 B%(N%)=(N%*FF%(3)+(C%-N%)*FF%(6))/C%:B%(K%-N%)=B%(N%)
+  530 NEXT
+  540 ENDPROC

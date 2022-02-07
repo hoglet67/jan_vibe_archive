@@ -1,0 +1,9 @@
+   10 REM > PARM
+   20 
+   30 REM Denne programstump lGCOLser en parameter efter *PROGNAME
+   40 
+   50 DIM A% 256
+   60 SYS "OS_GetEnv" TO A%
+   70 I%=0:WHILE (I%?A%)>31:I%+=1:ENDWHILE:I%?A%=13
+   80 PARM$=MID$($A%,INSTR($A%,CHR$34+" ")+2)
+   90 PRINT "'"PARM$"'"

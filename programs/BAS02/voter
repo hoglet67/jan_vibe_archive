@@ -1,0 +1,40 @@
+   10 REM  > VOTER
+   20 
+   30 MODE13
+   40 PRINT"              Voters game"'
+   50 PRINT"I et givet parlament, vil en politiker"
+   60 PRINT"blive påvirket af en af sine side-"
+   70 PRINT"kammerater, og antage hans politiske"
+   80 PRINT"farve."
+   90 PRINT"herunder vises politikeren, og hvad der"
+  100 PRINT"regnes for hans sidekammerater:"'
+  110 PRINT"+ + +     O: Politiker"
+  120 PRINT"+ O +     +: sidekammerater"
+  130 PRINT"+ + +"'
+  140 PRINT"Vil dette parlament paa demokratisk vis"
+  150 PRINT"vedtage et-parti-staten ???"'
+  160 PRINT"Parlamentet er udformet som en kvadrat."
+  170 PRINT"Størrelsen angives med sidelangden,"
+  180 PRINT"antallet af medlemmer er derfor lig med"
+  190 PRINT"sidelangde²"'
+  200 INPUT"hvad er parlamentets storrelse "Q%
+  210 IF Q%<1ORQ%>32 Q%=15
+  220 CLS:OFF
+  230 ORIGIN (1280-32*Q%)/2,(1024-32*Q%)/2
+  240 DIMA%(Q%,Q%),NX%(8),NY%(8)
+  250 FORN%=1TO8:READ NX%(N%),NY%(N%):NEXT
+  260 FORY%=0TOQ%-1:FORX%=0TOQ%-1:A%(X%,Y%)=RND(63):NEXT,
+  270 FORY%=0TOQ%-1:FORX%=0TOQ%-1
+  280 GCOL A%(X%,Y%):RECTANGLE FILL 32*X%,32*Y%,24
+  290 NEXT,:R%=RND(-TIME)
+  300 REPEAT
+  310 X%=RND(Q%)-1:Y%=RND(Q%)-1:R%=RND(8)
+  320 DX%=(Q%+X%+NX%(R%))MODQ%
+  330 DY%=(Q%+Y%+NY%(R%))MODQ%
+  340 IF A%(X%,Y%)<>A%(DX%,DY%) THEN
+  350 A%(X%,Y%)=A%(DX%,DY%)
+  360 GCOL A%(X%,Y%):RECTANGLE FILL 32*X%,32*Y%,24
+  370 ENDIF
+  380 UNTIL0
+  390 
+  400 DATA 1,1,1,0,1,-1,0,1,0,-1,-1,1,-1,0,-1,-1

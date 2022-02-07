@@ -1,0 +1,69 @@
+   10 REM > WINGS4
+   20 
+   30 REPEAT
+   40 PRINT"Choose between the following modes:"'
+   50 FORN%=0TO127:N$=RIGHT$("    "+STR$(N%),3)
+   60 SYS"OS_ReadModeVariable",N%,9 TO,,P%:P%=2^P%
+   70 IF P%>=8 PRINT"MODE "N$" "2^P%" colours"
+   80 NEXT:PRINT
+   90 INPUT"MODE="M%:MODE M%
+  100 SYS"OS_ReadModeVariable",-1,9 TO,,P%:P%=2^P%
+  110 IF P%<8 PRINT"Mode must have 256 or more colours."'
+  120 UNTIL P%>=8
+  130 
+  140 SYS"OS_ReadModeVariable",-1,11 TO,,XS%
+  150 SYS"OS_ReadModeVariable",-1,12 TO,,YS%
+  160 SYS"OS_ReadModeVariable",-1,4 TO,,SX%:SX%=2^SX%
+  170 SYS"OS_ReadModeVariable",-1,5 TO,,SY%:SY%=2^SY%
+  180 XM%=XS%*SX%:YM%=YS%*SY%:XH%=XM%/2:YH%=YM%/2
+  190 XB%=XH%/2-10*SX%:YB%=YH%/2-10*SY%
+  200 
+  210 MODEM%:ORIGINXH%,YH%:MOVE0,0:OFF
+  220 R1%=RND(127):G1%=RND(127):B1%=RND(127)
+  230 R2%=RND(127):G2%=RND(127):B2%=RND(127)
+  240 R3%=RND(127)+127:G3%=RND(127)+127:B3%=RND(127)+127
+  250 R4%=RND(127)+127:G4%=RND(127)+127:B4%=RND(127)+127:RC%=0
+  260 REPEAT
+  270 A%=RND(8):B%=RND(8):C%=RND(8):D%=RND(8)
+  280 E%=RND(8):F%=RND(8):G%=RND(8):H%=RND(8)
+  290 FORN=0TO180STEP.4:T=RADN
+  300 X1%=XB%*(SIN(A%*T)+SIN(B%*T)):Y1%=YB%*(SIN(C%*T)+SIN(D%*T))
+  310 X2%=XB%*(SIN(E%*T)+SIN(F%*T)):Y2%=YB%*(SIN(G%*T)+SIN(H%*T))
+  320 PROCL(X1%,Y1%,X2%,Y2%)
+  330 NEXT
+  340 UNTIL0
+  350 
+  360 DEFPROCL(X1%,Y1%,X2%,Y2%)
+  370 LOCAL D,K%,C,N%,X%,Y%,RA%,GA%,BA%,RB%,GB%,BB%
+  380 D=SQR((X1%-X2%)^2+(Y1%-Y2%)^2):K%=D/12:IF K%<16 K%=16
+  390 C=255/K%
+  400 RA%=((15-RC%)*R1%+RC%*R2%)/15
+  410 GA%=((15-RC%)*G1%+RC%*G2%)/15
+  420 BA%=((15-RC%)*B1%+RC%*B2%)/15
+  430 RB%=((15-RC%)*R3%+RC%*R4%)/15
+  440 GB%=((15-RC%)*G3%+RC%*G4%)/15
+  450 BB%=((15-RC%)*B3%+RC%*B4%)/15
+  460 FORN%=0TOK%:PROCC
+  470 X%=(X1%*N%+X2%*(K%-N%))/K%:Y%=(Y1%*N%+Y2%*(K%-N%))/K%
+  480 CIRCLEFILL X%,Y%,16:CIRCLEFILL -X%,Y%,16
+  490 CIRCLEFILL X%,-Y%,16:CIRCLEFILL -X%,-Y%,16
+  500 NEXT
+  510 RC%+=1:IFRC%>15THEN
+  520 R1%=R2%:G1%=G2%:B1%=B2%:R2%=RND(127):G2%=RND(127):B2%=RND(127):
+  530 R3%=R4%:G3%=G4%:B3%=B4%:R4%=RND(127)+127:G4%=RND(127)+127:B4%=RND(127)+127:RC%=0
+  540 ENDIF
+  550 ENDPROC
+  560 
+  570 DEFPROCC
+  580 LOCAL R%,G%,B%
+  590 R%=((K%-N%)*RA%+N%*RB%)/K%
+  600 G%=((K%-N%)*GA%+N%*GB%)/K%
+  610 B%=((K%-N%)*BA%+N%*BB%)/K%
+  620 PROCRGB(R%,G%,B%)
+  630 ENDPROC
+  640 
+  650 DEFPROCRGB(R%,G%,B%)
+  660 LOCAL C%:C%=(R%<<8)+(G%<<16)+(B%<<24)
+  670 SYS "ColourTrans_SetGCOL",C%,,,&100,0
+  680 ENDPROC
+  690 

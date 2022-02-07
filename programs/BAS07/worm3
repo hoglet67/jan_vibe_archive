@@ -1,0 +1,28 @@
+   10 REM > WORM3
+   20 
+   30 MODE137:MODE9:OFF
+   40 S1%=1:S2%=2:L%=10:S=6
+   50 FORN%=1TO4:COLOUR N%+11,63*N%,63*N%,240:NEXT
+   60 DIMX%(L%),Y%(L%),R%(L%)
+   70 FORN%=1TOL%:R%(N%)=S*(L%-N%+2):NEXT
+   80 X%(1)=800:Y%(1)=800:DX%=12:DY%=12:MX%=1280-R%(1):MY%=1024-R%(1)
+   90 ONERRORGOTO280
+  100 
+  110 REPEAT
+  120 SYS 6,112,S1%:SYS 6,113,S2%:WAIT:CLS:SWAP S1%,S2%
+  130 H%=X%(1)+DX%:IF H%>MX% OR H%<R%(1) DX%=(RND(17)+11)*SGN(-DX%)
+  140 H%=Y%(1)+DY%:IF H%>MY% OR H%<R%(1) DY%=(RND(17)+11)*SGN(-DY%)
+  150 X%(1)+=DX%:Y%(1)+=DY%
+  160 FORI%=2TOL%
+  170 X%=X%(I%-1)-X%(I%):Y%=Y%(I%-1)-Y%(I%)
+  180 D=SQR(X%^2+Y%^2):IF D=0 D=1
+  190 P=(D-R%(I%)-R%(I%-1))/D:X%(I%)+=X%*P:Y%(I%)+=Y%*P
+  200 NEXT
+  210 FORM%=4TO1STEP-1:GCOL16-M%:F=M%/5:B%=8-M%
+  220 FORN%=1TOL%-1:N1%=N%+1:D%=4*((R%(N%)*F)DIV4)
+  230 FORI%=1TOB%:J%=B%-I%
+  240 CIRCLEFILL (I%*X%(N%)+J%*X%(N%+1))/B%,(I%*Y%(N%)+J%*Y%(N%+1))/B%,D%
+  250 NEXT,,
+  260 UNTIL0
+  270 
+  280 SYS 6,112,S1%:REPORT:PRINT" at line "STR$ERL:ON

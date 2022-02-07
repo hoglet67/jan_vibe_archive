@@ -1,0 +1,31 @@
+   10 REM > SPRITEPRG2
+   20 
+   30 MODE 15:OFF
+   40 
+   50 REM Reserver memory til spriteareal
+   60 DIM SP% &10000 , SC% &10
+   70 
+   80 REM Initier spriteareal
+   90 SP%!0=&10000 : REM  spritearealets stRETURNrrelse
+  100 SP%!4=0      : REM  antal sprites defineret lige nu
+  110 SP%!8=16     : REM  her starter fRETURNrste spritedef
+  120 SP%!12=16    : REM  her starter det frie areal
+  130 
+  140 REM Initier skaleringsfaktorer
+  150 SC%!00=128   : REM  x tGCOLller
+  160 SC%!04=128   : REM  y tGCOLller
+  170 SC%!08=128   : REM  x nGCOLvner
+  180 SC%!12=128   : REM  y nGCOLvner
+  190 
+  200 REM Lav noget grafik pGOTO skGCOLrmen
+  210 FOR N%=64 TO 8 STEP-8:GCOL RND(63):CIRCLE FILL 64,64,N%:NEXT:GCOL 63
+  220 
+  230 REM Tag sprite fra skGCOLrmbilledets grafik
+  240 SYS"OS_SpriteOp",256+16,SP%,"CIRKEL",0,0,0,128,128
+  250 
+  260 REM plot spriten i forskellige stRETURNrrelser
+  270 FORY%=0TO7:YP%=128*Y%
+  280 FORX%=0TO7:XP%=128*X%+160
+  290 SC%!0=16*X%:SC%!4=16*Y%
+  300 SYS "OS_SpriteOp",256+52,SP%,"CIRKEL",XP%,YP%,8,SC%
+  310 NEXT,

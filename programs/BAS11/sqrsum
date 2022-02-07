@@ -1,0 +1,21 @@
+   10 REM > SQRSUM
+   20 
+   30 MODE31:OFF:@%=7
+   40 PRINT"Dette program finder tal som kan sammensættes af summen af to kvadrater"
+   50 PRINT"f.eks. er 666 = 15*15 + 21*21. Programmet udskriver tallet og kvadrattallene."'
+   60 DIM T1(30),T2(30)
+   70 INPUT"Starttal="A;"Minimum antal kvadrattal="T'
+   80 REPEAT:B=INTSQRA:F=0
+   90  REPEAT:C=SQR(A-B*B)
+  100   IF C<B THEN
+  110    IF C=INTC THEN
+  120     F=F+1:T1(F)=B:T2(F)=C
+  130    ENDIF
+  140   ENDIF
+  150   B=B-1
+  160  UNTIL C>B
+  170  IFF>=T THEN
+  180   PRINTA;:FORN=1TOF:PRINTT1(N);" "T2(N);:NEXT:PRINT
+  190  ENDIF
+  200  A=A+1
+  210 UNTIL0

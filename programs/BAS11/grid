@@ -1,0 +1,12 @@
+   10 REM > GRID
+   20 
+   30 MODE31
+   40 S%=12:A%=1200/S%:P%=1:OP%=2
+   50 DIM PX%(1600/S%,2),PY%(1600/S%,2)
+   60 FORX%=0TOA%:PX%(X%,P%)=RND(S%/2):PY%(X%,P%)=RND(S%/2):NEXT
+   70 FORY%=0TO1100-S%STEPS%:SWAP OP%,P%
+   80 FORX%=0TOA%:PX%(X%,P%)=RND(S%/2):PY%(X%,P%)=RND(S%/2):NEXT
+   90 FORX%=0TOA%-1:X1%=S%*X%:X2%=X1%+S%
+  100 LINE X1%+PX%(X%,OP%),Y%+PY%(X%,OP%),X1%+PX%(X%,P%),Y%+S%+PY%(X%,P%)
+  110 LINE X1%+PX%(X%,OP%),Y%+PY%(X%,OP%),X2%+PX%(X%+1,OP%),Y%+PY%(X%+1,OP%)
+  120 NEXT,

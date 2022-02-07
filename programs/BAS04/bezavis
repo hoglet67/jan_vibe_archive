@@ -1,0 +1,63 @@
+   10 REM > BEZAVIS
+   20 
+   30 MODE137:MODE9:OFF
+   40 SYS"OS_UpdateMEMC",64,64
+   50 S1%=1:S2%=2:P1%=0:P2%=1:S$="                    "
+   60 VDU5,23,17,7,6,8;16|:COLOUR0,0,0,80
+   70 DIMX(4),Y(4),DY(4),DX(4),XP%(20,1),YP%(20,1),F%(20)
+   80 FORN%=0TO4:X(N%)=RND(1215)+32:Y(N%)=RND(959)+32
+   90   DY(N%)=(RND(32)+16)*SGN(RND(1)-.5)
+  100   DX(N%)=(RND(32)+16)*SGN(RND(1)-.5)
+  110 NEXT:PROCBEZIER(X(),Y(),4,20,P1%):C%=0:P1%=1-P1%:P2%=1-P2%
+  120 GX0=X(0):GY0=Y(0):GX4=X(4):GY4=Y(4)
+  130 
+  140 ONERRORGOTO630
+  150 REPEAT
+  160 SYS"OS_Byte",112,S1%:SYS"OS_Byte",113,S2%:WAIT:CLS:SWAP S1%,S2%
+  170 C%=(C%+1)MOD5:C1%=5-C%
+  180 FORN%=0TO19
+  190   LX1%=(C%*XP%(N%,P1%)+C1%*XP%(N%+1,P1%))/5-16
+  200   LY1%=(C%*YP%(N%,P1%)+C1%*YP%(N%+1,P1%))/5+32
+  210   LX2%=(C%*XP%(N%,P2%)+C1%*XP%(N%+1,P2%))/5-16
+  220   LY2%=(C%*YP%(N%,P2%)+C1%*YP%(N%+1,P2%))/5+32
+  230   LX%=(C%*LX2%+C1%*LX1%)/5
+  240   LY%=(C%*LY2%+C1%*LY1%)/5
+  250   IF N%=0 CX1%=LX%:CY1%=LY%
+  260   IF N%=19 CX2%=LX%:CY2%=LY%
+  270   MOVE LX%,LY%:GCOLF%(N%):PRINTMID$(S$,N%+1,1);
+  280 NEXT:WAIT
+  290 GCOL1:CIRCLE FILL (C%*X(0)+C1%*GX0)/5,(C%*Y(0)+C1%*GY0)/5,32
+  300 GCOL2:CIRCLE FILL (C%*X(4)+C1%*GX4)/5,(C%*Y(4)+C1%*GY4)/5,32
+  310 IF C%=4 THEN
+  320   GX0=X(0):GY0=Y(0):GX4=X(4):GY4=Y(4)
+  330   FORN%=0TO4
+  340   H%=Y(N%)+DY(N%):IF H%>991 OR H%<32 DY(N%)=-SGN(DY(N%))*(RND(32)+16)
+  350   H%=X(N%)+DX(N%):IF H%>1247 OR H%<32 DX(N%)=-SGN(DX(N%))*(RND(32)+16)
+  360   X(N%)+=DX(N%):Y(N%)+=DY(N%)
+  370   NEXT
+  380   PROCBEZIER(X(),Y(),4,20,P1%):P1%=1-P1%:P2%=1-P2%
+  390   S$=RIGHT$(S$+CHR$(RND(26)+96),20)
+  400   FORN%=1TO20:F%(N%-1)=F%(N%):NEXT:F%(20)=RND(7)
+  410 ENDIF
+  420 
+  430 UNTIL0
+  440 
+  450 DEFPROCBEZIER(X(),Y(),D%,P%,S%)
+  460 LOCAL F(),I%,J%,U1,U2,K,PX,PY
+  470 DIM F(D%)
+  480 FOR I%=0TOD%:F(I%)=1
+  490   FOR J%=1 TO D%:F(I%)=F(I%)*J%:NEXT
+  500   FOR J%=1 TO I%:F(I%)=F(I%)/J%:NEXT
+  510   FOR J%=1 TO D%-I%:F(I%)=F(I%)/J%:NEXT
+  520 NEXT
+  530 MOVE X(0),Y(0)
+  540 FORJ%=0TOP%
+  550   U1=J%/P%:U2=1-U1:PX=0:PY=0
+  560   FORI%=0TOD%
+  570     K=F(I%)*U1^I%*U2^(D%-I%):PX+=X(I%)*K:PY+=Y(I%)*K
+  580   NEXT
+  590   XP%(J%,S%)=PX:YP%(J%,S%)=PY
+  600 NEXT
+  610 ENDPROC
+  620 
+  630 SYS"OS_Byte",112,S1%:VDU4:REPORT:PRINT" at line "STR$ERL:ON

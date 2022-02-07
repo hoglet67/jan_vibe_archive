@@ -1,0 +1,33 @@
+   10 REM > FRACTIONS
+   20 
+   30 REM Makes fractions 1/2 to 1/9 using all 9 digits once
+   40 REM in each fraction.
+   50 REM
+   60 REM                     Jan Vibe november 95
+   70 
+   80 @%=0
+   90 FORN%=1234TO9876
+  100 A$=STR$(N%)
+  110 IF FNA(A$)=0 THEN
+  120 FORM%=2TO9
+  130 B%=N%*M%:B$=STR$(B%)
+  140 IF LEN(A$+B$)=9 THEN
+  150 IFFNA(A$+B$)=0THEN PRINTA$"/"B$"=1/"M%
+  160 ENDIF
+  170 NEXT
+  180 ENDIF
+  190 NEXT
+  200 END
+  210 
+  220 DEFFNA(A$)
+  230 LOCAL L%,F%,N%,M%
+  240 L%=LEN(A$)
+  250 FORN%=1TOL%:IF MID$(A$,N%,1)="0" F%=1:N%=L%
+  260 NEXT
+  270 IFF%=0 THEN
+  280 FORN%=1TOL%-1
+  290 FORM%=N%+1TOL%
+  300 IFMID$(A$,N%,1)=MID$(A$,M%,1) F%=1:M%=L%:N%=L%-1
+  310 NEXT,
+  320 ENDIF
+  330 =F%

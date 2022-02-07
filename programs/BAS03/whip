@@ -1,0 +1,34 @@
+   10 REM > WHIP
+   20 
+   30 MODE137:MODE9:OFF
+   40 SYS"OS_UpdateMEMC",64,64
+   50 S1%=1:S2%=2:K%=12
+   60 
+   70 DIM X%(K%),Y%(K%),Z%(K%),A%(K%)
+   80 X%(1)=640:Y%(1)=512:Z%(1)=90:A%(1)=0
+   90 FORN%=2TOK%:N1%=N%-1
+  100 X%(N%)=X%(N1%)+Z%(N1%)*SINRADA%(N1%)
+  110 Y%(N%)=Y%(N1%)+Z%(N1%)*COSRADA%(N1%)
+  120 Z%(N%)=Z%(N1%)*.85:A%(N%)=A%(N1%)+180
+  130 NEXT
+  140 
+  150 ONERRORGOTO330
+  160 REPEAT
+  170 SYS"OS_Byte",112,S1%:SYS"OS_Byte",113,S2%:WAIT:CLS:SWAP S1%,S2%
+  180 
+  190 FORM%=60TO360STEP60:T=RADM%:SI=SINT:CO=COST
+  200 MOVEX%(1),Y%(1)
+  210 FORN%=2TOK%
+  211 X1%=(X%(N%)-640)*CO+(Y%(N%)-512)*SI+640
+  212 Y1%=(Y%(N%)-512)*CO-(X%(N%)-640)*SI+512
+  220 DRAW X1%,Y1%:NEXT,
+  240 A%(1)=A%(1)+2
+  250 FORN%=2TOK%:N1%=N%-1
+  260 X%(N%)=X%(N1%)+Z%(N1%)*SINRADA%(N1%)
+  270 Y%(N%)=Y%(N1%)+Z%(N1%)*COSRADA%(N1%)
+  280 A%(N%)=A%(N%)+2*N%
+  290 NEXT
+  300 
+  310 UNTIL0
+  320 
+  330 SYS"OS_Byte",112,S1%:REPORT:PRINT" at line "STR$ERL:ON

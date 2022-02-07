@@ -1,0 +1,34 @@
+   10 REM > FINDLINE
+   20 
+   30 REM Naar jeg udvikler programmer der bruger beregnede RESTORE statements
+   40 REM skal jeg, hver gang jeg har tilfojet eller slettet en linie, justere
+   50 REM den beregnede RESTORE, ellers vil jeg ikke kunne laese de data jeg
+   60 REM onsker. Denne funktion "FNA" vil give mig linienummeret lige efter
+   70 REM en REM saetning der indeholder et tegn lige efter REM. Funktionen
+   80 REM soger simpelthen programmet igennem paa jagt efter REM saetninger.
+   90 REM Naar der findes en, vil funktionen undersoege om det opgivne tegn
+  100 REM staar lige efter rem saetningen. Hvis dette er tilfaeldet returneres
+  110 REM det naeste linienummer i programmet. Funktionen virker baade for
+  120 REM almindelige BBC'ere og Archimedes'er.
+  130 REM Hvis tegnet ikke findes i programmet returneres et 0.
+  140 REM
+  150 REM Se i ovrigt det nedenstaaende program.
+  160 
+  170 A%=FNA("1"):B%=FNA("2")
+  180 PRINT"Første linie efter REM1 har nr "A%:PRINT
+  190 PRINT"Første linie efter REM2 har nr "B%
+  200 END
+  210 
+  220 DEFFNA(T$)
+  230 LOCALP%,T%,F%:P%=PAGE:T%=ASCT$:F%=0
+  240 REPEAT:IFP%?4<>244THEN260
+  250 IFP%?5=T% F%=1
+  260 P%=P%+P%?3:UNTILF%=1 OR P%?3=0
+  270 IF P%?3<>0 F%=P%?2+256*P%?1 ELSE F%=0
+  280 =F%
+  290 
+  300 REM1
+  310 DATA "Dette er Første linie efter REM1"
+  320 
+  330 REM2
+  340 DATA "Dette er Første linie efter REM2"

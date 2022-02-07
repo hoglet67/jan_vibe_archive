@@ -1,0 +1,50 @@
+   10 REM > TXTMAZE
+   20 
+   30 MODE31:OFF
+   40 PRINT"TEXT maze"'
+   50 PRINT"This program generates a maze in text format"
+   60 PRINT"using only the characters -,!,+ and space."'
+   70 INPUT"Width in characters="ZX%,"Height in characters="ZY%:CLS
+   80 IF ZX%<9 ZX%=9
+   90 IF ZY%<9 ZY%=9
+  100 ZX%=((ZX%-1)DIV4)*4+1:ZY%=((ZY%-1)DIV4)*4+1
+  110 DIM A%(ZX%+1,ZY%+1)
+  120 CX%=(ZX%+1)/2:CY%=(ZY%+1)/2
+  130 FORN%=CX%-4TOCX%+4:A%(N%,CY%-4)=1:A%(N%,CY%+4)=1:NEXT
+  140 FORN%=CY%-4TOCY%+4:A%(CX%-4,N%)=1:A%(CX%+4,N%)=1:NEXT
+  150 A%(CX%-4,CY%+3)=0
+  160 PROCA(CX%-4,CY%+4)
+  170 
+  180 FORY%=1TOZY%:FORX%=1TOZX%
+  190 IF A%(X%,Y%)=0 THEN
+  200 PRINT" ";
+  210 ELSE
+  220 K%=0
+  230 IF A%(X%,Y%+1)=1 K%+=1
+  240 IF A%(X%+1,Y%)=1 K%+=2
+  250 IF A%(X%,Y%-1)=1 K%+=4
+  260 IF A%(X%-1,Y%)=1 K%+=8
+  270 CASE K% OF
+  280 WHEN 2,8,10:PRINT"-";
+  290 WHEN 1,4,5:PRINT"!";
+  300 OTHERWISE:PRINT"+";
+  310 ENDCASE
+  320 ENDIF
+  330 NEXT:PRINT:NEXT
+  340 END
+  350 
+  360 DEFPROCA(X%,Y%)
+  370 LOCAL N%,DX%,DY%
+  380 A%(X%,Y%)=1
+  390 FORN%=1TO12
+  400 DX%=0:DY%=0
+  410 IFRND(1)>.5 THEN
+  420 REPEAT:DX%=SGN(RND(1)-.5):UNTIL X%+2*DX%<=ZX% AND X%+2*DX%>=1
+  430 ELSE
+  440 REPEAT:DY%=SGN(RND(1)-.5):UNTIL Y%+2*DY%<=ZY% AND Y%+2*DY%>=1
+  450 ENDIF
+  460 IF A%(X%+2*DX%,Y%+2*DY%)=0THEN
+  470 A%(X%+DX%,Y%+DY%)=1:PROCA(X%+2*DX%,Y%+2*DY%)
+  480 ENDIF
+  490 NEXT
+  500 ENDPROC

@@ -1,0 +1,108 @@
+  100 REM >ARCSPARK
+  110 REM PROGRAM    SHINING ARC
+  120 REM VERSION    A 0.3
+  130 REM AUTHOR     JEROEN BOOMGAARDT
+  140 REM RISC USER  MAJ 1988
+  150 REM
+  160 :
+  170 MODE 12:OFF
+  180 ON ERROR VDU 23,16|:VDU 26:ON:REPORT:PRINT" at line ";ERL:END
+  190 DIM M% 9,param 4,code 150,rb 1,tb 1
+  200 ?rb=1:?tb=0
+  210 PROCassemble
+  220 PROCarch
+  230 VDU 19,0,24,0,0,240
+  240 VDU 19,0,4;0;19,2,3;0;
+  250 VDU 23,128,0,&1C,&3E,&7F,&7F,&7F,&3E,&1C
+  260 VDU 28,0,30,79,23
+  270 VDU 31,79,0:VDU 23,16,8|
+  280 COLOUR 2:R%=0:V%=1
+  290 :
+  300 REPEAT
+  310 RESTORE
+  320 REPEAT
+  330 READ T$
+  340 FOR N%=1 TO LEN(T$)
+  350 C%=ASC(MID$(T$,N%,1))
+  360 IF C%=164 THEN VDU 23,17,5| ELSE PROCprint
+  370 NEXT
+  380 UNTIL T$=" "
+  390 UNTIL FALSE
+  400 :
+  410 DEF PROCprint
+  420 ?M%=C%
+  430 SYS "OS_Word",10,M%
+  440 P%=256
+  450 FOR K%=1 TO 8
+  460 P%=P% >>> 1
+  470 WAIT:IF K% MOD 2 THEN CALL shine
+  480 FOR T%=1 TO 8
+  490 IF ((M%?T%)AND P%)>0 THEN VDU 128 ELSE VDU 32
+  500 NEXT:NEXT
+  510 ENDPROC
+  520 :
+  530 DEF PROCarch
+  540 VDU 24,440;440;1279;1023;
+  550 ORIGIN 440,440
+  560 GCOL 0,15
+  570 RECTANGLE FILL 375,0,30,490
+  580 MOVE 40,0:MOVE 405,490
+  590 PLOT &75,370,490
+  600 MOVE 285,130:MOVE 385,205
+  610 PLOT &A5,175,185:MOVE 285,130
+  620 MOVE 385,245:PLOT &A5,230,200
+  630 FILL 285,260
+  640 FOR Y%=0 TO 12
+  650 GCOL 2,Y%+3
+  660 RECTANGLE FILL 0,Y%*38,410,34
+  670 NEXT
+  680 GCOL 0,1:FILL 285,300
+  690 GCOL 0,2:FILL 285,130
+  700 ENDPROC
+  710 :
+  720 DEF PROCassemble
+  730 count=3:dir=4:col=5:tint=6
+  740 FOR pass=0 TO 2 STEP 2
+  750 P%=code
+  760 [OPT pass
+  770 .shine
+  780 LDRB  dir,rb
+  790 LDRB count,tb
+  800 CMP dir,#1
+  810 ADDEQ count,count,#1
+  820 SUBNE count,count,#1
+  830 CMP count,#12
+  840 MOVEQ dir,#0
+  850 CMP count,#0
+  860 MOVEQ dir,#1
+  870 MOV col,#3
+  880 .loop
+  890 ADD tint,col,count
+  900 CMP tint,#15
+  910 RSBGT tint,tint,#30
+  920 STRB col,param
+  930 MOV R0,#16
+  940 STRB R0,param+1
+  950 MOV tint,tint,LSL#4
+  960 STRB tint,param+2
+  970 STRB tint,param+3
+  980 STRB tint,param+4
+  990 MOV R0,#&C
+ 1000 ADR R1,param
+ 1010 SWI "OS_Word"
+ 1020 ADD col,col,#1
+ 1030 CMP col,#16
+ 1040 BLT loop
+ 1050 STRB dir,rb
+ 1060 STRB count,tb
+ 1070 MOV PC,R14
+ 1080 ]NEXT
+ 1090 ENDPROC
+ 1100 :
+ 1110 DATA "Dette er ¤Archimedes¤ med 1MB RAM og 512KB ROM              "
+ 1120 DATA "Denne computer er H U R T I G..... Tag nu f.eks. dette program "
+ 1130 DATA "det kører i BASIC med kun farveskiftene udført i maskinkode...!                 "
+ 1140 DATA " "
+ 1150 DATA "¤RISC User¤ brings you a shining example of ¤ARCHIMEDES¤ graphics - All accompished in mode 12           "
+ 1160 DATA "A rapidly changing grey-white palette gives the impressing of a reflective, highly-polished surface           "
+ 1170 DATA " "

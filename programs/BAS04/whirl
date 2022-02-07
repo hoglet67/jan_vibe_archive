@@ -1,0 +1,38 @@
+   10 REM > WHIRL
+   20 
+   30 MODE13:OFF:ORIGIN 640,512
+   40 K%=5
+   50 DIM X(K%),Y(K%),A(K%),DA(K%),Z(K%),DZ(K%),F%(K%),I%(K%)
+   60 FORN%=1TOK%
+   70 X(N%)=0:Y(N%)=0
+   80 A(N%)=0:DA(N%)=RND(1)*179
+   90 Z(N%)=0:DZ(N%)=RND(1)+.1
+  100 F%(N%)=RND(27)-1:I%(N%)=0
+  110 NEXT
+  120 
+  130 REPEAT
+  140 FORN%=1TOK%
+  150 MOVE X(N%),Y(N%)
+  160 A(N%)+=DA(N%):T=RADA(N%)
+  170 Z(N%)+=DZ(N%)
+  180 I%(N%)+=1:PROCF(F%(N%),ABS(7-I%(N%)MOD14))
+  190 X(N%)=Z(N%)*SINT:Y(N%)=Z(N%)*COST
+  200 DRAWX(N%),Y(N%)
+  210 IF Z(N%)>=500 THEN
+  220 X(N%)=0:Y(N%)=0
+  230 A(N%)=0:DA(N%)=RND(1)*179
+  240 Z(N%)=0:DZ(N%)=RND(1)+.1
+  250 F%(N%)=RND(27)-1:I%(N%)=0
+  260 ENDIF
+  270 NEXT
+  280 UNTIL0
+  290 
+  300 DEFPROCF(F%,I%)
+  310 LOCAL R%,G%,B%
+  320 B%=F%DIV9:F%=F%-9*B%
+  330 G%=F%DIV3:F%=F%-3*G%
+  340 R%=F%
+  350 F%=R%+4*G%+16*B%
+  360 IF I%>=4 F%=F%+&15
+  370 GCOL F% TINT (64*I%)MOD256
+  380 ENDPROC

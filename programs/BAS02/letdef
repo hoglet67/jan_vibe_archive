@@ -1,0 +1,87 @@
+   10 REM > LETDEF
+   20 
+   30 MODE12:OFF
+   40 DIM A% 9,Z%(9,9),D$(1000)
+   50 ZX%=48:ZY%=96:PD%=0:TD$="":@%=1
+   60 ORIGIN 640-4*ZX%,512-4*ZY%
+   70 PD%+=1:D$(PD%)="AUTO 1000"
+   80 
+   90 FORI%=33TO255:CLS:CLG:PD%+=1:D$(PD%)="REM"+CHR$I%
+  100 
+  110 ?A%=I%:SYS"OS_Word",10,A%
+  120 Z%()=0
+  130 FORN%=1TO8:K%=A%?N%:B%=128
+  140 FORM%=1TO8:IF K%ANDB% Z%(M%,9-N%)=1
+  150 B%=B%/2:NEXT,
+  160 
+  170 GCOL7
+  180 FORY%=1TO8:Y1%=Y%-1
+  190 FORX%=1TO8:X1%=X%-1
+  200 IF Z%(X%,Y%)=1 THEN
+  210   IF Z%(X%-1,Y%)=0 LINE ZX%*X1%,ZY%*Y1%,ZX%*X1%,ZY%*(Y1%+1)
+  220   IF Z%(X%,Y%-1)=0 LINE ZX%*X1%,ZY%*Y1%,ZX%*(X1%+1),ZY%*Y1%
+  230   IF Z%(X%+1,Y%)=0 LINE ZX%*(X1%+1),ZY%*Y1%,ZX%*(X1%+1),ZY%*(Y1%+1)
+  240   IF Z%(X%,Y%+1)=0 LINE ZX%*X1%,ZY%*(Y1%+1),ZX%*(X1%+1),ZY%*(Y1%+1)
+  250 ENDIF
+  260 NEXT,
+  270 
+  280 GCOL1:PP%=0:HX%=ZX%/2:HY%=ZY%/2
+  290 FORY%=0TO8:PY%=Y%*ZY%
+  300 FORX%=0TO8:PX%=X%*ZX%
+  310 IF POINT(PX%,PY%)<>0 THEN
+  320   K%=0
+  330   IF POINT(PX%+HX%,PY%)<>0 K%=K%+1
+  340   IF POINT(PX%-HX%,PY%)<>0 K%=K%+2
+  350   IF POINT(PX%,PY%+HY%)<>0 K%=K%+4
+  360   IF POINT(PX%,PY%-HY%)<>0 K%=K%+8
+  370   CASE K% OF
+  380     WHEN 5,6,9,10
+  390     CIRCLE FILL X%*ZX%,Y%*ZY%,8
+  400   ENDCASE
+  410 ENDIF
+  420 NEXT,
+  430 
+  440 GCOL4
+  450 FORY%=0TO8:PY%=Y%*ZY%
+  460 FORX%=0TO8:PX%=X%*ZX%
+  470 IF POINT(PX%,PY%)=1 THEN
+  480   PROCS(4,X%,Y%):MOVE PX%,PY%
+  490   GX%=X%:GY%=Y%:X1%=X%:Y1%=Y%
+  500   REPEAT
+  510     IF POINT(PX%+HX%,PY%)=7 XZ%=1:YZ%=0
+  520     IF POINT(PX%-HX%,PY%)=7 XZ%=-1:YZ%=0
+  530     IF POINT(PX%,PY%+HY%)=7 YZ%=1:XZ%=0
+  540     IF POINT(PX%,PY%-HY%)=7 YZ%=-1:XZ%=0
+  550     IF XZ%<>0 OR YZ%<>0 THEN
+  560       REPEAT
+  570         X1%+=XZ%:Y1%+=YZ%
+  580       UNTIL POINT(ZX%*X1%,ZY%*Y1%)=1 OR ABS(X1%)>8 OR ABS(Y1%)>8
+  590       IF ABS(X1%)<=8 AND ABS(Y1%)<=8 THEN
+  600         PROCS(5,X1%,Y1%):DRAW ZX%*X1%,ZY%*Y1%
+  610       ELSE
+  620         PROCS(5,GX%,GY%):DRAW ZX%*GX%,ZY%*GY%
+  630       ENDIF
+  640       PX%=ZX%*X1%:PY%=ZY%*Y1%
+  650     ENDIF
+  660   UNTIL ABS(X1%)>8 OR ABS(Y1%)>8
+  670 ENDIF
+  680 NEXT,
+  690 PROCS(0,0,0)
+  700 IF TD$<>"" PROCST
+  710 NEXTI%
+  720 
+  730 CLS
+  740 FORN%=1TOPD%:PRINTD$(N%):NEXT
+  750 END
+  760 
+  770 DEFPROCS(P%,X%,Y%)
+  780 LOCAL K$
+  790 K$=STR$P%+","+STR$X%+","+STR$Y%+","
+  800 IF LEN(TD$+K$)>70 PROCST
+  810 TD$=TD$+K$
+  820 ENDPROC
+  830 
+  840 DEFPROCST
+  850 TD$=LEFT$(TD$,LEN(TD$)-1)
+  860 PD%+=1:D$(PD%)="DATA "+TD$:TD$=""
+  870 ENDPROC

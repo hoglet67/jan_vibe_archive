@@ -1,0 +1,34 @@
+   10 REM > MAKEPEN
+   20 
+   30 MODE12
+   40 DIM P% 100:$P%="PENCIL"
+   50 
+   60 PRINT''"             Dette program danner spriten PENCIL, der   "
+   70 PRINT'"             benyttes i READER2 programmet.              "
+   80 PRINT'"             Den dannede sprite laegges i filen 'pencil'."
+   90 
+  100 *SNEW
+  110 K%=2
+  120 MOVE K%*0,K%*0:DRAW K%*16,K%*32:DRAW K%*80,K%*96
+  130 DRAW K%*96,K%*80:DRAW K%*32,K%*16:DRAW K%*0,K%*0
+  140 GCOL0,1:FILL K%*48,K%*48:GCOL0,7
+  150 MOVE K%*16,K%*8:DRAW K%*8,K%*16
+  160 MOVE K%*16,K%*32:DRAW K%*24,K%*32:DRAW K%*24,K%*24
+  170 DRAW K%*32,K%*24:DRAW K%*32,K%*16
+  180 MOVE K%*24,K%*32:DRAW K%*76,K%*84
+  190 MOVE K%*32,K%*24:DRAW K%*84,K%*76
+  200 MOVE K%*72,K%*88:DRAW K%*88,K%*72
+  210 
+  220 MOVE K%*0,K%*0:MOVE K%*96,K%*96:*SGET PENCIL
+  230 
+  240 SYS"OS_SpriteOp",29,0,P%
+  250 Y1%=0:FORY%=0TOK%*96STEP4
+  260 X1%=0:FORX%=0TOK%*96STEP2
+  270 S%=0:IFPOINT(X%,Y%)<>0 S%=1
+  280 SYS"OS_SpriteOp",44,0,P%,X1%,Y1%,S%
+  290 IF S%=0 POINT X%,Y%
+  300 X1%=X1%+1
+  310 NEXT
+  320 Y1%=Y1%+1
+  330 NEXT
+  340 *SSAVE pencil

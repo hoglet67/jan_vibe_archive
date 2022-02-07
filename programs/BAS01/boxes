@@ -1,0 +1,9 @@
+   10 MODE4:PROCA(640,512,256):END
+   20 DEFPROCA(X%,Y%,Z%)
+   30 RECTANGLE X%-Z%,Y%-Z%,2*Z%
+   40 IFZ%<=8ENDPROC
+   50 PROCA(X%-Z%,Y%-Z%,Z%/2)
+   60 PROCA(X%+Z%,Y%-Z%,Z%/2)
+   70 PROCA(X%+Z%,Y%+Z%,Z%/2)
+   80 PROCA(X%-Z%,Y%+Z%,Z%/2)
+   90 ENDPROC

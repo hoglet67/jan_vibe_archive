@@ -1,0 +1,44 @@
+   10 REM > COLDEV3
+   20 
+   30 MODE21:OFF
+   40 Q%=20000:T%=0
+   50 DIM X%(Q%),Y%(Q%),R%(Q%),G%(Q%),B%(Q%)
+   60 R%()=127:G%()=127:B%()=127
+   70 *POINTER
+   80 REPEAT
+   90 MOUSE X%,Y%,B%
+  100 IF B%=4 THEN
+  110 IF POINT(X%,Y%)=0:POINT X%,Y%:T%+=1:X%(T%)=X%:Y%(T%)=Y%
+  120 ENDIF
+  130 UNTIL B%=1:CLS:*POINTER 0
+  140 
+  150 REPEAT
+  160 R%=RND(T%):IF R%=0 R%=1
+  170 SWAP X%(R%),X%(T%):SWAP Y%(R%),Y%(T%)
+  180 SWAP R%(R%),R%(T%):SWAP G%(R%),G%(T%):SWAP B%(R%),B%(T%)
+  190 X1%=X%(T%):Y1%=Y%(T%):R1%=R%(T%):G1%=G%(T%):B1%=B%(T%):T%-=1
+  200 PROCP(X1%+2,Y1%,R1%,G1%,B1%)
+  210 PROCP(X1%-2,Y1%,R1%,G1%,B1%)
+  220 PROCP(X1%,Y1%+2,R1%,G1%,B1%)
+  230 PROCP(X1%,Y1%-2,R1%,G1%,B1%)
+  240 UNTIL T%=0
+  250 *SCREENSAVE CRYSTAL
+  260 END
+  270 
+  280 DEFPROCP(X%,Y%,R%,G%,B%)
+  290 IF POINT(X%,Y%)=0 THEN
+  300 R%=R%+RND(25)-13:IFR%>255 R%=255
+  310 IFR%<0 R%=0
+  320 G%=G%+RND(25)-13:IFG%>255 G%=255
+  330 IFG%<0 G%=0
+  340 B%=B%+RND(25)-13:IFB%>255 B%=255
+  350 IFB%<0 B%=0
+  360 T%+=1:X%(T%)=X%:Y%(T%)=Y%:R%(T%)=R%:G%(T%)=G%:B%(T%)=B%
+  370 PROCRGB(R%,G%,B%):POINT X%,Y%
+  380 ENDIF
+  390 ENDPROC
+  400 
+  410 DEFPROCRGB(R%,G%,B%)
+  420 LOCAL C%:C%=(R%<<8)+(G%<<16)+(B%<<24)
+  430 SYS "ColourTrans_SetGCOL",C%,,,&100,0
+  440 ENDPROC

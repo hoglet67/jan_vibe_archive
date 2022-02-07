@@ -1,0 +1,71 @@
+   10 REM > NET3
+   20 
+   30 MODE0:OFF
+   40 SYS"OS_UpdateMEMC",64,64
+   50 ONERRORGOTO630
+   60 
+   70 DIM IB% 20,OB% 20
+   80 !IB%=148:IB%!4=150:IB%!8=-1
+   90 SYS "OS_ReadVduVariables",IB%,OB%
+  100 IF OB%!4<&78000 THEN
+  110 CLS
+  120 PRINT TAB(20,15)"Dette program kraever en screensize paa"
+  130 PRINT TAB(20)"60 sider, altsaa 480 K ram."
+  140 END
+  150 ENDIF
+  160 
+  170 *FX112,1
+  180 *FX113,1
+  190 CLS
+  200 ORIGIN 0,256
+  210 K%=32
+  220 K2%=K%/2
+  230 DIM XP%(K%,K%),YP%(K%,K%),A%(K%,K%),B%(K%,K%)
+  240 FORY%=0TOK%:PY%=16*Y%
+  250 FORX%=0TOK%:PX%=32*X%+8*Y%
+  260 XP%(X%,Y%)=PX%
+  270 YP%(X%,Y%)=PY%
+  280 A%(X%,Y%)=SQR((X%-K2%)^2+(Y%-K2%)^2)*35
+  290 NEXT,
+  300 
+  310 FORI%=1TO23:S$=STR$I%
+  320 FORY%=0TOK%
+  330 FORX%=0TOK%
+  340 Z=15/(SQR(1+(X%-K2%)^2+(Y%-K2%)^2)/K%)
+  350 A%(X%,Y%)=(A%(X%,Y%)+345)MOD360
+  360 B%(X%,Y%)=Z*COSRAD(A%(X%,Y%))
+  370 NEXT,
+  380 
+  390 OSCLI"FX112,"+S$:CLS
+  400 FORY%=0TOK%-1
+  410 FORX%=0TOK%-1
+  420 LINE XP%(X%,Y%),YP%(X%,Y%)+B%(X%,Y%),XP%(X%+1,Y%),YP%(X%+1,Y%)+B%(X%+1,Y%)
+  430 LINE XP%(X%,Y%),YP%(X%,Y%)+B%(X%,Y%),XP%(X%,Y%+1),YP%(X%,Y%+1)+B%(X%,Y%+1)
+  440 NEXT,
+  450 FORN%=0TOK%-1
+  460 LINE XP%(N%,K%),YP%(N%,K%)+B%(N%,K%),XP%(N%+1,K%),YP%(N%+1,K%)+B%(N%+1,K%)
+  470 LINE XP%(K%,N%),YP%(K%,N%)+B%(K%,N%),XP%(K%,N%+1),YP%(K%,N%+1)+B%(K%,N%+1)
+  480 NEXT,
+  490 
+  500 T%=4000
+  510 REPEAT
+  520 FORI%=1TO23:S$=STR$I%
+  530 OSCLI"FX113,"+S$
+  540 IF T%<>0 THEN
+  550 FORN%=1TOT%:NEXT
+  560 ENDIF
+  570 *FX15,0
+  580 IFINKEY(-68) T%=T%-100:IFT%<0 T%=0
+  590 IFINKEY(-82) T%=T%+100
+  600 NEXT
+  610 UNTIL0
+  620 
+  630 *FX112,1
+  640 *FX113,1
+  650 REPORT:PRINT" at line "ERL:ON
+  660 
+  670 REM *--------------------------------------*
+  680 REM !                                      !
+  690 REM !  BlGCOLrerRETURNvsprogram Jan Vibe april 89  !
+  700 REM !                                      !
+  710 REM *--------------------------------------*

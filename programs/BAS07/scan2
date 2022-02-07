@@ -1,0 +1,35 @@
+   10 REM > SCAN2
+   20 
+   30 MODE12:OFF
+   40 DIM B% 12,L%(20000,3):C%=0
+   50 FORN%=1TO100:GCOLRND(7):CIRCLE FILL RND(1280),RND(1024),RND(128):NEXT
+   60 
+   70 FORY%=0TO1020STEP4:X%=0
+   80 WHILE X%<1280
+   90 F%=POINT(X%,Y%):GCOLF%
+  100 OX%=X%:PLOT125,X%,Y%:SYS"OS_Word",13,B%:X%=B%!4 AND &FFFF
+  110 IF F%<>0 THEN
+  120 C%+=1:L%(C%,0)=F%:L%(C%,1)=OX%:L%(C%,2)=X%:L%(C%,3)=Y%
+  130 GCOL 7:LINE L%(C%,1),L%(C%,3),L%(C%,2),L%(C%,3)
+  140 ENDIF
+  150 X%+=2
+  160 ENDWHILE
+  170 NEXT
+  180 
+  190 CLS
+  200 PRINT"The picture has now been scanned, and if saved as a data file,"
+  210 PRINT"would occupy ";C%*16" bytes (normally it would occupy 80k)."'
+  220 PRINT"Press any key to see the picture being made from the data."
+  230 K=GET
+  240 CLS:FORN%=1TOC%:GCOLL%(N%,0):LINEL%(N%,1),L%(N%,3),L%(N%,2),L%(N%,3):NEXT
+  250 PRINT"It is also possible to colourseparate the picture."
+  260 PRINT"Press any key to see colourseparation."
+  270 K=GET
+  280 CLS:FORI%=1TO7:FORN%=1TOC%
+  310 IF L%(N%,0)=I% GCOLL%(N%,0):LINEL%(N%,1),L%(N%,3),L%(N%,2),L%(N%,3)
+  340 NEXT:K=INKEY(100):NEXT
+  350 PRINT"You can even transform a picture from one mode to another."
+  360 PRINT"Press any key to see the picture in mode 9."
+  370 K=GET
+  380 MODE9
+  390 FORN%=1TOC%:GCOLL%(N%,0):LINEL%(N%,1),L%(N%,3),L%(N%,2),L%(N%,3):NEXT

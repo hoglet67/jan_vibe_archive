@@ -1,0 +1,114 @@
+   10 REM > SPRTXT3    *** Jan Vibe august 92 ***
+   20 
+   30 MODE13
+   40 DIMF%(7),I%(7),SPR &20000
+   50 SPR!0=&1FFFF:SPR!4=0:SPR!8=16:SPR!12=16
+   60 HT%=192:WT%=96
+   70 R1%=HT%/2:R2%=WT%/2:D=SQR(R1%^2+R2%^2)/7
+   80 W%=1280/WT%+1:ND%=R1%*R2%/150:T$=""
+   90 VDU23,224,63,192,204,192,208,207,192,63
+  100 VDU23,225,252,3,27,3,11,243,3,252
+  110 ONERRORGOTO1130
+  120 PROCINIT
+  130 
+  140 PROCNL
+  150 PROCTXT("This is a new way of using the ARC's spritesystem.")
+  160 PROCNL
+  170 PROCTXT("The procedure PROCTXT receives a line of text.")
+  180 PROCTXT("Each letter in the line is converted into a big letter, and")
+  190 PROCTXT("then plotted as a sprite mask on one of 26 randomly chosen")
+  200 PROCTXT("sprites. The background for the letters is made up of")
+  210 PROCTXT("10 randomly dotted sprites which, of course, is selected")
+  220 PROCTXT("randomly for each letter. The sprite and it's background")
+  230 PROCTXT("is then plotted onto a special 'sprite line' which is a")
+  240 PROCTXT("sprite, as high as a big letter, and as wide as the screen.")
+  250 PROCTXT("When the sprite line is filled up, it is softly scrolled onto")
+  260 PROCTXT("the screen, and cleared for the next letters.")
+  270 PROCNL
+  280 PROCTXT("An empty line is made with the procedure PROCNL.")
+  290 PROCNL
+  300 PROCTXT("You can easily change the size of the letters by changing")
+  310 PROCTXT("the variables HT% and WT% at line 60. The program can display")
+  320 PROCTXT("all characters, even the user defined ones. аб аб аб аб")
+  330 PROCNL
+  340 PROCTXT("This process continues until all the text is shown, then")
+  350 PROCTXT("the screen clears by softly scrolling the text up and away.")
+  360 PROCNL
+  370 PROCTXT("Jan Vibe august 92")
+  380 PROCNL
+  390 
+  400 IF T$<>"" PROCLIN(T$)
+  410 FORN%=1TO256:MOVE0,0:MOVE1276,1024:PLOT&BD,0,4:NEXT:ON
+  420 END
+  430 
+  440 DEFPROCTXT(TXT$)
+  450 LOCAL P1%,P2%,L$
+  460 TXT$=TXT$+" ":P1%=1:P2%=1
+  470 REPEAT
+  480 P2%=INSTR(TXT$," ",P1%)+1
+  490 L$=MID$(TXT$,P1%,P2%-P1%):P1%=P2%
+  500 IF LEN(T$+L$)>W% PROCLIN(T$):T$=""
+  510 T$=T$+L$
+  520 UNTIL P1%>LENTXT$
+  530 ENDPROC
+  540 
+  550 DEFPROCLIN(TXT$)
+  560 LOCALN%,X%,C$
+  570 TXT$=LEFT$(TXT$+STRING$(W%," "),W%)
+  580 SYS"OS_SpriteOp",256+60,SPR,"LINE",0
+  590 CLS
+  600 SYS"OS_SpriteOp",256+60,SPR,0,0:OFF
+  610 FORN%=1TOLENTXT$:C$=MID$(TXT$,N%,1)
+  620 PROCL(X%,C$):X%=X%+WT%:NEXT
+  630 FORN%=1TOHT%STEP8
+  640 MOVE0,0:MOVE1276,1020:PLOT&BD,0,8
+  650 SYS"OS_SpriteOp",256+34,SPR,"LINE",0,N%-HT%+8,0
+  660 NEXT
+  670 ENDPROC
+  680 
+  690 DEFPROCNL
+  700 LOCAL N%
+  710 IF T$<>"" PROCLIN(T$):T$=""
+  720 PROCLIN(STRING$(W%," "))
+  730 ENDPROC
+  740 
+  750 DEFPROCL(X%,C$)
+  760 LOCAL H$,BG$
+  770 H$=STR$(RND(26)):BG$=STR$(RND(10)+26)
+  780 SYS"OS_SpriteOp",256+61,SPR,H$,0
+  790 GCOL0TINT0:RECTANGLE FILL 0,0,WT%,HT%
+  800 GCOL63TINT192:MOVE0,2*R1%
+  810 VDU23,17,7,6,R2%/2;R1%/2|5:PRINTC$;:VDU4
+  820 SYS"OS_SpriteOp",256+61,SPR,0,0:OFF
+  830 SYS"OS_SpriteOp",256+60,SPR,"LINE",0
+  840 SYS"OS_SpriteOp",256+34,SPR,BG$,X%,0,0
+  850 SYS"OS_SpriteOp",256+34,SPR,H$,X%,0,8
+  860 SYS"OS_SpriteOp",256+60,SPR,0,0:OFF
+  870 ENDPROC
+  880 
+  890 DEFPROCINIT
+  900 LOCAL B%,F%,G%,I%,K%,N%,M%,R%,H$
+  910 FORN%=1TO26:CLS:H$=STR$N%
+  920 SYS"OS_SpriteOp",256+15,SPR,H$,0,WT%/4,HT%/4,13
+  930 SYS"OS_SpriteOp",256+60,SPR,H$,0
+  940 FORM%=0TO7
+  950 F%=N%:I%=M%:B%=F%DIV9:F%=F%MOD9:G%=F%DIV3:F%=F%MOD3:R%=F%
+  960 F%=R%+4*G%+16*B%:IF I%>=4 F%=F%+&15
+  970 F%(7-M%)=F%:I%(7-M%)=(64*I%)MOD256:NEXT
+  980 FORK%=7TO0STEP-1:GCOL F%(K%) TINT I%(K%)
+  990 CIRCLE FILL R2%,R1%,K%*D+D/2:NEXT
+ 1000 SYS"OS_SpriteOp",256+60,SPR,0,0:OFF
+ 1010 SYS"OS_SpriteOp",256+29,SPR,H$
+ 1020 NEXT
+ 1030 FORN%=27TO37:H$=STR$N%
+ 1040 SYS"OS_SpriteOp",256+15,SPR,H$,0,WT%/4,HT%/4,13
+ 1050 SYS"OS_SpriteOp",256+60,SPR,H$,0
+ 1060 FORM%=1TOND%:GCOL RND(63) TINT 255:POINT RND(WT%),RND(HT%):NEXT
+ 1070 SYS"OS_SpriteOp",256+60,SPR,0,0:OFF
+ 1080 NEXT
+ 1090 SYS"OS_SpriteOp",256+15,SPR,"LINE",0,320,HT%/4,13
+ 1100 CLS:OFF
+ 1110 ENDPROC
+ 1120 
+ 1130 SYS"OS_SpriteOp",256+61,SPR,0,0:VDU4
+ 1140 REPORT:PRINT" at line "STR$ERL:ON

@@ -1,0 +1,25 @@
+   10 REM > LETTERS
+   20 
+   30 MODE29:OFF:ORIGIN 32,32
+   40 
+   50 DIM SPR &A0000
+   60 SPR!0=&9FFFF:SPR!4=0:SPR!8=16:SPR!12=16
+   70 Q$="ABCDEFGHIJKLMNOPQRSTUVWXYZ∆ÿ≈"
+   80 
+   90 Z%=5000:FONT$="Homerton.bold"
+  100 FORA%=1TOLENQ$:T$=MID$(Q$,A%,1)
+  110 CLS
+  120 SYS"Font_SetFontColours",0,0,1,0
+  130 SYS"Font_FindFont",,FONT$,Z%,Z%,0,0 TO HAN%
+  140 SYS"Font_StringBBox",,T$ TO ,X1%,Y1%,X2%,Y2%
+  150 SYS"Font_ConverttoOS",,X1%,Y1% TO ,X1%,Y1%
+  160 SYS"Font_ConverttoOS",,X2%,Y2% TO ,X2%,Y2%
+  170 X2%+=16
+  180 SYS"Font_Paint",,T$,16,0,0
+  190 P$=T$+"1"
+  200 SYS"OS_SpriteOp",256+16,SPR,P$,0,X1%,Y1%,X2%,Y2%
+  210 P$=T$+"2"
+  220 SYS"OS_SpriteOp",256+16,SPR,P$,0,X1%,Y1%,X2%,Y2%
+  230 SYS"OS_SpriteOp",256+33,SPR,P$
+  240 NEXT
+  250 SYS"OS_SpriteOp",256+12,SPR,"LETFIL"

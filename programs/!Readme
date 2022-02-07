@@ -1,0 +1,58 @@
+/*************************************************************************
+
+                     _              __     ___ _
+                    | | __ _ _ __   \ \   / (_) |__   ___
+                 _  | |/ _` | '_ \   \ \ / /| | '_ \ / _ \
+                | |_| | (_| | | | |   \ V / | | |_) |  __/
+                 \___/ \__,_|_| |_|    \_/  |_|_.__/ \___|
+
+                          Sat,11 Aug 2007.01:12:07
+
+ This archive contains Jan Vibe's BASIC programs, a complete collection of
+ graphical oddities and special effects written for RISC OS-powered computers
+ in the late-1980s and 1990s. Most were published in Acorn User magazine in
+ its Star Info programming section. They are redistributed here with
+ permission from Jan, the original author of the work.
+
+ Due to their age, many of the programs will only run comfortably on
+ RISC OS 3, although a number of programs in the BAS13 directory were written
+ after Jan bought his RiscPC, so they will work on more modern setups.
+ To run RISC OS 3 on your desktop, you should check out Tom Walker's Arculator
+ or Jan Boer's A310 emulator.
+
+ Arculator: http://b-em.bbcmicro.com/arculator/
+ A310 emulator: http://home-1.tiscali.nl/~jandboer
+
+                               ---------------
+
+ According to Jan, "This archive contains ALL the Acorn BASIC programs I
+ have made. There is probably a lot of crap in there, but all the programs
+ published in Star Info is there too. And probably some you have not seen.
+ Consider it freeware, but if you put it on your homepage, please say that
+ it was me that wrote them."
+
+                               ---------------
+
+ Permission is hereby granted, free of charge, to any person obtaining a
+ copy of this software and associated documentation files (the "Software"),
+ the rights to use, copy, and distribute the Software, and to permit persons
+ to whom the Software is furnished to do so, subject to the following
+ conditions:
+
+ This permission notice shall be included in all copies of the Software.
+ The Software shall be distributed unmodified in whole. No charge shall
+ be made for any redistribution of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ DEALINGS IN THE SOFTWARE.
+
+                               ---------------
+
+ Contact: chris@drobe.co.uk - http://www.drobe.co.uk/
+
+ *************************************************************************/

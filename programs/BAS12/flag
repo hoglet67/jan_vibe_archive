@@ -1,0 +1,72 @@
+   10 REM > FLAG
+   20 
+   30 MODE28:*FX9,0
+   40 PRINT'"Waving flag"'
+   50 PRINT"This program takes a 16 Colour sprite with a standard"
+   60 PRINT"16 colour palette and constructs a new spritefile where"
+   70 PRINT"the sprite is rippled like a flag. The new sprite is a"
+   80 PRINT"256 colour sprite and the spritefile consiste of 20"
+   90 PRINT"sprites making up a animation sequence, suitable for"
+  100 PRINT"making animated gifs."
+  110 PRINT"The construction takes about 20 minutes on a A5000."''
+  120 
+  130 INPUT"Spritefile="SPF$
+  140 CLS
+  150 DIM SPR &10000,SPR2 &80000,BUF 16
+  160 DIM R%(15),G%(15),B%(15)
+  170 FORN%=0TO15:READ R%(N%),G%(N%),B%(N%):NEXT
+  180 SPR!0=&FFFF:SPR!4=0:SPR!8=16:SPR!12=16
+  190 SPR2!0=&7FFFF:SPR2!4=0:SPR2!8=16:SPR2!12=16
+  200 SYS"OS_SpriteOp",256+10,SPR,SPF$
+  210 SYS"OS_SpriteOp",256+13,SPR,BUF,16,1
+  220 N$="":P%=0:REPEAT
+  230 T%=BUF?P%:IF T%<>0 N$+=CHR$T%
+  240 P%+=1:UNTIL T%=0
+  250 SYS"OS_SpriteOp",256+40,SPR,N$ TO ,,,W%,H%
+  260 FX=W%/256:FY=H%/256
+  270 
+  280 FORN%=0TO19:W=RAD(18*(19-N%)):WN$=RIGHT$(STR$(100+N%),2)
+  290 CLS:PRINTN%
+  300 
+  310 PX1%=32:PY1%=32-10
+  320 PX2%=255+255/5+32:PY2%=32+255*.75+20
+  330 FORY1%=255TO0STEP-2:Y%=Y1%-128
+  340 FORX1%=0TO255STEP2:X%=X1%-128
+  350 SX%=FX*X1%:SY%=FY*Y1%
+  360 SYS"OS_SpriteOp",256+41,SPR,N$,SX%,SY% TO ,,,,,C%
+  370 PX%=X1%+Y1%/5+32
+  380 WH=(SIN(X1%/15+W)+SIN(Y1%/15+W)+2)/4
+  390 PY%=32+Y1%*.75+WH*20
+  400 R1%=R%(C%):G1%=G%(C%):B1%=B%(C%)
+  410 R1%=R1%*(WH*.50+.50)
+  420 G1%=G1%*(WH*.50+.50)
+  430 B1%=B1%*(WH*.50+.50)
+  440 PROCRGB(R1%,G1%,B1%)
+  450 LINE PX%,PY%-4,PX%,PY%
+  460 NEXT,
+  470 SYS"OS_SpriteOp",256+16,SPR2,WN$,0,PX1%,PY1%,PX2%,PY2%
+  480 NEXT
+  490 SYS"OS_SpriteOp",256+12,SPR2,"WFLAG"
+  500 END
+  510 
+  520 DEFPROCRGB(R%,G%,B%)
+  530 LOCAL C%:C%=(R%<<8)+(G%<<16)+(B%<<24)
+  540 SYS "ColourTrans_SetGCOL",C%,,,&100,0
+  550 ENDPROC
+  560 
+  570 DATA 255,255,255
+  580 DATA 221,221,221
+  590 DATA 187,187,187
+  600 DATA 153,153,153
+  610 DATA 119,119,119
+  620 DATA 85,85,85
+  630 DATA 51,51,51
+  640 DATA 0,0,0
+  650 DATA 0,68,153
+  660 DATA 238,238,0
+  670 DATA 0,204,0
+  680 DATA 221,0,0
+  690 DATA 238,238,187
+  700 DATA 85,136,0
+  710 DATA 255,187,0
+  720 DATA 0,187,255

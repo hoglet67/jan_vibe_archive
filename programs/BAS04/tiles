@@ -1,0 +1,28 @@
+   10 REM > TILES
+   20 
+   30 MODE15
+   40 DIMPX%(20,20),PY%(20,20)
+   50 FORY%=0TO14:FORX%=0TO17
+   60 PX%(X%,Y%)=80*X%-40+RND(60)-30
+   70 PY%(X%,Y%)=80*Y%-40+RND(60)-30
+   80 NEXT,
+   90 
+  100 FORY%=0TO13:FORX%=0TO16
+  110 GX%=(PX%(X%,Y%)+PX%(X%+1,Y%)+PX%(X%,Y%+1)+PX%(X%+1,Y%+1))/4
+  120 GY%=(PY%(X%,Y%)+PY%(X%+1,Y%)+PY%(X%,Y%+1)+PY%(X%+1,Y%+1))/4
+  130 C%=RND(26)
+  140 FORN%=0TO7:PROCF(C%,N%)
+  150 X1=(GX%*N%+PX%(X%,Y%)*(7-N%))/7:Y1=(GY%*N%+PY%(X%,Y%)*(7-N%))/7
+  160 X2=(GX%*N%+PX%(X%+1,Y%)*(7-N%))/7:Y2=(GY%*N%+PY%(X%+1,Y%)*(7-N%))/7
+  170 X3=(GX%*N%+PX%(X%+1,Y%+1)*(7-N%))/7:Y3=(GY%*N%+PY%(X%+1,Y%+1)*(7-N%))/7
+  180 X4=(GX%*N%+PX%(X%,Y%+1)*(7-N%))/7:Y4=(GY%*N%+PY%(X%,Y%+1)*(7-N%))/7
+  190 MOVE X1,Y1:MOVE X2,Y2:PLOT85,X4,Y4:PLOT85,X3,Y3
+  200 NEXT,,
+  210 END
+  220 
+  230 DEFPROCF(F%,I%)
+  240 LOCAL R%,G%,B%
+  250 B%=F%DIV9:F%=F%MOD9:G%=F%DIV3:F%=F%MOD3:R%=F%
+  260 F%=R%+4*G%+16*B%:IF I%>=4 F%=F%+&15
+  270 GCOL F% TINT (64*I%)MOD256
+  280 ENDPROC

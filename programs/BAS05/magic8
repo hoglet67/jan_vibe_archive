@@ -1,0 +1,76 @@
+   10 REM > MAGIC8
+   20 
+   30 MODE0:COLOUR0,0,0,255:@%=2
+   40 
+   50 PRINT''TAB(31)"8*8 magic squares"''
+   60 PRINTTAB(10)"This program generates 8*8 magic squares with a method"
+   70 PRINTTAB(10)"invented by Frederic A. Woodruff. The method is described"
+   80 PRINTTAB(10)"by Jim Moran in his book: The wonders of magic squares"
+   90 PRINTTAB(10)"1982 edition from Vintage books."'
+  100 PRINTTAB(10)"The squares generated has the magic sum 260. All rows,"
+  110 PRINTTAB(10)"all columns and the diagonals of the square all add up"
+  120 PRINTTAB(10)"to the sum 260."'
+  130 PRINTTAB(10)"One of the curious facts about these squares is, that"
+  140 PRINTTAB(10)"if you add the numbers covered by a 2*2 square placed"
+  150 PRINTTAB(10)"anywhere in the generated square, the sum will be 130."
+  160 PRINTTAB(10)"That is half of the magic sum 260."'
+  170 PRINTTAB(10)"The program shows both the square, and the pattern"
+  180 PRINTTAB(10)"made by following the numbers round the square. This"
+  190 PRINTTAB(10)"pattern makes related squares easier to recognize."''
+  200 PRINTTAB(10)"Press a key to start... ";
+  210 K$=GET$
+  220 
+  230 DIM C1%(8),C2%(8),M1%(8,8),M2%(8,8)
+  240 REPEAT
+  250 CLS
+  260 PROCMR(C1%())
+  270 REPEAT:F%=0:PROCMR(C2%())
+  280 FORN%=1TO8:IFC1%(N%)<>C2%(N%) F%=1:N%=8
+  290 NEXT
+  300 UNTILF%=1
+  310 
+  320 FORN%=1TO8:D%=N%MOD2:X%=C1%(N%)
+  330 IF D%=1 THEN
+  340 FORY%=1TO8:M1%(N%,Y%)=8*(X%-1)+Y%:NEXT
+  350 ELSE
+  360 FORY%=1TO8:M1%(N%,9-Y%)=8*(X%-1)+Y%:NEXT
+  370 ENDIF
+  380 NEXT
+  390 
+  400 FORN%=1TO4:Y%=2*N%-1:P1%=C2%(N%):P2%=C2%(N%+4)
+  410 FORM%=1TO4:M2%(M%,Y%)=M1%(M%,P1%):M2%(9-M%,Y%)=M1%(M%,P2%)
+  420 NEXT,
+  430 FORN%=1TO4:Y%=2*N%:P1%=C2%(9-N%):P2%=C2%(5-N%)
+  440 FORM%=1TO4:M2%(9-M%,Y%)=M1%(M%+4,P1%):M2%(M%,Y%)=M1%(M%+4,P2%)
+  450 NEXT,
+  460 
+  470 PRINTTAB(19,4)"Magic square";
+  480 PRINTTAB(54,4)"Pattern";
+  490 
+  500 FORX%=0TO8:LINE 140+64*X%,304,140+64*X%,816:NEXT
+  510 FORY%=0TO8:LINE 140,304+64*Y%,652,304+64*Y%:NEXT
+  520 
+  530 FORY%=1TO8:FORX%=1TO8:PRINT TAB(4*X%+6,5+2*Y%)M2%(X%,Y%);:NEXT,
+  540 
+  550 FORN%=1TO64:FORY%=1TO8:FORX%=1TO8
+  560 IF M2%(X%,Y%)=N% LX%=X%*64+640:LY%=(8-Y%)*64+336:X%=8:Y%=8
+  570 NEXT,:IF N%=1 MOVE LX%,LY% ELSE DRAW LX%,LY%
+  580 NEXT
+  590 
+  600 PRINTTAB(9,26)"Press SPACE for another magic square, RETURN to stop. ";
+  610 
+  620 K$=GET$
+  630 UNTIL K$<>" "
+  640 VDU30:END
+  650 
+  660 DEFPROCMR(C%())
+  670 LOCAL N%,V1%,V2%
+  680 C%(1)=2:C%(2)=8:C%(3)=5:C%(4)=3
+  690 FORN%=1TORND(10):V1%=RND(4)
+  700 REPEAT:V2%=RND(4):UNTILV1%<>V2%
+  710 SWAP C%(V1%),C%(V2%):NEXT
+  720 FORN%=1TO4:C%(N%+4)=9-C%(N%):NEXT
+  730 IFRND(1)>.5 THEN
+  740 FORN%=1TO8:C%(N%)=9-C%(N%):NEXT
+  750 ENDIF
+  760 ENDPROC

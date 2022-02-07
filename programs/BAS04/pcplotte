@@ -1,0 +1,31 @@
+   10 REM > PCPLOTTER
+   20 
+   30 MODE12:OFF:@%=0
+   40 COLOUR0,80,80,80
+   50 DIM X(500),Y(500):@%=0:OFF
+   60 *POINTER
+   70 
+   80 C%=0
+   90 REPEAT
+  100   MOUSE MX%,MY%,MB%
+  110   CASE MB% OF
+  120   WHEN 1:
+  130     IF C%=0 THEN
+  140       C%+=1:X(C%)=MX%:Y(C%)=MY%:POINT MX%,MY%
+  150     ELSE
+  160       MOVE X(C%),Y(C%)
+  170       C%+=1:X(C%)=MX%:Y(C%)=MY%:DRAW MX%,MY%
+  180     ENDIF
+  190     T%=TIME+20:REPEAT UNTILTIME>=T%
+  200   WHEN 2:
+  210     IF C%>=0 THEN
+  220       GCOL0:LINE X(C%-1),Y(C%-1),X(C%),Y(C%):C%-=1:GCOL7
+  230       T%=TIME+20:REPEAT UNTILTIME>=T%
+  240     ELSE
+  250       CLS:C%=0
+  260     ENDIF
+  270   ENDCASE
+  280 UNTILMB%=4
+  290 *SPOOL DATA
+  300 FOR N%=1TOC%:PRINT"DATA "X(N%)","Y(N%):NEXT
+  310 *SPOOL

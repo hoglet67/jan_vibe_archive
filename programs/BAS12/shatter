@@ -1,0 +1,63 @@
+   10 REM > SHATTER
+   20 
+   30 MODE103:OFF
+   40 DIM TX%(50,15),TY%(50,15),TN%(50),AX%(15),AY%(15)
+   50 
+   60 TX%(1,1)=400:TY%(1,1)=200
+   70 TX%(1,2)=1200:TY%(1,2)=200
+   80 TX%(1,3)=1200:TY%(1,3)=1000
+   90 TX%(1,4)=400:TY%(1,4)=1000
+  100 TN%(1)=4
+  110 
+  120 FORI%=1TO49
+  130 IF I%=1 THEN
+  140 R%=1
+  150 ELSE
+  160 MAX%=0:FORN%=1TOI%
+  170 X1%=0:Y1%=0
+  180 FORM%=1 TO TN%(N%):X1%+=TX%(N%,M%):Y1%+=TY%(N%,M%):NEXT
+  190 X1%=X1%/TN%(N%):Y1%=Y1%/TN%(N%)
+  200 A%=0:FORM%=1TOTN%(N%):M1%=M%MODTN%(N%)+1
+  210 X2%=TX%(N%,M%):Y2%=TY%(N%,M%):X3%=TX%(N%,M1%):Y3%=TY%(N%,M1%)
+  220 A%+=(X1%*Y2%+Y1%*X3%+Y3%*X2%-Y2%*X3%-Y1%*X2%-X1%*Y3%)/2
+  230 NEXT
+  240 IF A%>MAX% MAX%=A%:R%=N%
+  250 NEXT
+  260 ENDIF
+  270 P%=TN%(R%)
+  280 FORN%=1TOP%:AX%(N%)=TX%(R%,N%):AY%(N%)=TY%(R%,N%):NEXT
+  290 L%=0:FORN%=1TOP%:N1%=N%MODP%+1
+  300 G%=(AX%(N%)-AX%(N1%))^2+(AY%(N%)-AY%(N1%))^2
+  310 IF G%>L% L%=G%:D11%=N%
+  320 NEXT
+  330 REPEAT:D21%=RND(P%):UNTIL D11%<>D21%
+  340 IF D11%>D21% SWAP D11%,D21%
+  350 D12%=D11%MODP%+1:D22%=D21%MODP%+1
+  360 F1%=RND(2):F2%=3-F1%
+  370 PX1%=(F1%*AX%(D11%)+F2%*AX%(D12%))/3
+  380 PY1%=(F1%*AY%(D11%)+F2%*AY%(D12%))/3
+  390 PX2%=(F1%*AX%(D21%)+F2%*AX%(D22%))/3
+  400 PY2%=(F1%*AY%(D21%)+F2%*AY%(D22%))/3
+  410 K%=0:FORN%=1TOP%
+  420 K%+=1:TX%(R%,K%)=AX%(N%):TY%(R%,K%)=AY%(N%)
+  430 IF N%=D11% THEN
+  440 K%+=1:TX%(R%,K%)=PX1%:TY%(R%,K%)=PY1%
+  450 K%+=1:TX%(R%,K%)=PX2%:TY%(R%,K%)=PY2%
+  460 N%=D21%
+  470 ENDIF
+  480 NEXT:TN%(R%)=K%
+  490 Q%=I%+1
+  500 K%=1:TX%(Q%,K%)=PX1%:TY%(Q%,K%)=PY1%
+  510 FORN%=D11%+1TOD21%
+  520 K%+=1:TX%(Q%,K%)=AX%(N%):TY%(Q%,K%)=AY%(N%)
+  530 NEXT
+  540 K%+=1:TX%(Q%,K%)=PX2%:TY%(Q%,K%)=PY2%:TN%(Q%)=K%
+  550 NEXT
+  560 
+  570 FORI%=1TO50:GCOLRND(63)
+  580 CT%=TN%(I%)
+  590 MOVETX%(I%,CT%),TY%(I%,CT%)
+  600 FORN%=1TOCT%
+  610 MOVETX%(I%,CT%),TY%(I%,CT%)
+  620 PLOT85,TX%(I%,N%),TY%(I%,N%)
+  630 NEXT,

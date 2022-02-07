@@ -1,0 +1,23 @@
+   10 REM > ABSTRACT
+   20 
+   30 MODE15:OFF
+   40 SYS "OS_SWINumberFromString",,"ColourTrans_SetGCOL" TO set_gcol%
+   50 P%=4:DM=1640/4
+   60 DIM R%(P%),G%(P%),B%(P%),CX%(P%),CY%(P%),F%(P%)
+   70 FORN%=1TOP%
+   80 R%(N%)=RND(255):G%(N%)=RND(255):B%(N%)=RND(255)
+   90 CX%(N%)=RND(1280):CY%(N%)=RND(1024):F%(N%)=RND(2)-1
+  100 POINT CX%(N%),CY%(N%)
+  110 NEXT
+  120 
+  130 FORY%=0TO1023STEP12
+  140 FORX%=0TO1279STEP12
+  150 R=0:G=0:B=0
+  160 FORN%=1TOP%
+  170 D=ABS(F%(N%)-SQR((X%-CX%(N%))^2+(Y%-CY%(N%))^2)/DM)
+  180 R+=R%(N%)*D:G+=G%(N%)*D:B+=B%(N%)*D
+  190 NEXT
+  200 R%=R/P%:G%=G/P%:B%=B/P%
+  210 SYS set_gcol%,(R%<<8)+(G%<<16)+(B%<<24),,,&100,0
+  220 RECTANGLE FILL X%,Y%,10,8
+  230 NEXT,

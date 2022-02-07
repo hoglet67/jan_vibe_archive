@@ -1,0 +1,17 @@
+   10 REM > MODEINFO
+   20 
+   30 INPUT"MODE="M%
+   40 MODEM%:OFF:@%=4
+   50 SYS"OS_ReadModeVariable",-1,3 TO,,C%
+   60 SYS"OS_ReadModeVariable",-1,4 TO,,SX%:SX%=2^SX%
+   70 SYS"OS_ReadModeVariable",-1,5 TO,,SY%:SY%=2^SY%
+   80 SYS"OS_ReadModeVariable",-1,9 TO,,P%:P%=2^P%
+   90 SYS"OS_ReadModeVariable",-1,11 TO,,XS%
+  100 SYS"OS_ReadModeVariable",-1,12 TO,,YS%
+  110 
+  120 PRINT"MODE "MODE'
+  130 PRINT"ANTAL PIXELS       X:"XS%"     Y:"YS%'
+  140 PRINT"PIXELSTEP            "SX%"       "SY%'
+  150 PRINTSTRING$(36,"-")'
+  160 PRINT"BITS/PIXEL           "P%'
+  170 PRINT"MAX. LOGISK FARVE    "C%'

@@ -1,0 +1,45 @@
+   10 REM > TRIANGLE
+   20 
+   30 MODE15:OFF:DIMT%(7),I%(7)
+   31 REPEAT
+   40 T%(1)=RND(27)-1:I%(1)=RND(2):FORN%=2TO7
+   50 REPEAT:T%(N%)=RND(27)-1:I%(N%)=RND(2):F%=1
+   60 FORM%=1TON%-1:IF T%(M%)=T%(N%) F%=0
+   70 NEXT:UNTILF%=1:NEXT
+   90 PROCA(70,0,640,1020,1210,0,1,1)
+  100 K%=INKEY(500):UNTIL0
+  120 
+  130 DEFPROCA(X1%,Y1%,X2%,Y2%,X3%,Y3%,F%,C%)
+  140 LOCAL XA%,YA%,XB%,YB%,XC%,YC%
+  150 IF F%=1 PROCT(X1%,Y1%,X2%,Y2%,X3%,Y3%,C%)
+  160 IF (X1%-X2%)^2+(Y1%-Y2%)^2>=2048 THEN
+  170 XA%=(X1%+X2%)/2:YA%=(Y1%+Y2%)/2
+  180 XB%=(X2%+X3%)/2:YB%=(Y2%+Y3%)/2
+  190 XC%=(X3%+X1%)/2:YC%=(Y3%+Y1%)/2
+  200 PROCA(XA%,YA%,XB%,YB%,XC%,YC%,1,C%+1)
+  210 PROCA(XA%,YA%,X2%,Y2%,XB%,YB%,0,C%+1)
+  220 PROCA(XC%,YC%,XB%,YB%,X3%,Y3%,0,C%+1)
+  230 PROCA(X1%,Y1%,XA%,YA%,XC%,YC%,0,C%+1)
+  240 ENDIF
+  250 ENDPROC
+  260 
+  270 DEFPROCT(X1%,Y1%,X2%,Y2%,X3%,Y3%,C%)
+  280 LOCAL XC%,YC%,N%
+  290 XC%=(X1%+X2%+X3%)/3:YC%=(Y1%+Y2%+Y3%)/3
+  300 FORN%=0TO7
+  301 IF I%(C%)=1 THEN PROCF(T%(C%),N%) ELSE PROCF(T%(C%),7-N%)
+  310 MOVE (N%*XC%+(7-N%)*X1%)/7,(N%*YC%+(7-N%)*Y1%)/7
+  320 MOVE (N%*XC%+(7-N%)*X2%)/7,(N%*YC%+(7-N%)*Y2%)/7
+  330 PLOT85, (N%*XC%+(7-N%)*X3%)/7,(N%*YC%+(7-N%)*Y3%)/7
+  340 NEXT
+  350 ENDPROC
+  360 
+  370 DEFPROCF(F%,I%)
+  380 LOCAL R%,G%,B%
+  390 B%=F%DIV9:F%=F%-9*B%
+  400 G%=F%DIV3:F%=F%-3*G%
+  410 R%=F%
+  420 F%=R%+4*G%+16*B%
+  430 IF I%>=4 F%=F%+&15
+  440 GCOL F% TINT (64*I%)MOD256
+  450 ENDPROC

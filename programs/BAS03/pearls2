@@ -1,0 +1,39 @@
+   10 REM > PEARLS2
+   20 
+   30 MODE15:Q%=500:OFF
+   40 DIMX%(Q%),Y%(Q%),R%(Q%)
+   50 X%(1)=RND(1280):Y%(1)=RND(1024):R%(1)=RND(80):T%=1
+   60 PROCPEARL(X%(1),Y%(1),R%(1))
+   70 
+   80 REPEAT
+   90   XP%=RND(1280):YP%=RND(1024)
+  100   Z%=1000:F%=0:FORM%=1TOT%
+  110     K%=SQR((XP%-X%(M%))^2+(YP%-Y%(M%))^2)-R%(M%)
+  120     IF K%<Z% Z%=K%
+  130     IF K%<4 M%=T%
+  140   NEXT
+  150   IF Z%>=4 THEN
+  160     IF Z%>80 Z%=RND(80)
+  170     T%+=1:X%(T%)=XP%:Y%(T%)=YP%:R%(T%)=Z%
+  180     PROCPEARL(X%(T%),Y%(T%),R%(T%))
+  190   ENDIF
+  200 UNTILT%=Q%
+  210 ON:END
+  220 
+  230 DEFPROCPEARL(X%,Y%,R%)
+  231 LOCAL F%,I%
+  232 F%=RND(27)-1
+  233 FORI%=0TO7:PROCF(F%,I%)
+  234 CIRCLE FILL X%,Y%,(7.5-I%)*R%/7.5
+  235 NEXT
+  236 ENDPROC
+  380 
+  390 DEFPROCF(F%,I%)
+  400 LOCAL R%,G%,B%
+  410 B%=F%DIV9:F%=F%-9*B%
+  420 G%=F%DIV3:F%=F%-3*G%
+  430 R%=F%
+  440 F%=R%+4*G%+16*B%
+  450 IF I%>=4 F%=F%+&15
+  460 GCOL F% TINT (64*I%)MOD256
+  470 ENDPROC

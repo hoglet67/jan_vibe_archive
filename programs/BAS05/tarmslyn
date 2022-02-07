@@ -1,0 +1,27 @@
+   10 REM > TARMSLYNG
+   20 
+   30 MODE0:OFF:COLOUR0,0,0,255:R%=4
+   40 DIM RX%(12),RY%(12)
+   50 FORN%=1TO12
+   60   T=RAD(30*N%):RX%(N%)=(R%+12)*SINT:RY%(N%)=(R%+12)*COST
+   70 NEXT
+   80 PROCA(640,512,RND(360))
+   90 ON:END
+  100 
+  110 DEFPROCA(X%,Y%,A%)
+  120 LOCAL X1%,Y1%,A1%,D%,N%,M%,C%,T
+  130 FORN%=1TO10
+  140   C%=0:D%=RND(17)+2*R%+7
+  150   IF N%<=2 A1%=A%+45-RND(90) ELSE A1%=RND(360)
+  160   T=RADA1%:X1%=X%+D%*SINT:Y1%=Y%+D%*COST
+  170   FORM%=1TO12
+  180     IF POINT(X1%+RX%(M%),Y1%+RY%(M%))<>0 C%+=1
+  190   NEXT
+  200   IF C%=0 THEN
+  210     FORM%=0TO8
+  220       CIRCLE FILL (M%*X%+(8-M%)*X1%)/8,(M%*Y%+(8-M%)*Y1%)/8,R%
+  230     NEXT
+  240     PROCA(X1%,Y1%,A1%)
+  250   ENDIF
+  260 NEXT
+  270 ENDPROC

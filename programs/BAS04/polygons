@@ -1,0 +1,28 @@
+   10 REM > POLYGONS
+   20 
+   30 REM Dette program stammer fra en artikel i
+   40 REM Personal Computer World December 1981.
+   50 
+   60 MODE0:OFF
+   70 
+   80 REPEAT
+   90   S=RND(18)+2:L=500/S:M%=RND(20):F%=RND(20)
+  100   A=360/S:R=0:X=640:Y=512
+  110   FOR H%=1TOS
+  120     FOR I%=1TOS
+  130       FOR J%=1TO2
+  140         FOR K%=1TOM%
+  150           T=RADR
+  160           GX=X:X=X+L*SINT
+  170           GY=Y:Y=Y+L*COST
+  180           LINE GX,GY,X,Y
+  190           R=R+A:IF R>360 R=R-360
+  200         NEXT
+  210         R=R+180-A:IF R>360 R=R-360
+  220       NEXT
+  230       R=R+F%*A:IF R>360 R=R-360
+  240     NEXT
+  250     R=R+F%*A:IF R>360 R=R-360
+  260   NEXT
+  270   K=INKEY(300):CLS
+  280 UNTIL0

@@ -1,0 +1,45 @@
+   10 REM > SPR2
+   20 
+   30 MODE0:OFF
+   40 
+   50 DIM SPR &10000,SZ &10,R%(100)
+   60 
+   70 SPR!0=&FFFF : REM  spritearealets stRETURNrrelse-1
+   80 SPR!4=0     : REM  antal sprites defineret lige nu
+   90 SPR!8=16    : REM  her starter fRETURNrste spritedef
+  100 SPR!12=16   : REM  her starter det frie areal
+  110 
+  120 REM Load sprite
+  130 SYS "OS_SpriteOp",256+10,SPR,"JV"
+  140 
+  150 *SPOOL JAN
+  160 PRINT"AUTO 1000"
+  170 *SPOOL
+  180 
+  190 YS%=-2808:XS%=0:@%=0
+  200 
+  210 REPEAT
+  220   YS%+=24:RC%=0:R%()=0:CLS
+  230   SYS "OS_SpriteOp",256+34,SPR,"JV",XS%,YS%,0
+  240   FOR N%=0TO1068STEP12
+  250     RC%+=1
+  260     FORX%=0TO10STEP2
+  270       FORY%=0TO20STEP4
+  280         IF POINT(N%+X%,Y%)=0 R%(RC%)+=1
+  290   NEXT,,
+  300   *SPOOLON JAN
+  310   PRINT"DATA ";
+  320   FORN%=1TORC%
+  330     PRINTR%(N%);
+  340     IF N%<>RC% THEN
+  350       IF POS < 70 THEN
+  360         PRINT",";
+  370       ELSE
+  380         PRINT:PRINT"DATA ";
+  390       ENDIF
+  391     ELSE
+  400       PRINT'
+  401     ENDIF
+  410   NEXT
+  420   *SPOOLON
+  430 UNTIL YS%=0
