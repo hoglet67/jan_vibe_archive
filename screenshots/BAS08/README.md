@@ -1,149 +1,149 @@
-[[ ./aggregat.png ]]
+![](aggregat.png)
 
-[[ ./art2.png ]]
+![](art2.png)
 
-[[ ./art3.png ]]
+![](art3.png)
 
-[[ ./art.png ]]
+![](art.png)
 
-[[ ./ballmap2.png ]]
+![](ballmap2.png)
 
-[[ ./ballmap.png ]]
+![](ballmap.png)
 
-[[ ./ballrot.png ]]
+![](ballrot.png)
 
-[[ ./ca2.png ]]
+![](ca2.png)
 
-[[ ./celaut2.png ]]
+![](celaut2.png)
 
-[[ ./celaut.png ]]
+![](celaut.png)
 
-[[ ./circle2.png ]]
+![](circle2.png)
 
-[[ ./cloud.png ]]
+![](cloud.png)
 
-[[ ./colsquar.png ]]
+![](colsquar.png)
 
-[[ ./dramatic.png ]]
+![](dramatic.png)
 
-[[ ./elastic2.png ]]
+![](elastic2.png)
 
-[[ ./elasticn.png ]]
+![](elasticn.png)
 
-[[ ./ferns.png ]]
+![](ferns.png)
 
-[[ ./flip.png ]]
+![](flip.png)
 
-[[ ./gravity.png ]]
+![](gravity.png)
 
-[[ ./jan.png ]]
+![](jan.png)
 
-[[ ./j-v-m.png ]]
+![](j-v-m.png)
 
-[[ ./leaf.png ]]
+![](leaf.png)
 
-[[ ./lines2.png ]]
+![](lines2.png)
 
-[[ ./lines3.png ]]
+![](lines3.png)
 
-[[ ./lines4.png ]]
+![](lines4.png)
 
-[[ ./lines.png ]]
+![](lines.png)
 
-[[ ./linier.png ]]
+![](linier.png)
 
-[[ ./magic_ey.png ]]
+![](magic_ey.png)
 
-[[ ./map2.png ]]
+![](map2.png)
 
-[[ ./map.png ]]
+![](map.png)
 
-[[ ./marble2.png ]]
+![](marble2.png)
 
-[[ ./marble.png ]]
+![](marble.png)
 
-[[ ./mchar.png ]]
+![](mchar.png)
 
-[[ ./nova.png ]]
+![](nova.png)
 
-[[ ./pattern2.png ]]
+![](pattern2.png)
 
-[[ ./pattern3.png ]]
+![](pattern3.png)
 
-[[ ./pattern.png ]]
+![](pattern.png)
 
-[[ ./pfill2.png ]]
+![](pfill2.png)
 
-[[ ./pfill3.png ]]
+![](pfill3.png)
 
-[[ ./pfill.png ]]
+![](pfill.png)
 
-[[ ./planets.png ]]
+![](planets.png)
 
-[[ ./poly3d.png ]]
+![](poly3d.png)
 
-[[ ./pyramid2.png ]]
+![](pyramid2.png)
 
-[[ ./pyramid.png ]]
+![](pyramid.png)
 
-[[ ./README.md ]]
+![](README.md)
 
-[[ ./roots.png ]]
+![](roots.png)
 
-[[ ./rubber2.png ]]
+![](rubber2.png)
 
-[[ ./rubber.png ]]
+![](rubber.png)
 
-[[ ./scrollwo.png ]]
+![](scrollwo.png)
 
-[[ ./sine2.png ]]
+![](sine2.png)
 
-[[ ./sine3.png ]]
+![](sine3.png)
 
-[[ ./sine4.png ]]
+![](sine4.png)
 
-[[ ./sinewave.png ]]
+![](sinewave.png)
 
-[[ ./smoulder.png ]]
+![](smoulder.png)
 
-[[ ./spacebal.png ]]
+![](spacebal.png)
 
-[[ ./spr_rot2.png ]]
+![](spr_rot2.png)
 
-[[ ./spr_rot3.png ]]
+![](spr_rot3.png)
 
-[[ ./spr_rot4.png ]]
+![](spr_rot4.png)
 
-[[ ./spr_rot.png ]]
+![](spr_rot.png)
 
-[[ ./starfiel.png ]]
+![](starfiel.png)
 
-[[ ./starfish.png ]]
+![](starfish.png)
 
-[[ ./struk2.png ]]
+![](struk2.png)
 
-[[ ./strukfil.png ]]
+![](strukfil.png)
 
-[[ ./tartan.png ]]
+![](tartan.png)
 
-[[ ./tekno.png ]]
+![](tekno.png)
 
-[[ ./ten3d2.png ]]
+![](ten3d2.png)
 
-[[ ./ten3d.png ]]
+![](ten3d.png)
 
-[[ ./top.png ]]
+![](top.png)
 
-[[ ./tree-d.png ]]
+![](tree-d.png)
 
-[[ ./tree.png ]]
+![](tree.png)
 
-[[ ./tristar2.png ]]
+![](tristar2.png)
 
-[[ ./tristar.png ]]
+![](tristar.png)
 
-[[ ./tunnel.png ]]
+![](tunnel.png)
 
-[[ ./wallpape.png ]]
+![](wallpape.png)
 
-[[ ./wood.png ]]
+![](/wood.png)
