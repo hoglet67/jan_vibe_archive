@@ -1,295 +1,292 @@
-*arcspir*
+[*arcspir*](../../programs/BAS02/arcspir)
 
 ![](arcspir.png)
 
-*ballet*
+[*ballet*](../../programs/BAS02/ballet)
 
 ![](ballet.png)
 
-*biglet*
+[*biglet*](../../programs/BAS02/biglet)
 
 ![](biglet.png)
 
-*blobs*
+[*blobs*](../../programs/BAS02/blobs)
 
 ![](blobs.png)
 
-*bubbles*
+[*bubbles*](../../programs/BAS02/bubbles)
 
 ![](bubbles.png)
 
-*cards2*
+[*cards2*](../../programs/BAS02/cards2)
 
 ![](cards2.png)
 
-*cards*
+[*cards*](../../programs/BAS02/cards)
 
 ![](cards.png)
 
-*circle3*
+[*circle3*](../../programs/BAS02/circle3)
 
 ![](circle3.png)
 
-*circles*
+[*circles*](../../programs/BAS02/circles)
 
 ![](circles.png)
 
-*connect*
+[*connect*](../../programs/BAS02/connect)
 
 ![](connect.png)
 
-*dla2*
+[*dla2*](../../programs/BAS02/dla2)
 
 ![](dla2.png)
 
-*dla3*
+[*dla3*](../../programs/BAS02/dla3)
 
 ![](dla3.png)
 
-*dla*
+[*dla*](../../programs/BAS02/dla)
 
 ![](dla.png)
 
-*feigenba*
+[*feigenba*](../../programs/BAS02/feigenba)
 
 ![](feigenba.png)
 
-*fern2*
+[*fern2*](../../programs/BAS02/fern2)
 
 ![](fern2.png)
 
-*fern3*
+[*fern3*](../../programs/BAS02/fern3)
 
 ![](fern3.png)
 
-*fern4*
+[*fern4*](../../programs/BAS02/fern4)
 
 ![](fern4.png)
 
-*fern*
+[*fern*](../../programs/BAS02/fern)
 
 ![](fern.png)
 
-*findline*
+[*findline*](../../programs/BAS02/findline)
 
 ![](findline.png)
 
-*flight*
+[*flight*](../../programs/BAS02/flight)
 
 ![](flight.png)
 
-*grafitti*
+[*grafitti*](../../programs/BAS02/grafitti)
 
 ![](grafitti.png)
 
-*letdef*
+[*letdef*](../../programs/BAS02/letdef)
 
 ![](letdef.png)
 
-*life*
+[*life*](../../programs/BAS02/life)
 
 ![](life.png)
 
-*loop*
+[*loop*](../../programs/BAS02/loop)
 
 ![](loop.png)
 
-*makepen*
+[*makepen*](../../programs/BAS02/makepen)
 
 ![](makepen.png)
 
-*maler*
+[*maler*](../../programs/BAS02/maler)
 
 ![](maler.png)
 
-*matpat*
+[*matpat*](../../programs/BAS02/matpat)
 
 ![](matpat.png)
 
-*mobile*
+[*mobile*](../../programs/BAS02/mobile)
 
 ![](mobile.png)
 
-*mosaik*
+[*mosaik*](../../programs/BAS02/mosaik)
 
 ![](mosaik.png)
 
-*net2*
+[*net2*](../../programs/BAS02/net2)
 
 ![](net2.png)
 
-*net3*
+[*net3*](../../programs/BAS02/net3)
 
 ![](net3.png)
 
-*net4*
+[*net4*](../../programs/BAS02/net4)
 
 ![](net4.png)
 
-*net5*
+[*net5*](../../programs/BAS02/net5)
 
 ![](net5.png)
 
-*net*
+[*net*](../../programs/BAS02/net)
 
 ![](net.png)
 
-*nordlys*
+[*nordlys*](../../programs/BAS02/nordlys)
 
 ![](nordlys.png)
 
-*oneliner*
+[*oneliner*](../../programs/BAS02/oneliner)
 
 ![](oneliner.png)
 
-*orbit*
+[*orbit*](../../programs/BAS02/orbit)
 
 ![](orbit.png)
 
-*pattern2*
+[*pattern2*](../../programs/BAS02/pattern2)
 
 ![](pattern2.png)
 
-*pattern*
+[*pattern*](../../programs/BAS02/pattern)
 
 ![](pattern.png)
 
-*pencil*
+[*pencil*](../../programs/BAS02/pencil)
 
 ![](pencil.png)
 
-*penta2*
+[*penta2*](../../programs/BAS02/penta2)
 
 ![](penta2.png)
 
-*penta*
+[*penta*](../../programs/BAS02/penta)
 
 ![](penta.png)
 
-*plobak*
+[*plobak*](../../programs/BAS02/plobak)
 
 ![](plobak.png)
 
-*plotball*
+[*plotball*](../../programs/BAS02/plotball)
 
 ![](plotball.png)
 
-*ptest1*
+[*ptest1*](../../programs/BAS02/ptest1)
 
 ![](ptest1.png)
 
-*ptest2*
+[*ptest2*](../../programs/BAS02/ptest2)
 
 ![](ptest2.png)
 
-*ptest*
+[*ptest*](../../programs/BAS02/ptest)
 
 ![](ptest.png)
 
-*rainbow*
+[*rainbow*](../../programs/BAS02/rainbow)
 
 ![](rainbow.png)
 
-*reader2*
+[*reader2*](../../programs/BAS02/reader2)
 
 ![](reader2.png)
 
-*reader3*
+[*reader3*](../../programs/BAS02/reader3)
 
 ![](reader3.png)
 
-*reader4*
+[*reader4*](../../programs/BAS02/reader4)
 
 ![](reader4.png)
 
-*README*
-
-![](README.md)
-
-*recpat*
+[*recpat*](../../programs/BAS02/recpat)
 
 ![](recpat.png)
 
-*rot*
+[*rot*](../../programs/BAS02/rot)
 
 ![](rot.png)
 
-*shellsor*
+[*shellsor*](../../programs/BAS02/shellsor)
 
 ![](shellsor.png)
 
-*skala2*
+[*skala2*](../../programs/BAS02/skala2)
 
 ![](skala2.png)
 
-*skala*
+[*skala*](../../programs/BAS02/skala)
 
 ![](skala.png)
 
-*spirogra*
+[*spirogra*](../../programs/BAS02/spirogra)
 
 ![](spirogra.png)
 
-*square2*
+[*square2*](../../programs/BAS02/square2)
 
 ![](square2.png)
 
-*square3*
+[*square3*](../../programs/BAS02/square3)
 
 ![](square3.png)
 
-*squares*
+[*squares*](../../programs/BAS02/squares)
 
 ![](squares.png)
 
-*squigg4*
+[*squigg4*](../../programs/BAS02/squigg4)
 
 ![](squigg4.png)
 
-*symmetri*
+[*symmetri*](../../programs/BAS02/symmetri)
 
 ![](symmetri.png)
 
-*text*
+[*text*](../../programs/BAS02/text)
 
 ![](text.png)
 
-*travel*
+[*travel*](../../programs/BAS02/travel)
 
 ![](travel.png)
 
-*tree*
+[*tree*](../../programs/BAS02/tree)
 
 ![](tree.png)
 
-**
+[*tube*](../../programs/BAS02/tube)
 
 ![](tube.png)
 
-*txtbounc*
+[*txtbounc*](../../programs/BAS02/txtbounc)
 
 ![](txtbounc.png)
 
-*ur2*
+[*ur2*](../../programs/BAS02/ur2)
 
 ![](ur2.png)
 
-*urbit*
+[*urbit*](../../programs/BAS02/urbit)
 
 ![](urbit.png)
 
-*voter*
+[*voter*](../../programs/BAS02/voter)
 
 ![](voter.png)
 
-*waves*
+[*waves*](../../programs/BAS02/waves)
 
 ![](waves.png)
 
-*wblocks*
+[*wblocks*](../../programs/BAS02/wblocks)
 
 ![](wblocks.png)
 
-*wheel*
+[*wheel*](../../programs/BAS02/wheel)
 
 ![](wheel.png)
+

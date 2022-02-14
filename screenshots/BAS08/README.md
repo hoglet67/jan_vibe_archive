@@ -1,299 +1,296 @@
-*aggregat*
+[*aggregat*](../../programs/BAS08/aggregat)
 
 ![](aggregat.png)
 
-*art2*
+[*art2*](../../programs/BAS08/art2)
 
 ![](art2.png)
 
-*art3*
+[*art3*](../../programs/BAS08/art3)
 
 ![](art3.png)
 
-*art*
+[*art*](../../programs/BAS08/art)
 
 ![](art.png)
 
-*ballmap2*
+[*ballmap2*](../../programs/BAS08/ballmap2)
 
 ![](ballmap2.png)
 
-*ballmap*
+[*ballmap*](../../programs/BAS08/ballmap)
 
 ![](ballmap.png)
 
-*ballrot*
+[*ballrot*](../../programs/BAS08/ballrot)
 
 ![](ballrot.png)
 
-*ca2*
+[*ca2*](../../programs/BAS08/ca2)
 
 ![](ca2.png)
 
-*celaut2*
+[*celaut2*](../../programs/BAS08/celaut2)
 
 ![](celaut2.png)
 
-*celaut*
+[*celaut*](../../programs/BAS08/celaut)
 
 ![](celaut.png)
 
-*circle2*
+[*circle2*](../../programs/BAS08/circle2)
 
 ![](circle2.png)
 
-*cloud*
+[*cloud*](../../programs/BAS08/cloud)
 
 ![](cloud.png)
 
-*colsquar*
+[*colsquar*](../../programs/BAS08/colsquar)
 
 ![](colsquar.png)
 
-*dramatic*
+[*dramatic*](../../programs/BAS08/dramatic)
 
 ![](dramatic.png)
 
-*elastic2*
+[*elastic2*](../../programs/BAS08/elastic2)
 
 ![](elastic2.png)
 
-*elasticn*
+[*elasticn*](../../programs/BAS08/elasticn)
 
 ![](elasticn.png)
 
-*ferns*
+[*ferns*](../../programs/BAS08/ferns)
 
 ![](ferns.png)
 
-*flip*
+[*flip*](../../programs/BAS08/flip)
 
 ![](flip.png)
 
-*gravity*
+[*gravity*](../../programs/BAS08/gravity)
 
 ![](gravity.png)
 
-*jan*
+[*jan*](../../programs/BAS08/jan)
 
 ![](jan.png)
 
-*j-v-m*
+[*j-v-m*](../../programs/BAS08/j-v-m)
 
 ![](j-v-m.png)
 
-*leaf*
+[*leaf*](../../programs/BAS08/leaf)
 
 ![](leaf.png)
 
-*lines2*
+[*lines2*](../../programs/BAS08/lines2)
 
 ![](lines2.png)
 
-*lines3*
+[*lines3*](../../programs/BAS08/lines3)
 
 ![](lines3.png)
 
-*lines4*
+[*lines4*](../../programs/BAS08/lines4)
 
 ![](lines4.png)
 
-*lines*
+[*lines*](../../programs/BAS08/lines)
 
 ![](lines.png)
 
-*linier*
+[*linier*](../../programs/BAS08/linier)
 
 ![](linier.png)
 
-*magic_ey*
+[*magic_ey*](../../programs/BAS08/magic_ey)
 
 ![](magic_ey.png)
 
-*map2*
+[*map2*](../../programs/BAS08/map2)
 
 ![](map2.png)
 
-*map*
+[*map*](../../programs/BAS08/map)
 
 ![](map.png)
 
-*marble2*
+[*marble2*](../../programs/BAS08/marble2)
 
 ![](marble2.png)
 
-*marble*
+[*marble*](../../programs/BAS08/marble)
 
 ![](marble.png)
 
-*mchar*
+[*mchar*](../../programs/BAS08/mchar)
 
 ![](mchar.png)
 
-*nova*
+[*nova*](../../programs/BAS08/nova)
 
 ![](nova.png)
 
-*pattern2*
+[*pattern2*](../../programs/BAS08/pattern2)
 
 ![](pattern2.png)
 
-*pattern3*
+[*pattern3*](../../programs/BAS08/pattern3)
 
 ![](pattern3.png)
 
-*pattern*
+[*pattern*](../../programs/BAS08/pattern)
 
 ![](pattern.png)
 
-*pfill2*
+[*pfill2*](../../programs/BAS08/pfill2)
 
 ![](pfill2.png)
 
-*pfill3*
+[*pfill3*](../../programs/BAS08/pfill3)
 
 ![](pfill3.png)
 
-*pfill*
+[*pfill*](../../programs/BAS08/pfill)
 
 ![](pfill.png)
 
-*planets*
+[*planets*](../../programs/BAS08/planets)
 
 ![](planets.png)
 
-*poly3d*
+[*poly3d*](../../programs/BAS08/poly3d)
 
 ![](poly3d.png)
 
-*pyramid2*
+[*pyramid2*](../../programs/BAS08/pyramid2)
 
 ![](pyramid2.png)
 
-*pyramid*
+[*pyramid*](../../programs/BAS08/pyramid)
 
 ![](pyramid.png)
 
-*README*
-
-![](README.md)
-
-*roots*
+[*roots*](../../programs/BAS08/roots)
 
 ![](roots.png)
 
-*rubber2*
+[*rubber2*](../../programs/BAS08/rubber2)
 
 ![](rubber2.png)
 
-*rubber*
+[*rubber*](../../programs/BAS08/rubber)
 
 ![](rubber.png)
 
-*scrollwo*
+[*scrollwo*](../../programs/BAS08/scrollwo)
 
 ![](scrollwo.png)
 
-*sine2*
+[*sine2*](../../programs/BAS08/sine2)
 
 ![](sine2.png)
 
-*sine3*
+[*sine3*](../../programs/BAS08/sine3)
 
 ![](sine3.png)
 
-*sine4*
+[*sine4*](../../programs/BAS08/sine4)
 
 ![](sine4.png)
 
-*sinewave*
+[*sinewave*](../../programs/BAS08/sinewave)
 
 ![](sinewave.png)
 
-*smoulder*
+[*smoulder*](../../programs/BAS08/smoulder)
 
 ![](smoulder.png)
 
-*spacebal*
+[*spacebal*](../../programs/BAS08/spacebal)
 
 ![](spacebal.png)
 
-*spr_rot2*
+[*spr_rot2*](../../programs/BAS08/spr_rot2)
 
 ![](spr_rot2.png)
 
-*spr_rot3*
+[*spr_rot3*](../../programs/BAS08/spr_rot3)
 
 ![](spr_rot3.png)
 
-*spr_rot4*
+[*spr_rot4*](../../programs/BAS08/spr_rot4)
 
 ![](spr_rot4.png)
 
-*spr_rot*
+[*spr_rot*](../../programs/BAS08/spr_rot)
 
 ![](spr_rot.png)
 
-*starfiel*
+[*starfiel*](../../programs/BAS08/starfiel)
 
 ![](starfiel.png)
 
-*starfish*
+[*starfish*](../../programs/BAS08/starfish)
 
 ![](starfish.png)
 
-*struk2*
+[*struk2*](../../programs/BAS08/struk2)
 
 ![](struk2.png)
 
-*strukfil*
+[*strukfil*](../../programs/BAS08/strukfil)
 
 ![](strukfil.png)
 
-*tartan*
+[*tartan*](../../programs/BAS08/tartan)
 
 ![](tartan.png)
 
-*tekno*
+[*tekno*](../../programs/BAS08/tekno)
 
 ![](tekno.png)
 
-*ten3d2*
+[*ten3d2*](../../programs/BAS08/ten3d2)
 
 ![](ten3d2.png)
 
-*ten3d*
+[*ten3d*](../../programs/BAS08/ten3d)
 
 ![](ten3d.png)
 
-*top*
+[*top*](../../programs/BAS08/top)
 
 ![](top.png)
 
-*tree-d*
+[*tree-d*](../../programs/BAS08/tree-d)
 
 ![](tree-d.png)
 
-*tree*
+[*tree*](../../programs/BAS08/tree)
 
 ![](tree.png)
 
-*tristar2*
+[*tristar2*](../../programs/BAS08/tristar2)
 
 ![](tristar2.png)
 
-*tristar*
+[*tristar*](../../programs/BAS08/tristar)
 
 ![](tristar.png)
 
-*tunnel*
+[*tunnel*](../../programs/BAS08/tunnel)
 
 ![](tunnel.png)
 
-*wallpape*
+[*wallpape*](../../programs/BAS08/wallpape)
 
 ![](wallpape.png)
 
-*/wood*
+[*wood*](../../programs/BAS08/wood)
 
-![](/wood.png)
+![](wood.png)
+
