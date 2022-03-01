@@ -1,292 +1,284 @@
-[*abstract*](../../programs/BAS07/abstract)
+[*abstract*](../../programs/BAS07/abstract,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/abstract.mp4))
 
-![](abstract.png)
+[![](abstract.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/abstract.mp4)
 
-[*ballfill*](../../programs/BAS07/ballfill)
+[*ballfill*](../../programs/BAS07/ballfill,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/ballfill.mp4))
 
-![](ballfill.png)
+[![](ballfill.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/ballfill.mp4)
 
-[*bigball*](../../programs/BAS07/bigball)
+[*bigball*](../../programs/BAS07/bigball,fd1)
 
 ![](bigball.png)
 
-[*bounce*](../../programs/BAS07/bounce)
+[*bounce*](../../programs/BAS07/bounce,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/bounce.mp4))
 
-![](bounce.png)
+[![](bounce.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/bounce.mp4)
 
-[*chain2*](../../programs/BAS07/chain2)
+[*chain*](../../programs/BAS07/chain,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/chain.mp4))
 
-![](chain2.png)
+[![](chain.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/chain.mp4)
 
-[*chain*](../../programs/BAS07/chain)
+[*chain2*](../../programs/BAS07/chain2,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/chain2.mp4))
 
-![](chain.png)
+[![](chain2.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/chain2.mp4)
 
-[*colballs*](../../programs/BAS07/colballs)
+[*colballs*](../../programs/BAS07/colballs,fd1)
 
 ![](colballs.png)
 
-[*collines*](../../programs/BAS07/collines)
+[*collines*](../../programs/BAS07/collines,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/collines.mp4))
 
-![](collines.png)
+[![](collines.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/collines.mp4)
 
-[*colmix*](../../programs/BAS07/colmix)
+[*colmix*](../../programs/BAS07/colmix,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/colmix.mp4))
 
-![](colmix.png)
+[![](colmix.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/colmix.mp4)
 
-[*colony2*](../../programs/BAS07/colony2)
+[*colony*](../../programs/BAS07/colony,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/colony.mp4))
 
-![](colony2.png)
+[![](colony.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/colony.mp4)
 
-[*colony*](../../programs/BAS07/colony)
+[*colony2*](../../programs/BAS07/colony2,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/colony2.mp4))
 
-![](colony.png)
+[![](colony2.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/colony2.mp4)
 
-[*colstar*](../../programs/BAS07/colstar)
+[*colstar*](../../programs/BAS07/colstar,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/colstar.mp4))
 
-![](colstar.png)
+[![](colstar.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/colstar.mp4)
 
-[*colstars*](../../programs/BAS07/colstars)
+[*colstars*](../../programs/BAS07/colstars,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/colstars.mp4))
 
-![](colstars.png)
+[![](colstars.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/colstars.mp4)
 
-[*coltest*](../../programs/BAS07/coltest)
+[*coltest*](../../programs/BAS07/coltest,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/coltest.mp4))
 
-![](coltest.png)
+[![](coltest.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/coltest.mp4)
 
-[*coltri2*](../../programs/BAS07/coltri2)
+[*coltri*](../../programs/BAS07/coltri,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/coltri.mp4))
 
-![](coltri2.png)
+[![](coltri.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/coltri.mp4)
 
-[*coltri*](../../programs/BAS07/coltri)
+[*coltri2*](../../programs/BAS07/coltri2,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/coltri2.mp4))
 
-![](coltri.png)
+[![](coltri2.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/coltri2.mp4)
 
-[*dither*](../../programs/BAS07/dither)
+[*dither*](../../programs/BAS07/dither,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/dither.mp4))
 
-![](dither.png)
+[![](dither.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/dither.mp4)
 
-[*dots*](../../programs/BAS07/dots)
+[*dots*](../../programs/BAS07/dots,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/dots.mp4))
 
-![](dots.png)
+[![](dots.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/dots.mp4)
 
-[*emboss2*](../../programs/BAS07/emboss2)
-
-![](emboss2.png)
-
-[*emboss*](../../programs/BAS07/emboss)
+[*emboss*](../../programs/BAS07/emboss,fd1)
 
 ![](emboss.png)
 
-[*fatlines*](../../programs/BAS07/fatlines)
+[*emboss2*](../../programs/BAS07/emboss2,fd1)
 
-![](fatlines.png)
+![](emboss2.png)
 
-[*fill2*](../../programs/BAS07/fill2)
+[*fatlines*](../../programs/BAS07/fatlines,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/fatlines.mp4))
 
-![](fill2.png)
+[![](fatlines.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/fatlines.mp4)
 
-[*fill*](../../programs/BAS07/fill)
+[*fill*](../../programs/BAS07/fill,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/fill.mp4))
 
-![](fill.png)
+[![](fill.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/fill.mp4)
 
-[*filnavne*](../../programs/BAS07/filnavne)
+[*fill2*](../../programs/BAS07/fill2,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/fill2.mp4))
 
-![](filnavne.png)
+[![](fill2.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/fill2.mp4)
 
-[*finddith*](../../programs/BAS07/finddith)
+[*finddith*](../../programs/BAS07/finddith,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/finddith.mp4))
 
-![](finddith.png)
+[![](finddith.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/finddith.mp4)
 
-[*flake*](../../programs/BAS07/flake)
+[*flake*](../../programs/BAS07/flake,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/flake.mp4))
 
-![](flake.png)
+[![](flake.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/flake.mp4)
 
-[*flies*](../../programs/BAS07/flies)
+[*flies*](../../programs/BAS07/flies,fd1)
 
 ![](flies.png)
 
-[*fract*](../../programs/BAS07/fract)
+[*fract*](../../programs/BAS07/fract,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/fract.mp4))
 
-![](fract.png)
+[![](fract.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/fract.mp4)
 
-[*futhark*](../../programs/BAS07/futhark)
+[*futhark*](../../programs/BAS07/futhark,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/futhark.mp4))
 
-![](futhark.png)
+[![](futhark.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/futhark.mp4)
 
-[*granite*](../../programs/BAS07/granite)
+[*granite*](../../programs/BAS07/granite,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/granite.mp4))
 
-![](granite.png)
+[![](granite.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/granite.mp4)
 
-[*guts2*](../../programs/BAS07/guts2)
+[*guts*](../../programs/BAS07/guts,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/guts.mp4))
 
-![](guts2.png)
+[![](guts.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/guts.mp4)
 
-[*guts3*](../../programs/BAS07/guts3)
+[*guts2*](../../programs/BAS07/guts2,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/guts2.mp4))
 
-![](guts3.png)
+[![](guts2.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/guts2.mp4)
 
-[*guts*](../../programs/BAS07/guts)
+[*guts3*](../../programs/BAS07/guts3,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/guts3.mp4))
 
-![](guts.png)
+[![](guts3.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/guts3.mp4)
 
-[*ice2*](../../programs/BAS07/ice2)
+[*ice*](../../programs/BAS07/ice,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/ice.mp4))
 
-![](ice2.png)
+[![](ice.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/ice.mp4)
 
-[*ice*](../../programs/BAS07/ice)
+[*ice2*](../../programs/BAS07/ice2,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/ice2.mp4))
 
-![](ice.png)
+[![](ice2.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/ice2.mp4)
 
-[*kalejdo2*](../../programs/BAS07/kalejdo2)
-
-![](kalejdo2.png)
-
-[*kalejdo*](../../programs/BAS07/kalejdo)
+[*kalejdo*](../../programs/BAS07/kalejdo,fd1)
 
 ![](kalejdo.png)
 
-[*kombi*](../../programs/BAS07/kombi)
+[*kalejdo2*](../../programs/BAS07/kalejdo2,fd1)
+
+![](kalejdo2.png)
+
+[*kombi*](../../programs/BAS07/kombi,fd1)
 
 ![](kombi.png)
 
-[*marblefi*](../../programs/BAS07/marblefi)
+[*marblefi*](../../programs/BAS07/marblefi,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/marblefi.mp4))
 
-![](marblefi.png)
+[![](marblefi.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/marblefi.mp4)
 
-[*maze*](../../programs/BAS07/maze)
+[*maze*](../../programs/BAS07/maze,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/maze.mp4))
 
-![](maze.png)
+[![](maze.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/maze.mp4)
 
-[*moire*](../../programs/BAS07/moire)
+[*moire*](../../programs/BAS07/moire,fd1)
 
 ![](moire.png)
 
-[*mold*](../../programs/BAS07/mold)
+[*mold*](../../programs/BAS07/mold,fd1)
 
 ![](mold.png)
 
-[*oneliner*](../../programs/BAS07/oneliner)
+[*oneliner*](../../programs/BAS07/oneliner,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/oneliner.mp4))
 
-![](oneliner.png)
+[![](oneliner.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/oneliner.mp4)
 
-[*palette*](../../programs/BAS07/palette)
+[*palette*](../../programs/BAS07/palette,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/palette.mp4))
 
-![](palette.png)
+[![](palette.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/palette.mp4)
 
-[*pat2*](../../programs/BAS07/pat2)
+[*pat2*](../../programs/BAS07/pat2,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/pat2.mp4))
 
-![](pat2.png)
+[![](pat2.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/pat2.mp4)
 
-[*queen8*](../../programs/BAS07/queen8)
+[*queen8*](../../programs/BAS07/queen8,fd1)
 
 ![](queen8.png)
 
-[*queens*](../../programs/BAS07/queens)
+[*queens*](../../programs/BAS07/queens,fd1)
 
 ![](queens.png)
 
-[*recpat*](../../programs/BAS07/recpat)
+[*recpat*](../../programs/BAS07/recpat,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/recpat.mp4))
 
-![](recpat.png)
+[![](recpat.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/recpat.mp4)
 
-[*rock*](../../programs/BAS07/rock)
+[*rock*](../../programs/BAS07/rock,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/rock.mp4))
 
-![](rock.png)
+[![](rock.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/rock.mp4)
 
-[*rot*](../../programs/BAS07/rot)
+[*rot*](../../programs/BAS07/rot,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/rot.mp4))
 
-![](rot.png)
+[![](rot.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/rot.mp4)
 
-[*scan2*](../../programs/BAS07/scan2)
-
-![](scan2.png)
-
-[*scan*](../../programs/BAS07/scan)
+[*scan*](../../programs/BAS07/scan,fd1)
 
 ![](scan.png)
 
-[*seaweed*](../../programs/BAS07/seaweed)
+[*scan2*](../../programs/BAS07/scan2,fd1)
 
-![](seaweed.png)
+![](scan2.png)
 
-[*shatter2*](../../programs/BAS07/shatter2)
+[*seaweed*](../../programs/BAS07/seaweed,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/seaweed.mp4))
 
-![](shatter2.png)
+[![](seaweed.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/seaweed.mp4)
 
-[*shatter*](../../programs/BAS07/shatter)
+[*shatter*](../../programs/BAS07/shatter,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/shatter.mp4))
 
-![](shatter.png)
+[![](shatter.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/shatter.mp4)
 
-[*sky2*](../../programs/BAS07/sky2)
+[*shatter2*](../../programs/BAS07/shatter2,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/shatter2.mp4))
 
-![](sky2.png)
+[![](shatter2.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/shatter2.mp4)
 
-[*sky3*](../../programs/BAS07/sky3)
+[*sky*](../../programs/BAS07/sky,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/sky.mp4))
+
+[![](sky.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/sky.mp4)
+
+[*sky2*](../../programs/BAS07/sky2,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/sky2.mp4))
+
+[![](sky2.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/sky2.mp4)
+
+[*sky3*](../../programs/BAS07/sky3,fd1)
 
 ![](sky3.png)
 
-[*sky*](../../programs/BAS07/sky)
+[*spagetti*](../../programs/BAS07/spagetti,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/spagetti.mp4))
 
-![](sky.png)
+[![](spagetti.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/spagetti.mp4)
 
-[*spagetti*](../../programs/BAS07/spagetti)
-
-![](spagetti.png)
-
-[*spray2*](../../programs/BAS07/spray2)
+[*spray2*](../../programs/BAS07/spray2,fd1)
 
 ![](spray2.png)
 
-[*strange2*](../../programs/BAS07/strange2)
-
-![](strange2.png)
-
-[*strange*](../../programs/BAS07/strange)
+[*strange*](../../programs/BAS07/strange,fd1)
 
 ![](strange.png)
 
-[*tabel*](../../programs/BAS07/tabel)
+[*strange2*](../../programs/BAS07/strange2,fd1)
 
-![](tabel.png)
+![](strange2.png)
 
-[*toner64*](../../programs/BAS07/toner64)
+[*toner64*](../../programs/BAS07/toner64,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/toner64.mp4))
 
-![](toner64.png)
+[![](toner64.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/toner64.mp4)
 
-[*trails*](../../programs/BAS07/trails)
+[*trails*](../../programs/BAS07/trails,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/trails.mp4))
 
-![](trails.png)
+[![](trails.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/trails.mp4)
 
-[*travel*](../../programs/BAS07/travel)
+[*travel*](../../programs/BAS07/travel,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/travel.mp4))
 
-![](travel.png)
+[![](travel.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/travel.mp4)
 
-[*weed*](../../programs/BAS07/weed)
+[*weed*](../../programs/BAS07/weed,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/weed.mp4))
 
-![](weed.png)
+[![](weed.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/weed.mp4)
 
-[*wood*](../../programs/BAS07/wood)
+[*wood*](../../programs/BAS07/wood,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/wood.mp4))
 
-![](wood.png)
+[![](wood.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/wood.mp4)
 
-[*worm2*](../../programs/BAS07/worm2)
-
-![](worm2.png)
-
-[*worm3*](../../programs/BAS07/worm3)
-
-![](worm3.png)
-
-[*worm*](../../programs/BAS07/worm)
+[*worm*](../../programs/BAS07/worm,fd1)
 
 ![](worm.png)
 
-[*x*](../../programs/BAS07/x)
+[*worm2*](../../programs/BAS07/worm2,fd1)
 
-![](x.png)
+![](worm2.png)
 
-[*yarn*](../../programs/BAS07/yarn)
+[*worm3*](../../programs/BAS07/worm3,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/worm3.mp4))
 
-![](yarn.png)
+[![](worm3.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/worm3.mp4)
+
+[*x*](../../programs/BAS07/x,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/x.mp4))
+
+[![](x.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/x.mp4)
+
+[*yarn*](../../programs/BAS07/yarn,fd1) - ([video](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/yarn.mp4))
+
+[![](yarn.png)](https://jan-vibe-archive-videos.s3.eu-west-1.amazonaws.com/BAS07/yarn.mp4)
 
